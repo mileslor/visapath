@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "home": "主頁",
+    "tools": "工具",
+    "bno": "BNO 簽證"
+  },
+  "home": {
+    "title": "VisaPath",
+    "subtitle": "英國移民簽證計算工具平台",
+    "tools": "可用工具",
+    "comingSoon": "更多工具即將推出",
+    "bnoCard": {
+      "title": "BNO 簽證計算器",
+      "desc": "追蹤離境日數，計算 ILR 及英籍申請資格，支援圖表及 CSV 匯入/匯出。",
+      "btn": "開啟計算器"
+    },
+    "disclaimer": "此工具僅供參考，不構成法律意見。請以英國政府官方資料為準。"
+  },
+  "bno": {
+    "title": "BNO 簽證 — 離境日數計算器",
+    "subtitle": "追蹤離境記錄，計劃 ILR 及英籍申請",
+    "arrivalDate": "抵達英國日期",
+    "arrivalDateHint": "你首次以 BNO 簽證抵達英國的日期",
+    "addTrip": "新增離境記錄",
+    "departure": "出境日期",
+    "return": "回英日期",
+    "destination": "目的地（選填）",
+    "notes": "備註（選填）",
+    "save": "儲存",
+    "cancel": "取消",
+    "edit": "編輯",
+    "delete": "刪除",
+    "noTrips": "未有離境記錄，請新增第一條記錄。",
+    "tripList": "離境記錄",
+    "days": "日",
+    "day": "日",
+    "ilr": {
+      "title": "ILR 資格",
+      "subtitle": "永久居留權（5 年後）",
+      "eligibleOn": "可申請日期",
+      "daysLeft": "日後可申請",
+      "alreadyEligible": "已達資格！",
+      "maxPeriod": "最長單一12個月離境",
+      "limit": "180 日上限",
+      "ok": "符合規定",
+      "warning": "接近上限",
+      "exceeded": "超出上限",
+      "totalAbsence": "總離境日數"
+    },
+    "citizenship": {
+      "title": "英國國籍",
+      "subtitle": "入籍申請（ILR 後 1 年）",
+      "eligibleOn": "可申請日期",
+      "daysLeft": "日後可申請",
+      "alreadyEligible": "已達資格！",
+      "last12months": "最近 12 個月離境",
+      "limit90": "90 日上限",
+      "last5years": "最近 5 年離境",
+      "limit450": "450 日上限"
+    },
+    "chart": {
+      "title": "滾動 12 個月離境日數",
+      "absenceDays": "離境日數",
+      "limit": "180 日上限",
+      "month": "月份"
+    },
+    "csv": {
+      "import": "匯入 CSV",
+      "export": "匯出 CSV",
+      "importHint": "CSV 須包含欄位：departure_date、return_date、destination、notes",
+      "importSuccess": "成功匯入 {n} 條記錄",
+      "importError": "匯入失敗，請檢查檔案格式"
+    },
+    "rules": {
+      "title": "計算規則",
+      "rule1": "出境及回英當日計算為英國日（不計算為離境）",
+      "rule2": "ILR：5 年資格期間內，任何滾動 12 個月期間離境不可超過 180 日",
+      "rule3": "入籍：申請前 12 個月內最多 90 日；申請前 5 年內最多 450 日",
+      "rule4": "根據英國內政部指引計算，此工具不構成法律意見。",
+      "source": "資料來源：英國內政部"
+    }
+  },
+  "footer": {
+    "disclaimer": "僅供參考，不構成法律意見。請以英國政府官方資料為準。",
+    "madeWith": "為香港社群用心製作"
+  }
+}

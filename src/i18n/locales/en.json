@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "home": "Home",
+    "tools": "Tools",
+    "bno": "BNO Visa"
+  },
+  "home": {
+    "title": "VisaPath",
+    "subtitle": "Your toolkit for navigating UK immigration",
+    "tools": "Available Tools",
+    "comingSoon": "More tools coming soon",
+    "bnoCard": {
+      "title": "BNO Visa Calculator",
+      "desc": "Track absences, calculate ILR & citizenship eligibility with charts and import/export support.",
+      "btn": "Open Calculator"
+    },
+    "disclaimer": "This tool is for reference only and does not constitute legal advice. Always verify with official UK government sources."
+  },
+  "bno": {
+    "title": "BNO Visa — Absence Calculator",
+    "subtitle": "Track your absences from the UK to plan for ILR and British citizenship",
+    "arrivalDate": "UK Arrival Date",
+    "arrivalDateHint": "The date you first arrived in the UK on your BNO Visa",
+    "addTrip": "Add Absence",
+    "departure": "Departure Date",
+    "return": "Return Date",
+    "destination": "Destination (optional)",
+    "notes": "Notes (optional)",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "noTrips": "No absences recorded yet. Add your first trip.",
+    "tripList": "Absence Records",
+    "days": "days",
+    "day": "day",
+    "ilr": {
+      "title": "ILR Eligibility",
+      "subtitle": "Indefinite Leave to Remain (after 5 years)",
+      "eligibleOn": "Eligible from",
+      "daysLeft": "days until eligible",
+      "alreadyEligible": "Already eligible!",
+      "maxPeriod": "Max in any 12-month period",
+      "limit": "180-day limit",
+      "ok": "Within limit",
+      "warning": "Approaching limit",
+      "exceeded": "Limit exceeded",
+      "totalAbsence": "Total absence"
+    },
+    "citizenship": {
+      "title": "British Citizenship",
+      "subtitle": "Naturalisation (ILR + 1 year)",
+      "eligibleOn": "Eligible from",
+      "daysLeft": "days until eligible",
+      "alreadyEligible": "Already eligible!",
+      "last12months": "Last 12 months absence",
+      "limit90": "90-day limit",
+      "last5years": "Last 5 years absence",
+      "limit450": "450-day limit"
+    },
+    "chart": {
+      "title": "Rolling 12-Month Absence",
+      "absenceDays": "Absence Days",
+      "limit": "180-day limit",
+      "month": "Month"
+    },
+    "csv": {
+      "import": "Import CSV",
+      "export": "Export CSV",
+      "importHint": "CSV must have columns: departure_date, return_date, destination, notes",
+      "importSuccess": "Imported {n} records",
+      "importError": "Import failed — please check the file format"
+    },
+    "rules": {
+      "title": "Calculation Rules",
+      "rule1": "Departure and return days are counted as UK days (not absence)",
+      "rule2": "ILR: No single 12-month rolling period may exceed 180 days absence during the 5-year qualifying period",
+      "rule3": "Citizenship: Maximum 90 days absent in the 12 months before applying; maximum 450 days in the 5 years before applying",
+      "rule4": "Based on UK Home Office guidance. This tool does not constitute legal advice.",
+      "source": "Source: UK Home Office"
+    }
+  },
+  "footer": {
+    "disclaimer": "For reference only. Not legal advice. Always verify with official UK government sources.",
+    "madeWith": "Made with ❤️ for the HK community"
+  }
+}
