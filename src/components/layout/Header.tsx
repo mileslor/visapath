@@ -35,17 +35,6 @@ export default function Header() {
           >
             {t('nav.home')}
           </Link>
-          <Link
-            to="/bno"
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-              location.pathname === '/bno'
-                ? 'bg-blue-50 text-blue-700'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            {t('nav.bno')}
-          </Link>
-
           <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden ml-2">
             {LANGUAGES.map((lang) => (
               <button

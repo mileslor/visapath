@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { differenceInDays, parseISO } from 'date-fns'
 import type { Trip } from '../../lib/bno/types'
+import { todayISO, addDaysToISO, formatDate } from '../../lib/bno/calculator'
 
 interface Props {
   initial?: Trip
@@ -9,7 +11,7 @@ interface Props {
 }
 
 export default function TripForm({ initial, onSave, onCancel }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [departure, setDeparture] = useState(initial?.departureDate ?? '')
   const [returnDate, setReturnDate] = useState(initial?.returnDate ?? '')
   const [destination, setDestination] = useState(initial?.destination ?? '')
@@ -24,6 +26,17 @@ export default function TripForm({ initial, onSave, onCancel }: Props) {
       setNotes(initial.notes ?? '')
     }
   }, [initial])
+
+  const today = todayISO()
+
+  // Days since departure (for "today" button label)
+  const daysSinceDeparture = departure
+    ? differenceInDays(parseISO(today), parseISO(departure))
+    : null
+
+  // Milestone hints from departure date
+  const hint90 = departure ? addDaysToISO(departure, 91) : ''   // 90 absence days = dep+91
+  const hint180 = departure ? addDaysToISO(departure, 181) : '' // 180 absence days = dep+181
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -42,6 +55,7 @@ export default function TripForm({ initial, onSave, onCancel }: Props) {
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-blue-200 p-5 shadow-sm space-y-4">
       <div className="grid grid-cols-2 gap-3">
+        {/* Departure */}
         <div>
           <label className="block text-xs font-medium text-slate-600 mb-1">
             {t('bno.departure')} *
@@ -49,23 +63,55 @@ export default function TripForm({ initial, onSave, onCancel }: Props) {
           <input
             type="date"
             value={departure}
+            max={today}
             onChange={(e) => setDeparture(e.target.value)}
             className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
             required
           />
+          {/* Milestone hints */}
+          {departure && (
+            <div className="mt-1.5 space-y-0.5">
+              <p className="text-xs text-amber-600">
+                90日 → {formatDate(hint90, i18n.language)}
+              </p>
+              <p className="text-xs text-red-500">
+                180日 → {formatDate(hint180, i18n.language)}
+              </p>
+            </div>
+          )}
         </div>
+
+        {/* Return */}
         <div>
           <label className="block text-xs font-medium text-slate-600 mb-1">
             {t('bno.return')} *
           </label>
-          <input
-            type="date"
-            value={returnDate}
-            min={departure}
-            onChange={(e) => setReturnDate(e.target.value)}
-            className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-            required
-          />
+          <div className="space-y-1.5">
+            <input
+              type="date"
+              value={returnDate}
+              min={departure || undefined}
+              onChange={(e) => setReturnDate(e.target.value)}
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+            />
+            {/* Today button — only show if departure is set and not yet returned */}
+            {departure && departure < today && (
+              <button
+                type="button"
+                onClick={() => setReturnDate(today)}
+                className={`w-full text-xs px-3 py-1.5 rounded-lg border transition-colors font-medium ${
+                  returnDate === today
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'bg-slate-50 text-slate-600 border-slate-300 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700'
+                }`}
+              >
+                {t('bno.today')}
+                {daysSinceDeparture !== null && daysSinceDeparture > 0 && (
+                  <span className="ml-1 opacity-75">({daysSinceDeparture})</span>
+                )}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

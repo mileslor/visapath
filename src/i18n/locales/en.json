@@ -14,13 +14,14 @@
       "desc": "Track absences, calculate ILR & citizenship eligibility with charts and import/export support.",
       "btn": "Open Calculator"
     },
-    "disclaimer": "This tool is for reference only and does not constitute legal advice. Always verify with official UK government sources."
+    "disclaimer": "This tool is for reference only and does not constitute legal advice. Always verify with official government sources."
   },
   "bno": {
     "title": "BNO Visa — Absence Calculator",
     "subtitle": "Track your absences from the UK to plan for ILR and British citizenship",
+    "approvalDate": "Visa Approval Date",
     "arrivalDate": "UK Arrival Date",
-    "arrivalDateHint": "The date you first arrived in the UK on your BNO Visa",
+    "approvalDateHint": "If your arrival was within 180 days of visa approval, the 5-year qualifying period starts from the approval date (CR 2.1). Pre-arrival days count as absence.",
     "addTrip": "Add Absence",
     "departure": "Departure Date",
     "return": "Return Date",
@@ -34,18 +35,27 @@
     "tripList": "Absence Records",
     "days": "days",
     "day": "day",
+    "today": "Today",
+    "cal": {
+      "add": "Add to Calendar"
+    },
     "ilr": {
       "title": "ILR Eligibility",
       "subtitle": "Indefinite Leave to Remain (after 5 years)",
       "eligibleOn": "Eligible from",
-      "daysLeft": "days until eligible",
+      "b1Prep": "Start B1 Test Preparation (recommended)",
+      "earliestApply": "Earliest application date",
+      "qualifyingDate": "5-year qualifying date",
+      "daysLeft": "days until you can apply",
       "alreadyEligible": "Already eligible!",
       "maxPeriod": "Max in any 12-month period",
       "limit": "180-day limit",
       "ok": "Within limit",
       "warning": "Approaching limit",
       "exceeded": "Limit exceeded",
-      "totalAbsence": "Total absence"
+      "totalAbsence": "Total absence",
+      "clockFromApproval": "5-year clock starts from visa approval date (CR 2.1)",
+      "preArrivalAbsence": "pre-arrival absence counted"
     },
     "citizenship": {
       "title": "British Citizenship",
@@ -59,17 +69,36 @@
       "limit450": "450-day limit"
     },
     "chart": {
-      "title": "Rolling 12-Month Absence",
+      "title": "Rolling Absence Chart",
+      "subtitle": "Full timeline from UK arrival to citizenship eligibility",
       "absenceDays": "Absence Days",
-      "limit": "180-day limit",
-      "month": "Month"
+      "limit": "Limit",
+      "month": "Month",
+      "citizenship": "Citizenship",
+      "window": "Window",
+      "horizon": "Show to",
+      "horizonNow": "Today",
+      "horizon3": "+3mo",
+      "horizon6": "+6mo",
+      "horizon12": "+12mo",
+      "horizon18": "+18mo",
+      "showAll": "All",
+      "prevYear": "Prev year",
+      "nextYear": "Next year"
     },
+    "enterArrivalDate": "Enter your UK arrival date to begin",
     "csv": {
+      "labelSingle": "This member",
+      "labelAll": "All ({{n}})",
       "import": "Import CSV",
       "export": "Export CSV",
-      "importHint": "CSV must have columns: departure_date, return_date, destination, notes",
       "importSuccess": "Imported {n} records",
-      "importError": "Import failed — please check the file format"
+      "importError": "Import failed — please check the file format",
+      "importWarning": "This will overwrite your existing {{n}} records and cannot be undone!",
+      "backupAll": "Backup all JSON",
+      "restoreAll": "Restore backup JSON",
+      "restoreAllWarning": "This will replace all {{current}} member(s) with the {{restore}} member(s) from the backup file. This cannot be undone!",
+      "restoreAllSuccess": "Successfully restored {{n}} member(s)"
     },
     "rules": {
       "title": "Calculation Rules",
@@ -77,11 +106,28 @@
       "rule2": "ILR: No single 12-month rolling period may exceed 180 days absence during the 5-year qualifying period",
       "rule3": "Citizenship: Maximum 90 days absent in the 12 months before applying; maximum 450 days in the 5 years before applying",
       "rule4": "Based on UK Home Office guidance. This tool does not constitute legal advice.",
-      "source": "Source: UK Home Office"
+      "source": "Source",
+      "continuousResidenceLink": "Continuous Residence Guidance",
+      "ilrGuidanceLink": "ILR Application Guidance"
     }
   },
+  "profile": {
+    "add": "Add member",
+    "rename": "Rename",
+    "delete": "Delete member",
+    "duplicate": "Duplicate as new member",
+    "duplicateHint": "Copy all records from this member into a new member",
+    "duplicateSuffix": " (copy)",
+    "newNamePrompt": "Enter new member name",
+    "renamePrompt": "Enter new name",
+    "deleteConfirm": "Delete \"{{name}}\"? All records will be permanently lost.",
+    "backupWarning": "All data is stored locally in your browser only — nothing is uploaded to any server. Clearing browser data will permanently delete all records. Please back up regularly.",
+    "backupReminder": "We recommend backing up first. There is no way to recover deleted data."
+  },
   "footer": {
-    "disclaimer": "For reference only. Not legal advice. Always verify with official UK government sources.",
-    "madeWith": "Made with ❤️ for the HK community"
+    "disclaimer": "For reference only. Not legal advice. Always verify with official government sources.",
+    "madeWith": "Made with ❤️ for the community",
+    "feedback": "Report a bug / suggest a feature",
+    "feedbackSubject": "VisaPath Feedback"
   }
 }

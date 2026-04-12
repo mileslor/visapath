@@ -7,7 +7,8 @@ export interface Trip {
 }
 
 export interface BnoData {
-  arrivalDate: string    // ISO date string YYYY-MM-DD
+  approvalDate: string   // BNO visa approval date YYYY-MM-DD
+  arrivalDate: string    // UK arrival date YYYY-MM-DD
   trips: Trip[]
 }
 
@@ -24,9 +25,13 @@ export interface RollingDataPoint {
 }
 
 export interface IlrResult {
-  eligibleDate: Date
+  eligibleDate: Date            // 5-year qualifying date
+  earliestApplicationDate: Date // eligibleDate - 28 days
+  qualifyingStart: Date         // approval date (if used) or arrival date
+  qualifyingStartIsApproval: boolean
+  preArrivalDays: number        // absence days before arriving in UK
   isEligible: boolean
-  daysUntilEligible: number
+  daysUntilEligible: number     // days until earliestApplicationDate
   maxAbsenceInAnyPeriod: number
   violations: PeriodViolation[]
   totalAbsenceDays: number
@@ -44,4 +49,15 @@ export interface BnoCalculation {
   ilr: IlrResult
   citizenship: CitizenshipResult
   rollingData: RollingDataPoint[]
+}
+
+export interface Profile {
+  id: string
+  name: string
+  data: BnoData
+}
+
+export interface ProfileStore {
+  activeId: string
+  profiles: Record<string, Profile>
 }

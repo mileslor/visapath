@@ -3,6 +3,8 @@ import {
   differenceInDays,
   addYears,
   addMonths,
+  addDays,
+  subDays,
   subYears,
   format,
   isAfter,
@@ -10,6 +12,10 @@ import {
   min as dateMin,
 } from 'date-fns'
 import type { Trip, BnoCalculation, PeriodViolation, RollingDataPoint, IlrResult, CitizenshipResult } from './types'
+
+export interface ChartOptions {
+  horizonMonths: number  // extra months beyond today/last trip to show on chart, default 0
+}
 
 /**
  * Calculate absence days for a single trip.
@@ -52,88 +58,147 @@ function absenceInRange(trips: Trip[], rangeStart: Date, rangeEnd: Date): number
 
 /**
  * Check rolling 12-month windows for ILR violations (>180 days).
- * Samples every month for performance.
+ * Uses daily sampling for accuracy — worst window often falls between month boundaries.
  */
 function checkRollingViolations(
   trips: Trip[],
   qualifyingStart: Date,
   qualifyingEnd: Date,
-): { violations: PeriodViolation[]; maxAbsence: number } {
-  const violations: PeriodViolation[] = []
+): { violations: PeriodViolation[]; maxAbsence: number; worstPeriodStart: Date; worstPeriodEnd: Date } {
   let maxAbsence = 0
+  let worstPeriodStart = qualifyingStart
+  let worstPeriodEnd = qualifyingStart
+
+  // Include future planned return dates so entered trips are fully evaluated
   const today = new Date()
-  const checkEnd = dateMin([qualifyingEnd, today])
+  const latestReturn = trips.length > 0
+    ? new Date(Math.max(...trips.map(t => parseISO(t.returnDate).getTime())))
+    : today
+  const checkEnd = dateMin([qualifyingEnd, dateMax([today, latestReturn])])
 
-  let cursor = new Date(qualifyingStart)
-  cursor = addYears(cursor, 1) // first check is at start+1year
-
+  // Daily sampling for accuracy
+  let cursor = addYears(qualifyingStart, 1)
   while (!isAfter(cursor, checkEnd)) {
     const windowStart = subYears(cursor, 1)
     const wStart = dateMax([windowStart, qualifyingStart])
     const absence = absenceInRange(trips, wStart, cursor)
-
-    if (absence > maxAbsence) maxAbsence = absence
-
-    if (absence > 180) {
-      violations.push({
-        periodStart: format(wStart, 'yyyy-MM-dd'),
-        periodEnd: format(cursor, 'yyyy-MM-dd'),
-        absenceDays: absence,
-        overBy: absence - 180,
-      })
+    if (absence > maxAbsence) {
+      maxAbsence = absence
+      worstPeriodStart = wStart
+      worstPeriodEnd = cursor
     }
-    cursor = addMonths(cursor, 1)
+    cursor = addDays(cursor, 1)
   }
 
-  return { violations, maxAbsence }
+  const violations: PeriodViolation[] = maxAbsence > 180
+    ? [{
+        periodStart: format(worstPeriodStart, 'yyyy-MM-dd'),
+        periodEnd: format(worstPeriodEnd, 'yyyy-MM-dd'),
+        absenceDays: maxAbsence,
+        overBy: maxAbsence - 180,
+      }]
+    : []
+
+  return { violations, maxAbsence, worstPeriodStart, worstPeriodEnd }
 }
 
 /**
- * Build rolling 12-month data points for the chart.
+ * Build rolling N-month data points for the chart.
+ * windowMonths: rolling window size (12 or 18)
+ * horizonMonths: how many extra months beyond today/last-trip to show
  */
 function buildRollingData(
   trips: Trip[],
   qualifyingStart: Date,
-  qualifyingEnd: Date,
+  chartEnd: Date,
+  opts: ChartOptions,
 ): RollingDataPoint[] {
+  const { horizonMonths } = opts
   const data: RollingDataPoint[] = []
   const today = new Date()
-  const checkEnd = dateMin([qualifyingEnd, today])
+  const latestReturn = trips.length > 0
+    ? new Date(Math.max(...trips.map(t => parseISO(t.returnDate).getTime())))
+    : today
+  const horizon = addMonths(today, horizonMonths)
+  // Chart can extend to: the furthest of (last trip return, today+horizon), but no further than chartEnd
+  const checkEnd = dateMin([chartEnd, dateMax([horizon, latestReturn])])
 
-  let cursor = addYears(qualifyingStart, 1)
+  // Calculation always uses 12-month rolling window (legal standard).
+  // Start from qualifyingStart so the first year is also visible in the chart.
+  // For the first 12 months the window is clamped to [qualifyingStart, cursor]
+  // so it shows cumulative absence (not yet a full rolling window).
+  let cursor = qualifyingStart
 
   while (!isAfter(cursor, checkEnd)) {
-    const windowStart = subYears(cursor, 1)
-    const wStart = dateMax([windowStart, qualifyingStart])
+    const wStart = dateMax([subYears(cursor, 1), qualifyingStart])
     const absence = absenceInRange(trips, wStart, cursor)
     data.push({
-      month: format(cursor, 'yyyy-MM'),
+      month: format(cursor, 'yyyy-MM-dd'),
       absenceDays: absence,
     })
-    cursor = addMonths(cursor, 1)
+    cursor = addDays(cursor, 7)
   }
 
   return data
 }
 
-export function calculate(arrivalDate: string, trips: Trip[]): BnoCalculation {
+export function calculate(
+  arrivalDate: string,
+  trips: Trip[],
+  chartOpts: ChartOptions = { horizonMonths: 0 },
+  approvalDate?: string,
+): BnoCalculation {
   const arrival = parseISO(arrivalDate)
   const today = new Date()
 
-  // Sort trips
-  const sortedTrips = [...trips].sort((a, b) =>
-    a.departureDate.localeCompare(b.departureDate)
+  // === Determine qualifying start (Appendix Continuous Residence CR 2.1) ===
+  // If approval date exists and gap to arrival ≤ 180 days:
+  //   - 5-year clock starts from approval date
+  //   - Days from approval to arrival count as absence
+  // Otherwise: clock starts from arrival date
+  let qualifyingStart = arrival
+  let qualifyingStartIsApproval = false
+  let preArrivalDays = 0
+
+  if (approvalDate && approvalDate.length >= 10) {
+    const approval = parseISO(approvalDate)
+    const gapDays = differenceInDays(arrival, approval)
+    if (gapDays > 0 && gapDays <= 180) {
+      qualifyingStart = approval
+      qualifyingStartIsApproval = true
+      preArrivalDays = gapDays  // all days from approval to arrival-1 are absence
+    }
+  }
+
+  // Build sorted trips, prepending a synthetic pre-arrival "trip" if needed.
+  // Synthetic trip: departure = approvalDate-1, return = arrivalDate
+  //   → absence = diff(arrival, approval-1) - 1 = diff(arrival, approval) = preArrivalDays ✓
+  const sortedTrips: Trip[] = []
+  if (preArrivalDays > 0 && approvalDate) {
+    sortedTrips.push({
+      id: '__pre_arrival__',
+      departureDate: format(subDays(qualifyingStart, 1), 'yyyy-MM-dd'),
+      returnDate: arrivalDate,
+    })
+  }
+  sortedTrips.push(
+    ...[...trips].sort((a, b) => a.departureDate.localeCompare(b.departureDate))
   )
 
   // === ILR ===
-  const ilrEligibleDate = addYears(arrival, 5)
-  const { violations, maxAbsence } = checkRollingViolations(sortedTrips, arrival, ilrEligibleDate)
-  const totalAbsence = absenceInRange(sortedTrips, arrival, today)
+  const ilrEligibleDate = addYears(qualifyingStart, 5)
+  const earliestApplicationDate = subDays(ilrEligibleDate, 28)
+  const { violations, maxAbsence } = checkRollingViolations(sortedTrips, qualifyingStart, ilrEligibleDate)
+  const totalAbsence = absenceInRange(sortedTrips, qualifyingStart, today)
 
   const ilr: IlrResult = {
     eligibleDate: ilrEligibleDate,
-    isEligible: !isAfter(ilrEligibleDate, today) && violations.length === 0,
-    daysUntilEligible: Math.max(0, differenceInDays(ilrEligibleDate, today)),
+    earliestApplicationDate,
+    qualifyingStart,
+    qualifyingStartIsApproval,
+    preArrivalDays,
+    isEligible: !isAfter(earliestApplicationDate, today) && violations.length === 0,
+    daysUntilEligible: Math.max(0, differenceInDays(earliestApplicationDate, today)),
     maxAbsenceInAnyPeriod: maxAbsence,
     violations,
     totalAbsenceDays: totalAbsence,
@@ -159,10 +224,24 @@ export function calculate(arrivalDate: string, trips: Trip[]): BnoCalculation {
     absenceLast5Years: absenceLast5,
   }
 
-  // === Chart data ===
-  const rollingData = buildRollingData(sortedTrips, arrival, ilrEligibleDate)
+  // === Chart data — extend to citizenship eligibility date ===
+  const rollingData = buildRollingData(sortedTrips, qualifyingStart, citizenshipEligibleDate, chartOpts)
 
   return { ilr, citizenship, rollingData }
+}
+
+/** Format today as YYYY-MM-DD for date inputs */
+export function todayISO(): string {
+  return format(new Date(), 'yyyy-MM-dd')
+}
+
+/** Add N days to a YYYY-MM-DD string, return YYYY-MM-DD */
+export function addDaysToISO(dateStr: string, days: number): string {
+  try {
+    return format(addDays(parseISO(dateStr), days), 'yyyy-MM-dd')
+  } catch {
+    return ''
+  }
 }
 
 export function formatDate(dateStr: string, lang: string): string {

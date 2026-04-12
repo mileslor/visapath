@@ -19,8 +19,9 @@
   "bno": {
     "title": "BNO 簽證 — 離境日數計算器",
     "subtitle": "追蹤離境記錄，計劃 ILR 及英籍申請",
+    "approvalDate": "簽證批出日期",
     "arrivalDate": "抵達英國日期",
-    "arrivalDateHint": "你首次以 BNO 簽證抵達英國的日期",
+    "approvalDateHint": "如抵英日期在批簽後 180 日內，5年資格期由批簽日起計（CR 2.1），批簽至抵英期間計算為離境日數。",
     "addTrip": "新增離境記錄",
     "departure": "出境日期",
     "return": "回英日期",
@@ -34,18 +35,27 @@
     "tripList": "離境記錄",
     "days": "日",
     "day": "日",
+    "today": "今日",
+    "cal": {
+      "add": "加入日曆"
+    },
     "ilr": {
       "title": "ILR 資格",
       "subtitle": "永久居留權（5 年後）",
       "eligibleOn": "可申請日期",
-      "daysLeft": "日後可申請",
+      "b1Prep": "開始準備 B1 考試（建議）",
+      "earliestApply": "最早提交申請",
+      "qualifyingDate": "5年資格達到",
+      "daysLeft": "日後可提交申請",
       "alreadyEligible": "已達資格！",
       "maxPeriod": "最長單一12個月離境",
       "limit": "180 日上限",
       "ok": "符合規定",
       "warning": "接近上限",
       "exceeded": "超出上限",
-      "totalAbsence": "總離境日數"
+      "totalAbsence": "總離境日數",
+      "clockFromApproval": "5年資格由簽證批出日起計（CR 2.1）",
+      "preArrivalAbsence": "抵英前離境日數已計入"
     },
     "citizenship": {
       "title": "英國國籍",
@@ -59,17 +69,36 @@
       "limit450": "450 日上限"
     },
     "chart": {
-      "title": "滾動 12 個月離境日數",
+      "title": "滾動離境日數圖表",
+      "subtitle": "由抵英至可申請入籍的完整時間軸",
       "absenceDays": "離境日數",
-      "limit": "180 日上限",
-      "month": "月份"
+      "limit": "上限",
+      "month": "月份",
+      "citizenship": "入籍",
+      "window": "視窗",
+      "horizon": "計至",
+      "horizonNow": "今日",
+      "horizon3": "+3個月",
+      "horizon6": "+6個月",
+      "horizon12": "+12個月",
+      "horizon18": "+18個月",
+      "showAll": "全覽",
+      "prevYear": "前一年",
+      "nextYear": "後一年"
     },
+    "enterArrivalDate": "請先輸入抵達英國日期",
     "csv": {
+      "labelSingle": "此成員",
+      "labelAll": "全部（{{n}}）",
       "import": "匯入 CSV",
       "export": "匯出 CSV",
-      "importHint": "CSV 須包含欄位：departure_date、return_date、destination、notes",
       "importSuccess": "成功匯入 {n} 條記錄",
-      "importError": "匯入失敗，請檢查檔案格式"
+      "importError": "匯入失敗，請檢查檔案格式",
+      "importWarning": "匯入將覆蓋現有 {{n}} 條記錄，此操作不可撤銷！",
+      "backupAll": "備份全部 JSON",
+      "restoreAll": "還原備份 JSON",
+      "restoreAllWarning": "此操作將覆蓋全部 {{current}} 個成員的記錄，以備份檔的 {{restore}} 個成員取代，不可撤銷！",
+      "restoreAllSuccess": "成功還原 {{n}} 個成員的記錄"
     },
     "rules": {
       "title": "計算規則",
@@ -77,11 +106,28 @@
       "rule2": "ILR：5 年資格期間內，任何滾動 12 個月期間離境不可超過 180 日",
       "rule3": "入籍：申請前 12 個月內最多 90 日；申請前 5 年內最多 450 日",
       "rule4": "根據英國內政部指引計算，此工具不構成法律意見。",
-      "source": "資料來源：英國內政部"
+      "source": "資料來源",
+      "continuousResidenceLink": "連續居留指引",
+      "ilrGuidanceLink": "ILR 申請指引"
     }
   },
+  "profile": {
+    "add": "加成員",
+    "rename": "改名",
+    "delete": "刪除成員",
+    "duplicate": "複製成新成員",
+    "duplicateHint": "複製此成員的所有記錄，建立為新成員",
+    "duplicateSuffix": "（複製）",
+    "newNamePrompt": "輸入新成員名稱",
+    "renamePrompt": "輸入新名稱",
+    "deleteConfirm": "確認刪除「{{name}}」？所有記錄將永久消失。",
+    "backupWarning": "本工具不會將任何資料上傳至伺服器，所有記錄僅儲存於本機瀏覽器。清除瀏覽器資料即會永久刪除所有記錄。請定期備份。",
+    "backupReminder": "建議先備份，本工具無法復原任何刪除操作。"
+  },
   "footer": {
-    "disclaimer": "僅供參考，不構成法律意見。請以英國政府官方資料為準。",
-    "madeWith": "為香港社群用心製作"
+    "disclaimer": "僅供參考，不構成法律意見。請以官方政府資料為準。",
+    "madeWith": "為社群用心製作",
+    "feedback": "匯報問題 / 提交意見",
+    "feedbackSubject": "VisaPath 意見反饋"
   }
 }
