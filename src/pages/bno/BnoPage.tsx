@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Trip, BnoData } from '../../lib/bno/types'
 import { calculate, type ChartOptions } from '../../lib/bno/calculator'
@@ -139,9 +139,7 @@ export default function BnoPage() {
             approvalDate={data.approvalDate}
             arrivalDate={data.arrivalDate}
             profileName={activeProfile?.name ?? ''}
-            store={store}
             onImportAsNew={handleImportAsNew}
-            onRestoreAll={handleRestoreAll}
           />
         }
       />
@@ -259,6 +257,62 @@ export default function BnoPage() {
           </div>
         )}
       </div>
+
+      {/* Full backup — page bottom */}
+      <FullBackupBar store={store} onRestoreAll={handleRestoreAll} />
+    </div>
+  )
+}
+
+function FullBackupBar({ store, onRestoreAll }: { store: ReturnType<typeof loadProfiles>, onRestoreAll: (s: ReturnType<typeof loadProfiles>) => void }) {
+  const { t } = useTranslation()
+  const jsonFileRef = useRef<HTMLInputElement>(null)
+
+  interface BackupFile { type: 'visapath-backup'; version: number; exportedAt: string; store: typeof store }
+
+  function handleExportJson() {
+    const profileCount = Object.keys(store.profiles).length
+    const backup: BackupFile = { type: 'visapath-backup', version: 1, exportedAt: new Date().toISOString().split('T')[0], store }
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `visapath-backup-${profileCount}members-${new Date().toISOString().split('T')[0]}.json`
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function handleImportJson(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const backup = JSON.parse(ev.target?.result as string) as BackupFile
+        if (backup.type !== 'visapath-backup' || !backup.store?.profiles || !backup.store?.activeId) {
+          alert(t('bno.csv.importError')); return
+        }
+        const ok = window.confirm(
+          t('bno.csv.restoreAllWarning', { current: Object.keys(store.profiles).length, restore: Object.keys(backup.store.profiles).length }) +
+          '\n\n⚠️ ' + t('profile.backupReminder')
+        )
+        if (ok) { onRestoreAll(backup.store); alert(t('bno.csv.restoreAllSuccess', { n: Object.keys(backup.store.profiles).length })) }
+      } catch { alert(t('bno.csv.importError')) }
+    }
+    reader.readAsText(file)
+    e.target.value = ''
+  }
+
+  return (
+    <div className="mt-10 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
+      <span className="text-xs text-slate-400 mr-1">💾 {t('bno.csv.fullBackup')}:</span>
+      <input ref={jsonFileRef} type="file" accept=".json" onChange={handleImportJson} className="hidden" />
+      <button onClick={handleExportJson} className="px-2.5 py-1 text-xs text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+        {t('bno.csv.backupAll')}
+      </button>
+      <button onClick={() => jsonFileRef.current?.click()} className="px-2.5 py-1 text-xs text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+        {t('bno.csv.restoreAll')}
+      </button>
     </div>
   )
 }
