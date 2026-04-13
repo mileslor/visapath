@@ -205,8 +205,12 @@ export default function StatusCards({ calc }: Props) {
           </div>
         </div>
 
+        {/* Projected label with "as of date" */}
+        <p className="text-xs text-slate-400 mb-2">
+          📊 {t('bno.citizenship.projectedAsOf')} {formatDate(citizenshipDateStr, lang)}
+        </p>
+
         <div className="space-y-3">
-          {/* Projected absence at application date */}
           <div>
             <div className="flex justify-between items-center mb-1">
               <span className="text-xs text-slate-600">{t('bno.citizenship.projected12months')}</span>
@@ -231,11 +235,11 @@ export default function StatusCards({ calc }: Props) {
             </div>
             <ProgressBar value={citizenship.projectedAbsenceLast5} max={450} danger={360} />
           </div>
-          {/* Today's rolling absence (real-time) */}
+          {/* Today's rolling absence (real-time) — only shown when different from projected */}
           {(citizenship.absenceLast12Months !== citizenship.projectedAbsenceLast12 ||
             citizenship.absenceLast5Years !== citizenship.projectedAbsenceLast5) && (
             <p className="text-xs text-slate-400 pt-1 border-t border-slate-100">
-              {t('bno.citizenship.todayAbsence')}: {citizenship.absenceLast12Months} / 90 {t('bno.days')} ({t('bno.citizenship.last12months')})
+              {t('bno.citizenship.todayAbsence')}: {citizenship.absenceLast12Months} / 90 {t('bno.days')}
             </p>
           )}
         </div>

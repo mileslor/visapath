@@ -67,8 +67,9 @@
       "limit90": "90-day limit",
       "last5years": "Last 5 years absence",
       "limit450": "450-day limit",
-      "projected12months": "12 months before application (projected)",
-      "projected5years": "5 years before application (projected)",
+      "projected12months": "Last 12 months (projected)",
+      "projected5years": "Last 5 years (projected)",
+      "projectedAsOf": "Projected as of application date",
       "delayed": "Application date pushed back due to excess absences",
       "todayAbsence": "Today's actual"
     },
