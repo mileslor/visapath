@@ -4,7 +4,7 @@ import type { Trip, BnoData } from '../../lib/bno/types'
 import { calculate, type ChartOptions } from '../../lib/bno/calculator'
 import {
   loadProfiles, saveProfiles,
-  addProfile, removeProfile, renameProfile, updateProfileData, duplicateProfile,
+  addProfile, removeProfile, renameProfile, updateProfileData, duplicateProfile, addProfileWithData,
 } from '../../lib/bno/profiles'
 import ProfileSwitcher from './ProfileSwitcher'
 import TripForm from './TripForm'
@@ -19,8 +19,22 @@ export default function BnoPage() {
   const [showForm, setShowForm] = useState(false)
   const [showRules, setShowRules] = useState(false)
   const [chartOpts, setChartOpts] = useState<ChartOptions>({ horizonMonths: 0 })
+  const [pendingShare, setPendingShare] = useState<BnoData | null>(null)
 
   useEffect(() => { saveProfiles(store) }, [store])
+
+  // Handle incoming share link: ?share=BASE64
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const shareParam = params.get('share')
+    if (shareParam) {
+      try {
+        const shareData = JSON.parse(decodeURIComponent(atob(shareParam))) as BnoData
+        if (shareData.arrivalDate) setPendingShare(shareData)
+      } catch { /* invalid share link */ }
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
 
   const activeProfile = store.profiles[store.activeId]
   const data: BnoData = activeProfile?.data ?? { approvalDate: '', arrivalDate: '', trips: [] }
@@ -82,6 +96,36 @@ export default function BnoPage() {
         <p className="text-slate-500 text-sm">{t('bno.subtitle')}</p>
       </div>
 
+      {/* Incoming share banner */}
+      {pendingShare && (
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl px-5 py-4 mb-4 flex flex-wrap items-center gap-3">
+          <div className="flex-1">
+            <p className="text-sm font-medium text-blue-800">🔗 {t('bno.csv.shareReceived')}</p>
+            <p className="text-xs text-blue-600 mt-0.5">{t('bno.csv.shareReceivedDesc')}</p>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                const name = window.prompt(t('profile.newNamePrompt'), t('bno.csv.shareDefaultName')) ?? ''
+                if (name.trim()) {
+                  setStore(prev => addProfileWithData(prev, name.trim(), pendingShare))
+                }
+                setPendingShare(null)
+              }}
+              className="px-3 py-1.5 text-xs font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              {t('bno.csv.shareImport')}
+            </button>
+            <button
+              onClick={() => setPendingShare(null)}
+              className="px-3 py-1.5 text-xs font-medium bg-white border border-blue-200 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              {t('bno.cancel')}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Profile switcher */}
       <ProfileSwitcher
         store={store}
@@ -93,6 +137,7 @@ export default function BnoPage() {
         csvSlot={
           <CsvHandler
             trips={data.trips}
+            approvalDate={data.approvalDate}
             arrivalDate={data.arrivalDate}
             profileName={activeProfile?.name ?? ''}
             store={store}

@@ -12,6 +12,7 @@ interface BackupFile {
 
 interface Props {
   trips: Trip[]
+  approvalDate: string
   arrivalDate: string
   profileName: string
   store: ProfileStore
@@ -26,7 +27,7 @@ interface CsvRow {
   notes?: string
 }
 
-export default function CsvHandler({ trips, arrivalDate, profileName, store, onImport, onRestoreAll }: Props) {
+export default function CsvHandler({ trips, approvalDate, arrivalDate, profileName, store, onImport, onRestoreAll }: Props) {
   const { t } = useTranslation()
   const csvFileRef = useRef<HTMLInputElement>(null)
   const jsonFileRef = useRef<HTMLInputElement>(null)
@@ -91,6 +92,22 @@ export default function CsvHandler({ trips, arrivalDate, profileName, store, onI
       error() { alert(t('bno.csv.importError')) },
     })
     e.target.value = ''
+  }
+
+  // === Share link ===
+  function handleShare() {
+    try {
+      const shareData = { approvalDate, arrivalDate, trips }
+      const encoded = btoa(encodeURIComponent(JSON.stringify(shareData)))
+      const url = `${window.location.origin}/?share=${encoded}`
+      navigator.clipboard.writeText(url).then(() => {
+        alert(t('bno.csv.shareCopied'))
+      }).catch(() => {
+        prompt(t('bno.csv.sharePrompt'), url)
+      })
+    } catch {
+      alert(t('bno.csv.importError'))
+    }
   }
 
   // === Full backup JSON (all members) ===
@@ -162,6 +179,12 @@ export default function CsvHandler({ trips, arrivalDate, profileName, store, onI
           className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           📤 {t('bno.csv.export')}
+        </button>
+        <button
+          onClick={handleShare}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+        >
+          🔗 {t('bno.csv.share')}
         </button>
       </div>
 

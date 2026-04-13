@@ -67,6 +67,20 @@ export function updateProfileData(store: ProfileStore, id: string, data: BnoData
   return { ...store, profiles: { ...store.profiles, [id]: { ...profile, data } } }
 }
 
+export function addProfileWithData(store: ProfileStore, name: string, data: BnoData): ProfileStore {
+  const id = crypto.randomUUID()
+  const profile: Profile = {
+    id,
+    name,
+    data: {
+      approvalDate: data.approvalDate || '',
+      arrivalDate: data.arrivalDate || '',
+      trips: data.trips.map(t => ({ ...t, id: crypto.randomUUID() })),
+    },
+  }
+  return { activeId: id, profiles: { ...store.profiles, [id]: profile } }
+}
+
 export function duplicateProfile(store: ProfileStore, sourceId: string, nameSuffix: string): ProfileStore {
   const source = store.profiles[sourceId]
   if (!source) return store
