@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import Papa from 'papaparse'
-import type { Trip, ProfileStore } from '../../lib/bno/types'
+import type { Trip, BnoData, ProfileStore } from '../../lib/bno/types'
 
 interface BackupFile {
   type: 'visapath-backup'
@@ -16,8 +16,8 @@ interface Props {
   arrivalDate: string
   profileName: string
   store: ProfileStore
-  onImport: (trips: Trip[]) => void        // replace current member's trips
-  onRestoreAll: (store: ProfileStore) => void  // replace entire store
+  onImportAsNew: (data: BnoData, name: string) => void  // add as new member
+  onRestoreAll: (store: ProfileStore) => void            // replace entire store
 }
 
 interface CsvRow {
@@ -27,12 +27,12 @@ interface CsvRow {
   notes?: string
 }
 
-export default function CsvHandler({ trips, approvalDate, arrivalDate, profileName, store, onImport, onRestoreAll }: Props) {
+export default function CsvHandler({ trips, approvalDate, arrivalDate, profileName, store, onImportAsNew, onRestoreAll }: Props) {
   const { t } = useTranslation()
   const csvFileRef = useRef<HTMLInputElement>(null)
   const jsonFileRef = useRef<HTMLInputElement>(null)
 
-  // === Individual member CSV ===
+  // === CSV export (current member) ===
   function handleExportCsv() {
     const rows = trips.map(trip => ({
       departure_date: trip.departureDate,
@@ -40,7 +40,7 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
       destination: trip.destination ?? '',
       notes: trip.notes ?? '',
     }))
-    const meta = [{ departure_date: '# VisaPath BNO Export', return_date: `arrival=${arrivalDate}`, destination: '', notes: '' }]
+    const meta = [{ departure_date: '# VisaPath BNO Export', return_date: `approval=${approvalDate}|arrival=${arrivalDate}`, destination: '', notes: '' }]
     const csv = Papa.unparse([...meta, ...rows])
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     const url = URL.createObjectURL(blob)
@@ -52,6 +52,7 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
     URL.revokeObjectURL(url)
   }
 
+  // === CSV import → add as new member ===
   function handleImportCsv(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
@@ -61,8 +62,20 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
       skipEmptyLines: true,
       complete(results) {
         const imported: Trip[] = []
+        let importedApproval = ''
+        let importedArrival = ''
+
         for (const row of results.data) {
-          if (!row.departure_date || row.departure_date.startsWith('#')) continue
+          if (!row.departure_date) continue
+          // Parse metadata row
+          if (row.departure_date.startsWith('#')) {
+            const meta = row.return_date ?? ''
+            const approvalMatch = meta.match(/approval=(\d{4}-\d{2}-\d{2})/)
+            const arrivalMatch = meta.match(/arrival=(\d{4}-\d{2}-\d{2})/)
+            if (approvalMatch) importedApproval = approvalMatch[1]
+            if (arrivalMatch) importedArrival = arrivalMatch[1]
+            continue
+          }
           if (!row.return_date) continue
           const dep = row.departure_date.trim()
           const ret = row.return_date.trim()
@@ -80,11 +93,10 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
         if (imported.length === 0) {
           alert(t('bno.csv.importError'))
         } else {
-          const ok = trips.length > 0
-            ? window.confirm(t('bno.csv.importWarning', { n: trips.length }) + '\n\n⚠️ ' + t('profile.backupReminder'))
-            : true
-          if (ok) {
-            onImport(imported)
+          const defaultName = file.name.replace(/\.csv$/i, '').replace(/^visapath-/, '').replace(/-\d{4}-\d{2}-\d{2}$/, '') || t('bno.csv.shareDefaultName')
+          const name = window.prompt(t('profile.newNamePrompt'), defaultName)
+          if (name?.trim()) {
+            onImportAsNew({ approvalDate: importedApproval, arrivalDate: importedArrival, trips: imported }, name.trim())
             alert(t('bno.csv.importSuccess').replace('{n}', String(imported.length)))
           }
         }
@@ -92,22 +104,6 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
       error() { alert(t('bno.csv.importError')) },
     })
     e.target.value = ''
-  }
-
-  // === Share link ===
-  function handleShare() {
-    try {
-      const shareData = { approvalDate, arrivalDate, trips }
-      const encoded = btoa(encodeURIComponent(JSON.stringify(shareData)))
-      const url = `${window.location.origin}/?share=${encoded}`
-      navigator.clipboard.writeText(url).then(() => {
-        alert(t('bno.csv.shareCopied'))
-      }).catch(() => {
-        prompt(t('bno.csv.sharePrompt'), url)
-      })
-    } catch {
-      alert(t('bno.csv.importError'))
-    }
   }
 
   // === Full backup JSON (all members) ===
@@ -159,20 +155,11 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
     e.target.value = ''
   }
 
-  const memberCount = Object.keys(store.profiles).length
-
   return (
     <div className="space-y-2">
-      {/* Individual member row */}
+      {/* CSV row — main sharing tools */}
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-xs text-slate-400 w-16 shrink-0">{t('bno.csv.labelSingle')}</span>
         <input ref={csvFileRef} type="file" accept=".csv" onChange={handleImportCsv} className="hidden" />
-        <button
-          onClick={() => csvFileRef.current?.click()}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
-        >
-          📥 {t('bno.csv.import')}
-        </button>
         <button
           onClick={handleExportCsv}
           disabled={trips.length === 0}
@@ -181,28 +168,28 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
           📤 {t('bno.csv.export')}
         </button>
         <button
-          onClick={handleShare}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+          onClick={() => csvFileRef.current?.click()}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
         >
-          🔗 {t('bno.csv.share')}
+          📥 {t('bno.csv.import')}
         </button>
       </div>
 
-      {/* All members row */}
-      <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-xs text-slate-400 w-16 shrink-0">{t('bno.csv.labelAll', { n: memberCount })}</span>
+      {/* JSON full backup — less prominent */}
+      <div className="flex items-center gap-2 flex-wrap pt-1 border-t border-slate-100">
+        <span className="text-xs text-slate-400 shrink-0">{t('bno.csv.fullBackup')}:</span>
         <input ref={jsonFileRef} type="file" accept=".json" onChange={handleImportJson} className="hidden" />
         <button
-          onClick={() => jsonFileRef.current?.click()}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
-        >
-          📂 {t('bno.csv.restoreAll')}
-        </button>
-        <button
           onClick={handleExportJson}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+          className="flex items-center gap-1.5 px-2.5 py-1 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors"
         >
           💾 {t('bno.csv.backupAll')}
+        </button>
+        <button
+          onClick={() => jsonFileRef.current?.click()}
+          className="flex items-center gap-1.5 px-2.5 py-1 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors"
+        >
+          📂 {t('bno.csv.restoreAll')}
         </button>
       </div>
     </div>

@@ -70,9 +70,8 @@ export default function BnoPage() {
     updateData(prev => ({ ...prev, trips: prev.trips.filter(t => t.id !== id) }))
   }
 
-  // Replace (overwrite) — warning shown inside CsvHandler before calling this
-  function handleImport(trips: Trip[]) {
-    updateData(prev => ({ ...prev, trips }))
+  function handleImportAsNew(importedData: BnoData, name: string) {
+    setStore(prev => addProfileWithData(prev, name, importedData))
   }
 
   function handleRestoreAll(restoredStore: typeof store) {
@@ -141,7 +140,7 @@ export default function BnoPage() {
             arrivalDate={data.arrivalDate}
             profileName={activeProfile?.name ?? ''}
             store={store}
-            onImport={handleImport}
+            onImportAsNew={handleImportAsNew}
             onRestoreAll={handleRestoreAll}
           />
         }

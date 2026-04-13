@@ -107,6 +107,7 @@
       "shareReceivedDesc": "你的朋友向你分享了一份旅程記錄，導入為新成員？",
       "shareImport": "導入為新成員",
       "shareDefaultName": "朋友的記錄",
+      "fullBackup": "全備份",
       "backupAll": "備份全部 JSON",
       "restoreAll": "還原備份 JSON",
       "restoreAllWarning": "此操作將覆蓋全部 {{current}} 個成員的記錄，以備份檔的 {{restore}} 個成員取代，不可撤銷！",

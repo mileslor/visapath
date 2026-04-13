@@ -107,6 +107,7 @@
       "shareReceivedDesc": "Your friend shared their trip records with you. Import as a new member?",
       "shareImport": "Import as new member",
       "shareDefaultName": "Friend's records",
+      "fullBackup": "Full backup",
       "backupAll": "Backup all JSON",
       "restoreAll": "Restore backup JSON",
       "restoreAllWarning": "This will replace all {{current}} member(s) with the {{restore}} member(s) from the backup file. This cannot be undone!",
