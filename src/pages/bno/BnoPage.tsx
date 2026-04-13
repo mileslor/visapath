@@ -282,7 +282,7 @@ function FullBackupBar({ store, onRestoreAll }: { store: ReturnType<typeof loadP
     URL.revokeObjectURL(url)
   }
 
-  function handleImportJson(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleImportJson(e: { target: HTMLInputElement }) {
     const file = e.target.files?.[0]
     if (!file) return
     const reader = new FileReader()
