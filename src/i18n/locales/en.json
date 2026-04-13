@@ -63,10 +63,14 @@
       "eligibleOn": "Eligible from",
       "daysLeft": "days until eligible",
       "alreadyEligible": "Already eligible!",
-      "last12months": "Last 12 months absence",
+      "last12months": "Rolling 12 months (today)",
       "limit90": "90-day limit",
       "last5years": "Last 5 years absence",
-      "limit450": "450-day limit"
+      "limit450": "450-day limit",
+      "projected12months": "12 months before application (projected)",
+      "projected5years": "5 years before application (projected)",
+      "delayed": "Application date pushed back due to excess absences",
+      "todayAbsence": "Today's actual"
     },
     "chart": {
       "title": "Rolling Absence Chart",

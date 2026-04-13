@@ -205,21 +205,43 @@ export function calculate(
   }
 
   // === Citizenship ===
-  // Eligible: ILR date + 1 year minimum
+  // Base eligible date: ILR + 1 year minimum
   const citizenshipEligibleDate = addYears(ilrEligibleDate, 1)
 
-  // Absence in last 12 months from today
-  const twelveMonthsAgo = subYears(today, 1)
-  const absenceLast12 = absenceInRange(sortedTrips, twelveMonthsAgo, today)
+  // Find actual eligible date: earliest date ≥ base where absence requirements are met.
+  // Scan day by day up to 5 years forward — catches cases where current/planned trips
+  // push the application window out.
+  function findActualCitizenshipDate(baseDate: Date): Date {
+    const maxDate = addYears(baseDate, 5)
+    let cursor = baseDate
+    while (!isAfter(cursor, maxDate)) {
+      const a12 = absenceInRange(sortedTrips, subYears(cursor, 1), cursor)
+      const a5 = absenceInRange(sortedTrips, subYears(cursor, 5), cursor)
+      if (a12 <= 90 && a5 <= 450) return cursor
+      cursor = addDays(cursor, 1)
+    }
+    return maxDate
+  }
 
-  // Absence in last 5 years from today
-  const fiveYearsAgo = subYears(today, 5)
-  const absenceLast5 = absenceInRange(sortedTrips, fiveYearsAgo, today)
+  const actualCitizenshipDate = findActualCitizenshipDate(citizenshipEligibleDate)
+  const isDelayed = isAfter(actualCitizenshipDate, citizenshipEligibleDate)
+
+  // Projected absence AT the actual eligible date (what the officer will see)
+  const projectedAbsenceLast12 = absenceInRange(sortedTrips, subYears(actualCitizenshipDate, 1), actualCitizenshipDate)
+  const projectedAbsenceLast5 = absenceInRange(sortedTrips, subYears(actualCitizenshipDate, 5), actualCitizenshipDate)
+
+  // Current absence (today) — real-time tracker
+  const absenceLast12 = absenceInRange(sortedTrips, subYears(today, 1), today)
+  const absenceLast5 = absenceInRange(sortedTrips, subYears(today, 5), today)
 
   const citizenship: CitizenshipResult = {
     eligibleDate: citizenshipEligibleDate,
-    isEligible: !isAfter(citizenshipEligibleDate, today) && absenceLast12 <= 90 && absenceLast5 <= 450,
-    daysUntilEligible: Math.max(0, differenceInDays(citizenshipEligibleDate, today)),
+    actualEligibleDate: actualCitizenshipDate,
+    isDelayed,
+    isEligible: !isAfter(actualCitizenshipDate, today),
+    daysUntilEligible: Math.max(0, differenceInDays(actualCitizenshipDate, today)),
+    projectedAbsenceLast12,
+    projectedAbsenceLast5,
     absenceLast12Months: absenceLast12,
     absenceLast5Years: absenceLast5,
   }

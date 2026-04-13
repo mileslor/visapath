@@ -55,7 +55,8 @@ export default function StatusCards({ calc }: Props) {
   const b1PrepDate = subYears(ilr.eligibleDate, 2)
   const b1DateStr = b1PrepDate.toISOString().split('T')[0]
   const ilrDateStr = ilr.earliestApplicationDate.toISOString().split('T')[0]
-  const citizenshipDateStr = citizenship.eligibleDate.toISOString().split('T')[0]
+  const citizenshipDateStr = citizenship.actualEligibleDate.toISOString().split('T')[0]
+  const citizenshipBaseDateStr = citizenship.eligibleDate.toISOString().split('T')[0]
 
   function addB1Cal() {
     downloadIcs({
@@ -185,42 +186,58 @@ export default function StatusCards({ calc }: Props) {
 
         <div className="mb-4">
           <CountdownBadge days={citizenship.daysUntilEligible} isEligible={citizenship.isEligible} t={t} />
-          <div className="mt-3">
+          <div className="mt-3 space-y-2">
             <div className="flex items-center justify-between gap-2 bg-white/60 rounded-lg px-3 py-2 border border-slate-100">
               <div>
                 <p className="text-xs font-medium text-slate-600">{t('bno.citizenship.eligibleOn')}</p>
                 <p className="text-xs text-slate-600">{formatDate(citizenshipDateStr, lang)}</p>
+                {citizenship.isDelayed && (
+                  <p className="text-xs text-slate-400 mt-0.5 line-through">{formatDate(citizenshipBaseDateStr, lang)}</p>
+                )}
               </div>
               <CalBtn onClick={addCitizenshipCal} label={t('bno.cal.add')} />
             </div>
+            {citizenship.isDelayed && (
+              <p className="text-xs text-amber-700 bg-amber-50 rounded-lg px-3 py-2">
+                ⚠️ {t('bno.citizenship.delayed')}
+              </p>
+            )}
           </div>
         </div>
 
         <div className="space-y-3">
+          {/* Projected absence at application date */}
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-slate-600">{t('bno.citizenship.last12months')}</span>
+              <span className="text-xs text-slate-600">{t('bno.citizenship.projected12months')}</span>
               <span className={`text-xs font-semibold ${
-                citizenship.absenceLast12Months > 90 ? 'text-red-600' :
-                citizenship.absenceLast12Months > 70 ? 'text-amber-600' : 'text-green-600'
+                citizenship.projectedAbsenceLast12 > 90 ? 'text-red-600' :
+                citizenship.projectedAbsenceLast12 > 70 ? 'text-amber-600' : 'text-green-600'
               }`}>
-                {citizenship.absenceLast12Months} / 90 {t('bno.days')}
+                {citizenship.projectedAbsenceLast12} / 90 {t('bno.days')}
               </span>
             </div>
-            <ProgressBar value={citizenship.absenceLast12Months} max={90} danger={70} />
+            <ProgressBar value={citizenship.projectedAbsenceLast12} max={90} danger={70} />
           </div>
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-slate-600">{t('bno.citizenship.last5years')}</span>
+              <span className="text-xs text-slate-600">{t('bno.citizenship.projected5years')}</span>
               <span className={`text-xs font-semibold ${
-                citizenship.absenceLast5Years > 450 ? 'text-red-600' :
-                citizenship.absenceLast5Years > 360 ? 'text-amber-600' : 'text-green-600'
+                citizenship.projectedAbsenceLast5 > 450 ? 'text-red-600' :
+                citizenship.projectedAbsenceLast5 > 360 ? 'text-amber-600' : 'text-green-600'
               }`}>
-                {citizenship.absenceLast5Years} / 450 {t('bno.days')}
+                {citizenship.projectedAbsenceLast5} / 450 {t('bno.days')}
               </span>
             </div>
-            <ProgressBar value={citizenship.absenceLast5Years} max={450} danger={360} />
+            <ProgressBar value={citizenship.projectedAbsenceLast5} max={450} danger={360} />
           </div>
+          {/* Today's rolling absence (real-time) */}
+          {(citizenship.absenceLast12Months !== citizenship.projectedAbsenceLast12 ||
+            citizenship.absenceLast5Years !== citizenship.projectedAbsenceLast5) && (
+            <p className="text-xs text-slate-400 pt-1 border-t border-slate-100">
+              {t('bno.citizenship.todayAbsence')}: {citizenship.absenceLast12Months} / 90 {t('bno.days')} ({t('bno.citizenship.last12months')})
+            </p>
+          )}
         </div>
       </div>
     </div>

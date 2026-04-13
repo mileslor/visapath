@@ -63,10 +63,14 @@
       "eligibleOn": "可申請日期",
       "daysLeft": "日後可申請",
       "alreadyEligible": "已達資格！",
-      "last12months": "最近 12 個月離境",
+      "last12months": "今日起計 12 個月",
       "limit90": "90 日上限",
       "last5years": "最近 5 年離境",
-      "limit450": "450 日上限"
+      "limit450": "450 日上限",
+      "projected12months": "申請當日前 12 個月（預測）",
+      "projected5years": "申請當日前 5 年（預測）",
+      "delayed": "因離境日數超標，可申請日期已向後推延",
+      "todayAbsence": "今日實際"
     },
     "chart": {
       "title": "滾動離境日數圖表",

@@ -38,9 +38,15 @@ export interface IlrResult {
 }
 
 export interface CitizenshipResult {
-  eligibleDate: Date
+  eligibleDate: Date            // base date: ILR + 1 year
+  actualEligibleDate: Date      // earliest date where absence requirements are met (may be later)
+  isDelayed: boolean            // actualEligibleDate > eligibleDate
   isEligible: boolean
-  daysUntilEligible: number
+  daysUntilEligible: number     // days until actualEligibleDate
+  // Projected absence at actualEligibleDate (for planning)
+  projectedAbsenceLast12: number
+  projectedAbsenceLast5: number
+  // Current absence (today, for real-time status)
   absenceLast12Months: number
   absenceLast5Years: number
 }
