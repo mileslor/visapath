@@ -135,7 +135,9 @@
     "renamePrompt": "輸入新名稱",
     "deleteConfirm": "確認刪除「{{name}}」？所有記錄將永久消失。",
     "backupWarning": "本工具不會將任何資料上傳至伺服器，所有記錄僅儲存於本機瀏覽器。清除瀏覽器資料即會永久刪除所有記錄。請定期備份。",
-    "backupReminder": "建議先備份，本工具無法復原任何刪除操作。"
+    "backupReminder": "建議先備份，本工具無法復原任何刪除操作。",
+    "expand": "展開成員管理",
+    "collapse": "收起成員管理"
   },
   "footer": {
     "disclaimer": "僅供參考，不構成法律意見。請以官方政府資料為準。",

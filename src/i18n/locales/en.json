@@ -135,7 +135,9 @@
     "renamePrompt": "Enter new name",
     "deleteConfirm": "Delete \"{{name}}\"? All records will be permanently lost.",
     "backupWarning": "All data is stored locally in your browser only — nothing is uploaded to any server. Clearing browser data will permanently delete all records. Please back up regularly.",
-    "backupReminder": "We recommend backing up first. There is no way to recover deleted data."
+    "backupReminder": "We recommend backing up first. There is no way to recover deleted data.",
+    "expand": "Manage members",
+    "collapse": "Collapse"
   },
   "footer": {
     "disclaimer": "For reference only. Not legal advice. Always verify with official government sources.",

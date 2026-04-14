@@ -150,7 +150,7 @@ export default function BnoPage() {
         <div className="flex flex-wrap gap-4 items-end">
             <div>
               <label className="block text-xs font-medium text-slate-500 mb-1 uppercase tracking-wide">
-                {t('bno.approvalDate')}
+                1️⃣ {t('bno.approvalDate')}
               </label>
               <input
                 type="date"
@@ -162,7 +162,7 @@ export default function BnoPage() {
             <div className="text-slate-300 text-lg self-center pb-1">→</div>
             <div>
               <label className="block text-xs font-medium text-slate-500 mb-1 uppercase tracking-wide">
-                {t('bno.arrivalDate')}
+                2️⃣ {t('bno.arrivalDate')}
               </label>
               <input
                 type="date"
@@ -184,7 +184,7 @@ export default function BnoPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-slate-800">
-              {t('bno.tripList')}
+              3️⃣ {t('bno.tripList')}
               {data.trips.length > 0 && (
                 <span className="ml-2 text-xs font-normal text-slate-400">({data.trips.length})</span>
               )}
