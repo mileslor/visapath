@@ -72,7 +72,9 @@
       "projected5years": "Last 5 years (projected)",
       "projectedAsOf": "Projected as of application date",
       "delayed": "Application date pushed back due to excess absences",
-      "todayAbsence": "Today's actual"
+      "todayAbsence": "Today's actual",
+      "todayRef": "Today's actual (reference only)",
+      "todayOverLimitNote": "Today's 12-month window exceeds 90 days, but by your application date this window will have reset — it does not affect your citizenship calculation"
     },
     "chart": {
       "title": "Rolling Absence Chart",

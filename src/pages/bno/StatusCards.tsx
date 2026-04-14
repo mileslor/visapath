@@ -216,66 +216,68 @@ export default function StatusCards({ calc }: Props) {
         </div>
 
         <div className="space-y-3">
-          {citizenship.isDelayed ? (
-            /* Delayed: show projected values at the pushed-back date */
-            <>
-              <p className="text-xs text-slate-400">
-                📊 {t('bno.citizenship.projectedAsOf')} {formatDate(citizenshipDateStr, lang)}
+          {/* Projected values at application date — always shown as primary */}
+          <p className="text-xs text-slate-400">
+            📊 {t('bno.citizenship.projectedAsOf')} {formatDate(citizenshipDateStr, lang)}
+          </p>
+          <div>
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-xs text-slate-600">{t('bno.citizenship.projected12months')}</span>
+              <span className={`text-xs font-semibold ${
+                citizenship.projectedAbsenceLast12 > 90 ? 'text-red-600' :
+                citizenship.projectedAbsenceLast12 > 70 ? 'text-amber-600' : 'text-green-600'
+              }`}>
+                {citizenship.projectedAbsenceLast12} / 90 {t('bno.days')}
+              </span>
+            </div>
+            <ProgressBar value={citizenship.projectedAbsenceLast12} max={90} danger={70} />
+          </div>
+          <div>
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-xs text-slate-600">{t('bno.citizenship.projected5years')}</span>
+              <span className={`text-xs font-semibold ${
+                citizenship.projectedAbsenceLast5 > 450 ? 'text-red-600' :
+                citizenship.projectedAbsenceLast5 > 360 ? 'text-amber-600' : 'text-green-600'
+              }`}>
+                {citizenship.projectedAbsenceLast5} / 450 {t('bno.days')}
+              </span>
+            </div>
+            <ProgressBar value={citizenship.projectedAbsenceLast5} max={450} danger={360} />
+          </div>
+
+          {/* Today's rolling values — secondary reference */}
+          <div className="pt-2 border-t border-slate-100 space-y-2">
+            <p className="text-xs text-slate-400">{t('bno.citizenship.todayRef')}</p>
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-xs text-slate-500">{t('bno.citizenship.last12months')}</span>
+                <span className={`text-xs font-semibold ${
+                  citizenship.absenceLast12Months > 90 ? 'text-red-400' :
+                  citizenship.absenceLast12Months > 70 ? 'text-amber-400' : 'text-slate-400'
+                }`}>
+                  {citizenship.absenceLast12Months} / 90 {t('bno.days')}
+                </span>
+              </div>
+              <ProgressBar value={citizenship.absenceLast12Months} max={90} danger={70} />
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-xs text-slate-500">{t('bno.citizenship.last5years')}</span>
+                <span className={`text-xs font-semibold ${
+                  citizenship.absenceLast5Years > 450 ? 'text-red-400' :
+                  citizenship.absenceLast5Years > 360 ? 'text-amber-400' : 'text-slate-400'
+                }`}>
+                  {citizenship.absenceLast5Years} / 450 {t('bno.days')}
+                </span>
+              </div>
+              <ProgressBar value={citizenship.absenceLast5Years} max={450} danger={360} />
+            </div>
+            {citizenship.absenceLast12Months > 90 && !citizenship.isDelayed && (
+              <p className="text-xs text-blue-600 bg-blue-50 rounded-lg px-3 py-2">
+                ℹ️ {t('bno.citizenship.todayOverLimitNote')}
               </p>
-              <div>
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs text-slate-600">{t('bno.citizenship.projected12months')}</span>
-                  <span className={`text-xs font-semibold ${
-                    citizenship.projectedAbsenceLast12 > 90 ? 'text-red-600' :
-                    citizenship.projectedAbsenceLast12 > 70 ? 'text-amber-600' : 'text-green-600'
-                  }`}>
-                    {citizenship.projectedAbsenceLast12} / 90 {t('bno.days')}
-                  </span>
-                </div>
-                <ProgressBar value={citizenship.projectedAbsenceLast12} max={90} danger={70} />
-              </div>
-              <div>
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs text-slate-600">{t('bno.citizenship.projected5years')}</span>
-                  <span className={`text-xs font-semibold ${
-                    citizenship.projectedAbsenceLast5 > 450 ? 'text-red-600' :
-                    citizenship.projectedAbsenceLast5 > 360 ? 'text-amber-600' : 'text-green-600'
-                  }`}>
-                    {citizenship.projectedAbsenceLast5} / 450 {t('bno.days')}
-                  </span>
-                </div>
-                <ProgressBar value={citizenship.projectedAbsenceLast5} max={450} danger={360} />
-              </div>
-            </>
-          ) : (
-            /* Not delayed: show current rolling values as status tracker */
-            <>
-              <div>
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs text-slate-600">{t('bno.citizenship.last12months')}</span>
-                  <span className={`text-xs font-semibold ${
-                    citizenship.absenceLast12Months > 90 ? 'text-red-600' :
-                    citizenship.absenceLast12Months > 70 ? 'text-amber-600' : 'text-green-600'
-                  }`}>
-                    {citizenship.absenceLast12Months} / 90 {t('bno.days')}
-                  </span>
-                </div>
-                <ProgressBar value={citizenship.absenceLast12Months} max={90} danger={70} />
-              </div>
-              <div>
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs text-slate-600">{t('bno.citizenship.last5years')}</span>
-                  <span className={`text-xs font-semibold ${
-                    citizenship.absenceLast5Years > 450 ? 'text-red-600' :
-                    citizenship.absenceLast5Years > 360 ? 'text-amber-600' : 'text-green-600'
-                  }`}>
-                    {citizenship.absenceLast5Years} / 450 {t('bno.days')}
-                  </span>
-                </div>
-                <ProgressBar value={citizenship.absenceLast5Years} max={450} danger={360} />
-              </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
