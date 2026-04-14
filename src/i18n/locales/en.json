@@ -55,7 +55,8 @@
       "exceeded": "Limit exceeded",
       "totalAbsence": "Total absence",
       "clockFromApproval": "5-year clock starts from visa approval date (CR 2.1)",
-      "preArrivalAbsence": "pre-arrival absence counted"
+      "preArrivalAbsence": "pre-arrival absence counted",
+      "delayed": "ILR application date pushed back — must wait for violations to age out of the 5-year lookback window"
     },
     "citizenship": {
       "title": "British Citizenship",

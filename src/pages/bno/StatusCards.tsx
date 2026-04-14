@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { subYears } from 'date-fns'
+import { subYears, subDays, isAfter } from 'date-fns'
 import type { BnoCalculation } from '../../lib/bno/types'
 import { formatDate } from '../../lib/bno/calculator'
 import { downloadIcs } from '../../lib/ics'
@@ -52,9 +52,11 @@ export default function StatusCards({ calc }: Props) {
   const lang = i18n.language
 
   // B1 exam prep date = ILR eligible date - 2 years
-  const b1PrepDate = subYears(ilr.eligibleDate, 2)
+  const isIlrDelayed = isAfter(ilr.actualEligibleDate, ilr.eligibleDate)
+  const b1PrepDate = subYears(ilr.actualEligibleDate, 2)
   const b1DateStr = b1PrepDate.toISOString().split('T')[0]
   const ilrDateStr = ilr.earliestApplicationDate.toISOString().split('T')[0]
+  const ilrOriginalDateStr = subDays(ilr.eligibleDate, 28).toISOString().split('T')[0]
   const citizenshipDateStr = citizenship.actualEligibleDate.toISOString().split('T')[0]
   const citizenshipBaseDateStr = citizenship.eligibleDate.toISOString().split('T')[0]
 
@@ -122,9 +124,17 @@ export default function StatusCards({ calc }: Props) {
                   {formatDate(ilrDateStr, lang)}
                   <span className="text-slate-400 ml-1">-28{t('bno.days')}</span>
                 </p>
+                {isIlrDelayed && (
+                  <p className="text-xs text-red-400 line-through mb-1">{formatDate(ilrOriginalDateStr, lang)}</p>
+                )}
                 <CalBtn onClick={addIlrCal} label={t('bno.cal.add')} />
               </div>
             </div>
+            {isIlrDelayed && (
+              <p className="text-xs text-amber-700 bg-amber-50 rounded-lg px-3 py-2">
+                ⚠️ {t('bno.ilr.delayed')}
+              </p>
+            )}
             <div className="text-xs text-slate-400 px-0.5 space-y-0.5">
               <p>{t('bno.ilr.qualifyingDate')}: {formatDate(ilr.eligibleDate.toISOString().split('T')[0], lang)}</p>
               {ilr.qualifyingStartIsApproval && (

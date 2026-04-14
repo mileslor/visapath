@@ -55,7 +55,8 @@
       "exceeded": "超出上限",
       "totalAbsence": "總離境日數",
       "clockFromApproval": "5年資格由簽證批出日起計（CR 2.1）",
-      "preArrivalAbsence": "抵英前離境日數已計入"
+      "preArrivalAbsence": "抵英前離境日數已計入",
+      "delayed": "ILR 申請日期因超出離境上限而延後，需等至違規日數移出 5 年回望窗口"
     },
     "citizenship": {
       "title": "英國國籍",

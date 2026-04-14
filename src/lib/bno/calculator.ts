@@ -59,22 +59,27 @@ function absenceInRange(trips: Trip[], rangeStart: Date, rangeEnd: Date): number
 /**
  * Check rolling 12-month windows for ILR violations (>180 days).
  * Uses daily sampling for accuracy — worst window often falls between month boundaries.
+ * Scans up to today (or latest trip return) so recent violations are caught even if they
+ * fall after the original 5-year qualifying date.
+ * Returns lastViolationDay: the last day where the rolling-12m window exceeded 180 days.
+ * This is used to determine when the violation ages out of the 5-year ILR lookback window.
  */
 function checkRollingViolations(
   trips: Trip[],
   qualifyingStart: Date,
-  qualifyingEnd: Date,
-): { violations: PeriodViolation[]; maxAbsence: number; worstPeriodStart: Date; worstPeriodEnd: Date } {
+): { violations: PeriodViolation[]; maxAbsence: number; worstPeriodStart: Date; worstPeriodEnd: Date; lastViolationDay: Date | null } {
   let maxAbsence = 0
   let worstPeriodStart = qualifyingStart
   let worstPeriodEnd = qualifyingStart
+  let lastViolationDay: Date | null = null
 
-  // Include future planned return dates so entered trips are fully evaluated
+  // Scan up to today or latest trip return — do NOT cap at qualifyingEnd so violations
+  // after the 5-year mark are still captured for the aging-out calculation.
   const today = new Date()
   const latestReturn = trips.length > 0
     ? new Date(Math.max(...trips.map(t => parseISO(t.returnDate).getTime())))
     : today
-  const checkEnd = dateMin([qualifyingEnd, dateMax([today, latestReturn])])
+  const checkEnd = dateMax([today, latestReturn])
 
   // Daily sampling for accuracy
   let cursor = addYears(qualifyingStart, 1)
@@ -82,6 +87,9 @@ function checkRollingViolations(
     const windowStart = subYears(cursor, 1)
     const wStart = dateMax([windowStart, qualifyingStart])
     const absence = absenceInRange(trips, wStart, cursor)
+    if (absence > 180) {
+      lastViolationDay = new Date(cursor)
+    }
     if (absence > maxAbsence) {
       maxAbsence = absence
       worstPeriodStart = wStart
@@ -99,7 +107,7 @@ function checkRollingViolations(
       }]
     : []
 
-  return { violations, maxAbsence, worstPeriodStart, worstPeriodEnd }
+  return { violations, maxAbsence, worstPeriodStart, worstPeriodEnd, lastViolationDay }
 }
 
 /**
@@ -187,17 +195,27 @@ export function calculate(
 
   // === ILR ===
   const ilrEligibleDate = addYears(qualifyingStart, 5)
-  const earliestApplicationDate = subDays(ilrEligibleDate, 28)
-  const { violations, maxAbsence } = checkRollingViolations(sortedTrips, qualifyingStart, ilrEligibleDate)
+  const { violations, maxAbsence, lastViolationDay } = checkRollingViolations(sortedTrips, qualifyingStart)
   const totalAbsence = absenceInRange(sortedTrips, qualifyingStart, today)
+
+  // If there were violations, the ILR date is pushed forward until the last violation day
+  // ages out of the 5-year lookback window.
+  // Reasoning: ILR check covers [applicationDate - 5years, applicationDate].
+  // The last violation day (lVD) must be BEFORE applicationDate - 5years,
+  // i.e., applicationDate > lVD + 5years, so actualILRDate = lVD + 5years + 1 day.
+  const actualILRDate = lastViolationDay
+    ? dateMax([ilrEligibleDate, addDays(addYears(lastViolationDay, 5), 1)])
+    : ilrEligibleDate
+  const earliestApplicationDate = subDays(actualILRDate, 28)
 
   const ilr: IlrResult = {
     eligibleDate: ilrEligibleDate,
+    actualEligibleDate: actualILRDate,
     earliestApplicationDate,
     qualifyingStart,
     qualifyingStartIsApproval,
     preArrivalDays,
-    isEligible: !isAfter(earliestApplicationDate, today) && violations.length === 0,
+    isEligible: !isAfter(earliestApplicationDate, today),
     daysUntilEligible: Math.max(0, differenceInDays(earliestApplicationDate, today)),
     maxAbsenceInAnyPeriod: maxAbsence,
     violations,
@@ -205,8 +223,8 @@ export function calculate(
   }
 
   // === Citizenship ===
-  // Base eligible date: ILR + 1 year minimum
-  const citizenshipEligibleDate = addYears(ilrEligibleDate, 1)
+  // Base eligible date: ILR + 1 year minimum (use actualILRDate so it compounds correctly)
+  const citizenshipEligibleDate = addYears(actualILRDate, 1)
 
   // Find actual eligible date: earliest date ≥ base where absence requirements are met.
   // Scan day by day up to 5 years forward — catches cases where current/planned trips
@@ -223,8 +241,13 @@ export function calculate(
     return maxDate
   }
 
-  const actualCitizenshipDate = findActualCitizenshipDate(citizenshipEligibleDate)
-  const isDelayed = isAfter(actualCitizenshipDate, citizenshipEligibleDate)
+  // First compute the historical first-eligible date (from base) for isDelayed check.
+  // Then compute from max(base, today) — this handles the case where the base date has
+  // already passed but the user is currently over the limit (e.g. 100 days in last 12m).
+  // The "actual" date we care about for countdown is: when can I NEXT apply from today?
+  const firstEligibleDate = findActualCitizenshipDate(citizenshipEligibleDate)
+  const actualCitizenshipDate = findActualCitizenshipDate(dateMax([citizenshipEligibleDate, today]))
+  const isDelayed = isAfter(firstEligibleDate, citizenshipEligibleDate)
 
   // Projected absence AT the actual eligible date (what the officer will see)
   const projectedAbsenceLast12 = absenceInRange(sortedTrips, subYears(actualCitizenshipDate, 1), actualCitizenshipDate)

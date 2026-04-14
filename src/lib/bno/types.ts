@@ -25,8 +25,9 @@ export interface RollingDataPoint {
 }
 
 export interface IlrResult {
-  eligibleDate: Date            // 5-year qualifying date
-  earliestApplicationDate: Date // eligibleDate - 28 days
+  eligibleDate: Date            // 5-year qualifying date (original, not pushed)
+  actualEligibleDate: Date      // pushed forward if violations aged out (may equal eligibleDate)
+  earliestApplicationDate: Date // actualEligibleDate - 28 days
   qualifyingStart: Date         // approval date (if used) or arrival date
   qualifyingStartIsApproval: boolean
   preArrivalDays: number        // absence days before arriving in UK
