@@ -97,7 +97,7 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
     try {
       const shareData = { approvalDate, arrivalDate, trips }
       const encoded = btoa(encodeURIComponent(JSON.stringify(shareData)))
-      const url = `${window.location.origin}/?share=${encoded}`
+      const url = `${window.location.origin}/bno?share=${encoded}`
       navigator.clipboard.writeText(url).then(() => {
         alert(t('bno.csv.shareCopied'))
       }).catch(() => {
