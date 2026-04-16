@@ -150,25 +150,34 @@ function buildRollingData(
   return data
 }
 
+/**
+ * Returns true if the person was absent (outside UK) on the given date.
+ * Departure and return days are counted as UK days, so absence days are dep+1 to ret-1.
+ */
+function isAbsentOnDate(trips: Trip[], date: Date): boolean {
+  return absenceInRange(trips, date, date) > 0
+}
+
 export function calculate(
   arrivalDate: string,
   trips: Trip[],
   chartOpts: ChartOptions = { horizonMonths: 0 },
   approvalDate?: string,
+  isLOTR?: boolean,
 ): BnoCalculation {
   const arrival = parseISO(arrivalDate)
   const today = new Date()
 
   // === Determine qualifying start (Appendix Continuous Residence CR 2.1) ===
-  // If approval date exists and gap to arrival ≤ 180 days:
-  //   - 5-year clock starts from approval date
-  //   - Days from approval to arrival count as absence
-  // Otherwise: clock starts from arrival date
+  // LOTR: qualifying period always starts from arrival date (no pre-arrival absence).
+  // BNO Overseas: if gap between approval and arrival ≤ 180 days, clock starts from
+  //   approval date and the gap counts as absence.
+  // Otherwise: clock starts from arrival date.
   let qualifyingStart = arrival
   let qualifyingStartIsApproval = false
   let preArrivalDays = 0
 
-  if (approvalDate && approvalDate.length >= 10) {
+  if (!isLOTR && approvalDate && approvalDate.length >= 10) {
     const approval = parseISO(approvalDate)
     const gapDays = differenceInDays(arrival, approval)
     if (gapDays > 0 && gapDays <= 180) {
@@ -226,13 +235,23 @@ export function calculate(
   // Base eligible date: ILR + 1 year minimum (use actualILRDate so it compounds correctly)
   const citizenshipEligibleDate = addYears(actualILRDate, 1)
 
-  // Find actual eligible date: earliest date ≥ base where absence requirements are met.
+  // Find actual eligible date: earliest date ≥ base where all three absence requirements are met.
   // Scan day by day up to 5 years forward — catches cases where current/planned trips
   // push the application window out.
+  // Condition A: last 12 months absence ≤ 90 days
+  // Condition B: last 5 years absence ≤ 450 days
+  // Condition C: applicant must have been physically present in the UK on the date
+  //              exactly 5 years before the application date (British Nationality Act 1981)
   function findActualCitizenshipDate(baseDate: Date): Date {
     const maxDate = addYears(baseDate, 5)
     let cursor = baseDate
     while (!isAfter(cursor, maxDate)) {
+      const fiveYearsAgo = subYears(cursor, 5)
+      // Condition C: must be in UK on the date 5 years before application
+      if (isAbsentOnDate(sortedTrips, fiveYearsAgo)) {
+        cursor = addDays(cursor, 1)
+        continue
+      }
       const a12 = absenceInRange(sortedTrips, subYears(cursor, 1), cursor)
       const a5 = absenceInRange(sortedTrips, subYears(cursor, 5), cursor)
       if (a12 <= 90 && a5 <= 450) return cursor

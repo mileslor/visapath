@@ -19,6 +19,8 @@
   "bno": {
     "title": "BNO Visa — Absence Calculator",
     "subtitle": "Track your absences from the UK to plan for ILR and British citizenship",
+    "isLOTR": "LOTR (Leave Outside The Rules — applied overseas)",
+    "isLOTRHint": "LOTR: Your 5-year qualifying period starts from your UK arrival date. No approval date needed, and the pre-arrival gap does not count as absence.",
     "approvalDate": "Visa Approval Date",
     "arrivalDate": "UK Arrival Date",
     "approvalDateHint": "If your arrival was within 180 days of visa approval, the 5-year qualifying period starts from the approval date (CR 2.1). Pre-arrival days count as absence.",

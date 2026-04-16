@@ -4,7 +4,7 @@ const STORAGE_KEY = 'visapath-profiles'
 const LEGACY_KEY = 'visapath-bno-data'
 
 function emptyData(): BnoData {
-  return { approvalDate: '', arrivalDate: '', trips: [] }
+  return { approvalDate: '', arrivalDate: '', isLOTR: false, trips: [] }
 }
 
 function createProfile(name: string): Profile {
@@ -75,6 +75,7 @@ export function addProfileWithData(store: ProfileStore, name: string, data: BnoD
     data: {
       approvalDate: data.approvalDate || '',
       arrivalDate: data.arrivalDate || '',
+      isLOTR: data.isLOTR ?? false,
       trips: data.trips.map(t => ({ ...t, id: crypto.randomUUID() })),
     },
   }
@@ -90,6 +91,7 @@ export function duplicateProfile(store: ProfileStore, sourceId: string, nameSuff
     data: {
       approvalDate: source.data.approvalDate,
       arrivalDate: source.data.arrivalDate,
+      isLOTR: source.data.isLOTR ?? false,
       trips: source.data.trips.map(t => ({ ...t, id: crypto.randomUUID() })),
     },
   }

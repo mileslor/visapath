@@ -82,7 +82,7 @@ export default function BnoPage() {
   const calc = useMemo(() => {
     if (!data.arrivalDate || data.arrivalDate.length < 10) return null
     try {
-      return calculate(data.arrivalDate, data.trips, chartOpts, data.approvalDate)
+      return calculate(data.arrivalDate, data.trips, chartOpts, data.approvalDate, data.isLOTR)
     } catch { return null }
   }, [data, chartOpts])
 
@@ -147,33 +147,55 @@ export default function BnoPage() {
 
       {/* Dates + CSV */}
       <div className="bg-white rounded-2xl border border-slate-200 p-5 mb-6">
+        {/* LOTR toggle */}
+        <label className="flex items-center gap-2.5 mb-4 cursor-pointer w-fit group">
+          <input
+            type="checkbox"
+            checked={data.isLOTR ?? false}
+            onChange={e => updateData(prev => ({ ...prev, isLOTR: e.target.checked }))}
+            className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-400 cursor-pointer"
+          />
+          <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900 select-none">
+            {t('bno.isLOTR')}
+          </span>
+        </label>
+        {data.isLOTR && (
+          <p className="text-xs text-blue-600 bg-blue-50 rounded-lg px-3 py-2 mb-4">
+            {t('bno.isLOTRHint')}
+          </p>
+        )}
+
         <div className="flex flex-wrap gap-4 items-end">
+            {!data.isLOTR && (
+              <>
+                <div>
+                  <label className="block text-xs font-medium text-slate-500 mb-1 uppercase tracking-wide">
+                    1️⃣ {t('bno.approvalDate')}
+                  </label>
+                  <input
+                    type="date"
+                    value={data.approvalDate}
+                    onChange={e => updateData(prev => ({ ...prev, approvalDate: e.target.value }))}
+                    className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  />
+                </div>
+                <div className="text-slate-300 text-lg self-center pb-1">→</div>
+              </>
+            )}
             <div>
               <label className="block text-xs font-medium text-slate-500 mb-1 uppercase tracking-wide">
-                1️⃣ {t('bno.approvalDate')}
-              </label>
-              <input
-                type="date"
-                value={data.approvalDate}
-                onChange={e => updateData(prev => ({ ...prev, approvalDate: e.target.value }))}
-                className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-              />
-            </div>
-            <div className="text-slate-300 text-lg self-center pb-1">→</div>
-            <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1 uppercase tracking-wide">
-                2️⃣ {t('bno.arrivalDate')}
+                {data.isLOTR ? '1️⃣' : '2️⃣'} {t('bno.arrivalDate')}
               </label>
               <input
                 type="date"
                 value={data.arrivalDate}
-                min={data.approvalDate || undefined}
+                min={!data.isLOTR ? (data.approvalDate || undefined) : undefined}
                 onChange={e => updateData(prev => ({ ...prev, arrivalDate: e.target.value }))}
                 className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
               />
             </div>
           </div>
-        {data.approvalDate && data.arrivalDate && (
+        {!data.isLOTR && data.approvalDate && data.arrivalDate && (
           <p className="text-xs text-slate-400 mt-3">{t('bno.approvalDateHint')}</p>
         )}
       </div>

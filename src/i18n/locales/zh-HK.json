@@ -19,6 +19,8 @@
   "bno": {
     "title": "BNO 簽證 — 離境日數計算器",
     "subtitle": "追蹤離境記錄，計劃 ILR 及英籍申請",
+    "isLOTR": "LOTR（海外申請，抵英前獲批）",
+    "isLOTRHint": "LOTR（Leave Outside The Rules）：5 年居留資格由抵英日起計，無需輸入批簽日期，批簽至抵英期間亦不計為離境日數。",
     "approvalDate": "簽證批出日期",
     "arrivalDate": "抵達英國日期",
     "approvalDateHint": "如抵英日期在批簽後 180 日內，5年資格期由批簽日起計（CR 2.1），批簽至抵英期間計算為離境日數。",

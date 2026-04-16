@@ -9,6 +9,7 @@ export interface Trip {
 export interface BnoData {
   approvalDate: string   // BNO visa approval date YYYY-MM-DD
   arrivalDate: string    // UK arrival date YYYY-MM-DD
+  isLOTR?: boolean       // Leave Outside The Rules — qualifying period starts from arrival date
   trips: Trip[]
 }
 
