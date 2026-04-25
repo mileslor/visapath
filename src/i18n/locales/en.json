@@ -54,6 +54,11 @@
       "desc": "Check eligibility for BC, Ontario, Alberta, Saskatchewan PNP streams",
       "btn": "Check eligibility"
     },
+    "rnipCard": {
+      "title": "Rural & Northern Immigration Pilot",
+      "desc": "Check RNIP eligibility and explore participating communities across Canada",
+      "btn": "Check eligibility"
+    },
     "canadaStudentCard": {
       "title": "Canada Study Permit",
       "desc": "Requirements and funding calculator for Canadian study permit",
@@ -854,5 +859,73 @@
       "info": "Other provinces and territories (Manitoba, Nova Scotia, New Brunswick, PEI, NL, YT, NT, NU) also have PNP programs. Each has unique streams and requirements. Visit the official IRCC website for details on all provincial programs."
     },
     "disclaimer": "PNP rules change frequently. Always check the official provincial immigration website and IRCC for current requirements."
+  },
+  "rnip": {
+    "title": "Rural & Northern Immigration Pilot (RNIP)",
+    "subtitle": "Check your eligibility and find a participating community",
+    "statusWarning": "Program Status Notice",
+    "statusDesc": "The RNIP program was set to expire in December 2024. It may have been extended or replaced. Please verify current status on the official IRCC website before applying.",
+    "eligible": "Meets basic RNIP eligibility criteria",
+    "inProgress": "Not yet meeting all criteria",
+    "metCount": "{{met}} of {{total}} criteria met",
+    "hasJobOfferNote": "Job offer strengthens your community recommendation!",
+    "section": {
+      "work": "Work Experience",
+      "language": "Language Proficiency (CLB)",
+      "education": "Education",
+      "other": "Other Requirements"
+    },
+    "field": {
+      "nocLevel": "NOC Level",
+      "workYears": "Years of Work Experience",
+      "workHours": "Total Hours (last 3 years)",
+      "clb": "CLB Level",
+      "education": "Highest Education",
+      "eca": "Has Educational Credential Assessment (ECA)",
+      "ecaHint": "Issued by a designated body (e.g. WES, ICAS)",
+      "funds": "Has sufficient settlement funds",
+      "fundsHint": "Based on family size; similar to Express Entry requirements",
+      "jobOffer": "Has a job offer from a participating community employer",
+      "jobOfferHint": "Full-time, non-seasonal job offer is a strong advantage",
+      "communityLink": "Connection to a participating community",
+      "communityLinkHint": "Having a connection to a community strengthens your application"
+    },
+    "expRequirement": "Minimum 1 year (1,560 hours) of continuous full-time work experience required",
+    "langRequirement": "Your NOC level requires CLB {{min}} or higher",
+    "ecaNote": "ECA required for post-secondary education obtained outside Canada",
+    "noc": {
+      "0A": "NOC 0 / A – Managers & Professionals",
+      "B": "NOC B – Technical & Skilled Trades",
+      "CD": "NOC C / D – Semi-skilled & Entry Level"
+    },
+    "clb": {
+      "none": "Not tested / Below CLB 4"
+    },
+    "edu": {
+      "highSchool": "High School Diploma",
+      "college": "College Diploma / Certificate",
+      "bachelors": "Bachelor's Degree",
+      "masters": "Master's Degree",
+      "phd": "Doctorate (PhD)"
+    },
+    "link": {
+      "none": "No specific connection",
+      "family": "Family member in community",
+      "study": "Studied in community",
+      "work": "Worked in community",
+      "travel": "Visited / travelled to community"
+    },
+    "province": {
+      "all": "All Provinces"
+    },
+    "communities": "Participating Communities",
+    "population": "Pop.",
+    "communityNote": "Each community sets its own criteria and intake rounds. Contact communities directly for current openings.",
+    "nextSteps": "Next Steps",
+    "step1": "Identify 1–3 communities that match your skills and job opportunities",
+    "step2": "Contact the community immigration representative directly",
+    "step3": "Apply to the community and receive a recommendation letter",
+    "step4": "Submit PR application to IRCC with the community recommendation",
+    "disclaimer": "This tool is for reference only. RNIP program details and community participation may change. Always verify current information on the IRCC official website."
   }
 }

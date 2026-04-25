@@ -15,6 +15,7 @@ import AuStudentPage from './pages/australia/AuStudentPage'
 import Employer186Page from './pages/australia/Employer186Page'
 import CriticalSkillsPage from './pages/ireland/CriticalSkillsPage'
 import Stamp4Page from './pages/ireland/Stamp4Page'
+import RnipPage from './pages/canada/RnipPage'
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/australia/186" element={<Employer186Page />} />
           <Route path="/ireland/critical-skills" element={<CriticalSkillsPage />} />
           <Route path="/ireland/stamp4" element={<Stamp4Page />} />
+          <Route path="/canada/rnip" element={<RnipPage />} />
         </Routes>
       </main>
       <Footer />

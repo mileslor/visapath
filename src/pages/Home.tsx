@@ -109,6 +109,15 @@ const COUNTRIES: CountrySection[] = [
         borderColor: 'border-emerald-200',
         active: true as const,
       },
+      {
+        key: 'rnip',
+        icon: '🏘️',
+        path: '/canada/rnip',
+        color: 'from-rose-600 to-rose-800',
+        bgLight: 'bg-rose-50',
+        borderColor: 'border-rose-200',
+        active: true as const,
+      },
     ],
   },
   {

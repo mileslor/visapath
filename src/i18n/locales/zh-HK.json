@@ -54,6 +54,11 @@
       "desc": "查閱 BC、安大略、亞伯達、薩省 PNP 途徑資格",
       "btn": "查閱資格"
     },
+    "rnipCard": {
+      "title": "農村及北部移民試驗計劃",
+      "desc": "查閱 RNIP 資格及瀏覽加拿大參與社區",
+      "btn": "查閱資格"
+    },
     "canadaStudentCard": {
       "title": "加拿大學習許可",
       "desc": "加拿大學習許可要求及資金計算器",
@@ -855,5 +860,73 @@
       "info": "其他省份及地區（曼尼托巴省、新斯科舍省、新不倫瑞克省、愛德華王子島省、紐芬蘭、育空、西北地區、努納武特）亦設有 PNP 計劃，各有獨特的移民途徑及要求。請瀏覽 IRCC 官方網站查閱各省詳情。"
     },
     "disclaimer": "PNP 規例頻繁更改。請向各省移民官方網站及 IRCC 查閱最新要求。"
+  },
+  "rnip": {
+    "title": "農村及北部移民試驗計劃（RNIP）",
+    "subtitle": "查閱資格要求並尋找參與社區",
+    "statusWarning": "計劃狀態通知",
+    "statusDesc": "RNIP 計劃預定於 2024 年 12 月屆滿，或已延期或被新計劃取代。申請前請在 IRCC 官方網站確認最新狀態。",
+    "eligible": "符合 RNIP 基本資格要求",
+    "inProgress": "尚未符合所有要求",
+    "metCount": "已達標 {{met}} / {{total}} 項",
+    "hasJobOfferNote": "持有工作邀請將大大加強社區推薦！",
+    "section": {
+      "work": "工作經驗",
+      "language": "語言能力（CLB）",
+      "education": "學歷",
+      "other": "其他要求"
+    },
+    "field": {
+      "nocLevel": "NOC 職業等級",
+      "workYears": "工作年資",
+      "workHours": "總工時（過去 3 年）",
+      "clb": "CLB 級別",
+      "education": "最高學歷",
+      "eca": "已取得教育資歷認證（ECA）",
+      "ecaHint": "須由指定機構發出（如 WES、ICAS）",
+      "funds": "持有充足定居資金",
+      "fundsHint": "按家庭人數計算，與 EE 要求相若",
+      "jobOffer": "已獲參與社區僱主工作邀請",
+      "jobOfferHint": "全職非季節性工作邀請為強大優勢",
+      "communityLink": "與參與社區的聯繫",
+      "communityLinkHint": "與社區有聯繫可加強申請"
+    },
+    "expRequirement": "需最少 1 年（1,560 小時）連續全職工作經驗",
+    "langRequirement": "你的 NOC 等級需要 CLB {{min}} 或以上",
+    "ecaNote": "在加拿大以外取得的大專學歷須提交 ECA 認證",
+    "noc": {
+      "0A": "NOC 0 / A – 管理人員及專業人士",
+      "B": "NOC B – 技術及技術工人",
+      "CD": "NOC C / D – 半技術及基層工人"
+    },
+    "clb": {
+      "none": "未測試 / CLB 4 以下"
+    },
+    "edu": {
+      "highSchool": "中學文憑",
+      "college": "大專文憑 / 證書",
+      "bachelors": "學士學位",
+      "masters": "碩士學位",
+      "phd": "博士學位（PhD）"
+    },
+    "link": {
+      "none": "無特定聯繫",
+      "family": "社區內有家庭成員",
+      "study": "曾在社區就讀",
+      "work": "曾在社區工作",
+      "travel": "曾到訪 / 旅遊該社區"
+    },
+    "province": {
+      "all": "所有省份"
+    },
+    "communities": "參與社區",
+    "population": "人口",
+    "communityNote": "各社區設有獨立申請標準及接受申請期。請直接聯絡社區移民代表了解最新開放情況。",
+    "nextSteps": "下一步",
+    "step1": "揀選 1–3 個符合你技能及工作機會的社區",
+    "step2": "直接聯絡社區移民代表",
+    "step3": "向社區提交申請並取得推薦信",
+    "step4": "連同社區推薦信向 IRCC 提交永居申請",
+    "disclaimer": "本工具僅供參考。RNIP 計劃詳情及社區參與情況可能隨時更改。請在 IRCC 官方網站核實最新資訊。"
   }
 }
