@@ -24,18 +24,66 @@
       "desc": "追蹤離境日數，計算 ILR 及英籍申請資格，支援圖表及 CSV 匯入/匯出。",
       "btn": "開啟計算器"
     },
-    "skilledWorkerCard": { "title": "Skilled Worker 簽證", "desc": "追蹤離境日數，計算 ILR 及入籍資格（5年連續居留）", "btn": "開啟計算器" },
-    "studentCard": { "title": "學生簽證" },
-    "familyCard": { "title": "家庭簽證", "desc": "追蹤離境日數，計算 ILR 及入籍資格（家庭類別）", "btn": "開啟計算器" },
-    "hmrcCard": { "title": "HMRC 稅務居民測試", "desc": "根據英國法定居民測試（SRT）判斷你的稅務居民身份", "btn": "開始測試" },
-    "expressEntryCard": { "title": "Express Entry CRS 計算機", "desc": "計算綜合排名系統（CRS）分數，對照最新邀請門檻", "btn": "開始計算" },
-    "pnpCard": { "title": "省提名計劃（PNP）" },
-    "canadaStudentCard": { "title": "加拿大學生簽證" },
-    "skilled189Card": { "title": "技術移民積分計算（189/190）", "desc": "計算澳洲技術移民積分，對照最新邀請門檻（最低 65 分）", "btn": "計算積分" },
-    "employer186Card": { "title": "僱主擔保（186/482）" },
-    "auStudentCard": { "title": "澳洲學生簽證" },
-    "criticalSkillsCard": { "title": "關鍵技術就業許可" },
-    "stamp4Card": { "title": "Stamp 4 居留許可" },
+    "skilledWorkerCard": {
+      "title": "Skilled Worker 簽證",
+      "desc": "追蹤離境日數，計算 ILR 及入籍資格（5年連續居留）",
+      "btn": "開啟計算器"
+    },
+    "studentCard": {
+      "title": "學生簽證",
+      "desc": "英國 Student Route 簽證要求核對表",
+      "btn": "查閱資格"
+    },
+    "familyCard": {
+      "title": "家庭簽證",
+      "desc": "追蹤離境日數，計算 ILR 及入籍資格（家庭類別）",
+      "btn": "開啟計算器"
+    },
+    "hmrcCard": {
+      "title": "HMRC 稅務居民測試",
+      "desc": "根據英國法定居民測試（SRT）判斷你的稅務居民身份",
+      "btn": "開始測試"
+    },
+    "expressEntryCard": {
+      "title": "Express Entry CRS 計算機",
+      "desc": "計算綜合排名系統（CRS）分數，對照最新邀請門檻",
+      "btn": "開始計算"
+    },
+    "pnpCard": {
+      "title": "省提名計劃",
+      "desc": "查閱 BC、安大略、亞伯達、薩省 PNP 途徑資格",
+      "btn": "查閱資格"
+    },
+    "canadaStudentCard": {
+      "title": "加拿大學習許可",
+      "desc": "加拿大學習許可要求及資金計算器",
+      "btn": "查閱資格"
+    },
+    "skilled189Card": {
+      "title": "技術移民積分計算（189/190）",
+      "desc": "計算澳洲技術移民積分，對照最新邀請門檻（最低 65 分）",
+      "btn": "計算積分"
+    },
+    "employer186Card": {
+      "title": "僱主提名（186類）",
+      "desc": "透過僱主提名取得永久居留——TRT 或直接申請",
+      "btn": "查閱資格"
+    },
+    "auStudentCard": {
+      "title": "學生簽證（500類）",
+      "desc": "澳洲學生簽證要求及資金計算器",
+      "btn": "查閱資格"
+    },
+    "criticalSkillsCard": {
+      "title": "關鍵技能就業許可",
+      "desc": "愛爾蘭 CSEP 資格核對工具",
+      "btn": "查閱資格"
+    },
+    "stamp4Card": {
+      "title": "Stamp 4 長期居留",
+      "desc": "查閱你取得愛爾蘭 Stamp 4 的途徑及時間表",
+      "btn": "查閱資格"
+    },
     "disclaimer": "此工具僅供參考，不構成法律意見。請以英國政府官方資料為準。"
   },
   "bno": {
@@ -236,7 +284,10 @@
       "ilrGuidanceLink": "ILR 申請指引"
     },
     "checklist": {
-      "stage": { "ilr": "ILR 申請", "citizenship": "入籍申請" },
+      "stage": {
+        "ilr": "ILR 申請",
+        "citizenship": "入籍申請"
+      },
       "reset": "重設",
       "allDone": "全部準備就緒！",
       "ilr": {
@@ -276,7 +327,10 @@
       "ilrGuidanceLink": "家庭 ILR 申請指引"
     },
     "checklist": {
-      "stage": { "ilr": "ILR 申請", "citizenship": "入籍申請" },
+      "stage": {
+        "ilr": "ILR 申請",
+        "citizenship": "入籍申請"
+      },
       "reset": "重設",
       "allDone": "全部準備就緒！",
       "ilr": {
@@ -426,8 +480,14 @@
       "reading": "閱讀",
       "writing": "寫作"
     },
-    "clb": { "none": "無 / 未達 CLB 4" },
-    "work": { "none": "無", "years": "年", "6plus": "6 年或以上" },
+    "clb": {
+      "none": "無 / 未達 CLB 4"
+    },
+    "work": {
+      "none": "無",
+      "years": "年",
+      "6plus": "6 年或以上"
+    },
     "additional": {
       "pnp": "省提名（PNP）",
       "pnpHint": "+600 分（幾乎保證獲邀）",
@@ -454,7 +514,11 @@
     "belowCutoff": "低於門檻",
     "cutoffHistory": "近期邀請門檻（189）",
     "disclaimer": "此工具僅供估算參考，實際積分以澳洲移民局計算為準。積分表可能定期更新。",
-    "section": { "core": "核心因素", "work": "工作經驗", "other": "其他加分" },
+    "section": {
+      "core": "核心因素",
+      "work": "工作經驗",
+      "other": "其他加分"
+    },
     "field": {
       "age": "年齡",
       "ageHint": "18-32歲得最高分（30分）",
@@ -475,7 +539,10 @@
       "bachelors": "學士或以上（+15）",
       "doctorate": "博士（+20）"
     },
-    "exp": { "none": "無", "years": "年或以上" },
+    "exp": {
+      "none": "無",
+      "years": "年或以上"
+    },
     "other": {
       "australianStudy": "澳洲學歷（2年或以上學習）",
       "australianStudyHint": "+5 分",
@@ -497,8 +564,12 @@
       "professionalYearHint": "+5 分"
     },
     "breakdown": {
-      "age": "年齡", "english": "英語", "overseasWork": "海外工作",
-      "auWork": "澳洲工作", "education": "學歷", "other": "其他"
+      "age": "年齡",
+      "english": "英語",
+      "overseasWork": "海外工作",
+      "auWork": "澳洲工作",
+      "education": "學歷",
+      "other": "其他"
     }
   },
   "footer": {
@@ -506,5 +577,283 @@
     "madeWith": "為社群用心製作",
     "feedback": "匯報問題 / 提交意見",
     "feedbackSubject": "VisaPath 意見反饋"
+  },
+  "ukStudent": {
+    "title": "英國學生簽證",
+    "subtitle": "Student Route 簽證資格核對表",
+    "eligible": "初步符合申請資格",
+    "inProgress": "請核對以下要求",
+    "requiredMet": "已滿足 {{met}} / {{total}} 項必要條件",
+    "required": "必要條件",
+    "optional": "可能需要",
+    "optionalHint": "視乎你的學科或國籍而定",
+    "disclaimer": "僅供參考，不構成法律意見。請以 UKVI 官方指引及移民顧問意見為準。",
+    "calc": {
+      "title": "資金要求計算器",
+      "location": "就讀地點",
+      "london": "倫敦（每月 £1,334）",
+      "outside": "倫敦以外（每月 £1,023）",
+      "months": "課程時長（月）",
+      "tuition": "每年學費（£）",
+      "formula": "£{{rate}} × {{months}} 個月 + 學費",
+      "note28days": "資金必須在申請前連續持有 28 日"
+    },
+    "criteria": {
+      "cas": "持有認可院校簽發的 CAS（入讀確認函）",
+      "casHint": "UKVI 認可院校發出的 Confirmation of Acceptance for Studies",
+      "funds": "資金充足（{{amount}}）",
+      "fundsHint": "根據就讀地點、課程時長及學費計算",
+      "english": "英語能力達標（UKVI IELTS 4.0+ 或同等資格）",
+      "englishHint": "必須為 UKVI 認可的考試（非一般 IELTS）",
+      "passport": "護照有效期充足",
+      "passportHint": "護照必須在整個課程期間有效",
+      "immigration": "沒有英國入境違規記錄",
+      "immigrationHint": "沒有逾期居留、欺詐或驅逐出境記錄",
+      "atas": "已取得 ATAS 審批（如需要）",
+      "atasHint": "部分涉及國家安全敏感學科的研究生課程需要",
+      "tb": "已完成結核病測試（如需要）",
+      "tbHint": "部分國籍申請人需要提供結核病測試證明"
+    }
+  },
+  "canadaStudent": {
+    "title": "加拿大學習許可",
+    "subtitle": "加拿大學習許可申請要求核對表",
+    "eligible": "初步符合申請資格",
+    "inProgress": "請核對以下要求",
+    "requiredMet": "已滿足 {{met}} / {{total}} 項必要條件",
+    "required": "必要條件",
+    "optional": "可能需要",
+    "optionalHint": "視乎你的國籍或就讀省份而定",
+    "disclaimer": "僅供參考。請以 IRCC 官方指引為準。",
+    "calc": {
+      "title": "資金要求計算器",
+      "province": "就讀省份",
+      "otherProvince": "其他省份（每年 CAD ,000）",
+      "quebec": "魁北克省（每年 CAD ,000）",
+      "tuition": "每年學費（CAD $）",
+      "formula": "學費 + 生活費（每年 {{living}}）+ 回程機票估算",
+      "note": "已包括約 CAD ,000 回程機票估算"
+    },
+    "criteria": {
+      "loa": "已獲指定學習機構（DLI）錄取通知書",
+      "loaHint": "必須來自 IRCC 認可的 Designated Learning Institution",
+      "funds": "資金充足（{{amount}}）",
+      "fundsHint": "學費 + 生活費 + 回程機票",
+      "passport": "護照有效",
+      "passportHint": "護照必須在學習期間有效",
+      "intent": "打算於學業完成後離開加拿大",
+      "intentHint": "必須證明係真正臨時入境者意圖",
+      "language": "語言能力證明",
+      "languageHint": "若授課語言為英語或法語，或可豁免",
+      "medical": "體格檢查（如需要）",
+      "medicalHint": "部分國籍或修讀健康相關課程的申請人需要",
+      "biometrics": "已提供生物特徵資料",
+      "biometricsHint": "大部分申請人需要提供生物特徵"
+    }
+  },
+  "auStudent": {
+    "title": "澳洲學生簽證（500類）",
+    "subtitle": "澳洲學生簽證申請要求核對表",
+    "eligible": "初步符合申請資格",
+    "inProgress": "請核對以下要求",
+    "requiredMet": "已滿足 {{met}} / {{total}} 項必要條件",
+    "required": "必要條件",
+    "disclaimer": "僅供參考。請以澳洲移民局官方指引為準。",
+    "calc": {
+      "title": "財務能力計算器",
+      "tuition": "每年學費（AUD $）",
+      "partner": "同行配偶/伴侶？",
+      "dependents": "隨行子女人數",
+      "yes": "有",
+      "no": "沒有",
+      "livingBase": "生活費：{{amt}}/年",
+      "partnerAmt": "配偶/伴侶：{{amt}}/年",
+      "childAmt": "{{n}} 位子女：{{amt}}/年"
+    },
+    "criteria": {
+      "cricos": "已在 CRICOS 認可院校登記入讀",
+      "cricosHint": "澳洲海外學生課程及機構公共登記冊認可院校",
+      "oshc": "已購買海外學生健康保險（OSHC）",
+      "oshcHint": "在澳洲就讀期間必須持有強制性健康保險",
+      "english": "英語能力達標（IELTS 5.5+ 或同等資格）",
+      "englishHint": "最低要求視乎院校及課程程度而異",
+      "genuine": "通過真實學生評估",
+      "genuineHint": "必須證明真正有意就讀，而非以就讀為名移民",
+      "health": "符合健康要求",
+      "healthHint": "可能需要接受體格檢查",
+      "character": "符合品格要求",
+      "characterHint": "沒有嚴重刑事定罪記錄"
+    }
+  },
+  "ie": {
+    "cs": {
+      "title": "愛爾蘭關鍵技能就業許可",
+      "subtitle": "愛爾蘭 CSEP 資格核對",
+      "eligible": "初步符合資格",
+      "inProgress": "請核對以下要求",
+      "requiredMet": "已滿足 {{met}} / {{total}} 項要求",
+      "occupation": "職業及薪酬",
+      "onCsol": "職業列於關鍵技能職業清單（CSOL）",
+      "onCsolHint": "請查閱 DETE 關鍵技能職業清單",
+      "salaryLabel": "年薪",
+      "perYear": "每年",
+      "thresholdA": "CSOL 職業年薪須達 {{amount}}",
+      "thresholdB": "非 CSOL 途徑年薪須達 {{amount}}",
+      "otherRequirements": "其他要求",
+      "pathwayA": "途徑 A：CSOL 職業",
+      "pathwayB": "途徑 B：高薪酬（任何職業）",
+      "pathwayADesc": "CSOL 職業 + 年薪 ≥ {{amount}} + 學位或 5 年經驗",
+      "pathwayBDesc": "任何職業（非排除職業）+ 年薪 ≥ {{amount}} + 學位或經驗",
+      "pathwayInfo": "適用途徑",
+      "criteria": {
+        "jobOffer": "已獲愛爾蘭僱主聘用邀請",
+        "jobOfferHint": "必須為有合約的真實工作邀請",
+        "qualification": "持有 Level 8+ 學位 或 5 年以上相關工作經驗",
+        "qualificationHint": "NFQ Level 8（榮譽學士）或同等國際資格",
+        "employer": "僱主已在稅務局登記",
+        "employerHint": "僱主必須在愛爾蘭登記，且稅務合規"
+      },
+      "disclaimer": "僅供參考。CSOL 及薪酬門檻可能更改。請查閱 DETE 官方網站。"
+    },
+    "stamp4": {
+      "title": "愛爾蘭 Stamp 4 長期居留",
+      "subtitle": "查閱你取得 Stamp 4 的路徑及時間表",
+      "eligible": "符合申請 Stamp 4 資格",
+      "eligibleDesc": "你已達到居留年期要求。請確保其他條件亦已符合。",
+      "immediateEligible": "即時符合 Stamp 4 資格",
+      "immediateDesc": "作為關鍵技能就業許可持有人的配偶/伴侶，你可立即申請。",
+      "notYet": "尚未符合資格",
+      "monthsLeft": "距離資格仍有約 {{months}} 個月",
+      "targetDate": "最早符合資格日期：{{date}}",
+      "otherAdvice": "請諮詢移民顧問以確定你取得 Stamp 4 的途徑。",
+      "currentStatus": "你現時的移民身份",
+      "startDate": "開始日期",
+      "startDateLabel": "取得現時許可的日期",
+      "otherRequirements": "其他要求",
+      "likelyEligible": "初步符合",
+      "years": "年",
+      "immediate": "即時",
+      "status": {
+        "criticalSkills": "關鍵技能就業許可持有人",
+        "generalPermit": "一般就業許可持有人",
+        "spouseCritical": "關鍵技能就業許可持有人的配偶/伴侶",
+        "stamp1g": "畢業生（Stamp 1G）",
+        "other": "其他移民身份"
+      },
+      "statusHint": {
+        "criticalSkills": "持關鍵技能就業許可在愛爾蘭工作",
+        "generalPermit": "持一般就業許可在愛爾蘭工作",
+        "spouseCritical": "你的配偶/伴侶持有關鍵技能就業許可",
+        "stamp1g": "已從愛爾蘭院校畢業，現持求職許可",
+        "other": "包括學生、難民、家庭團聚等身份"
+      },
+      "criteria": {
+        "continuous": "在愛爾蘭持續合法居留",
+        "continuousHint": "沒有中斷或非法居留期間",
+        "goodStanding": "沒有刑事定罪，信譽良好",
+        "goodStandingHint": "稅務合規，沒有嚴重刑事記錄"
+      },
+      "disclaimer": "僅供參考。移民規例經常更改。請向 INIS 查詢或諮詢顧問。"
+    }
+  },
+  "au186": {
+    "title": "澳洲僱主提名計劃（186類）",
+    "subtitle": "透過僱主提名取得永久居留權",
+    "eligible": "初步符合此途徑資格",
+    "inProgress": "請核對以下要求",
+    "requiredMet": "已滿足 {{met}} / {{total}} 項要求",
+    "selectStream": "選擇申請途徑",
+    "stream": {
+      "trt": "臨時居留過渡（TRT）",
+      "de": "直接申請（DE）"
+    },
+    "streamDesc": {
+      "trt": "已在澳洲持 TSS/457 為提名僱主工作 3 年以上",
+      "de": "從海外申請，或為提名僱主工作未滿 3 年"
+    },
+    "trt": {
+      "requirements": "TRT 途徑要求",
+      "inAustralia": "目前在澳洲境內",
+      "inAustraliaHint": "此途徑須在境內申請",
+      "threeYears": "已為提名僱主全職工作 3 年以上",
+      "threeYearsHint": "須持 TSS（482類）或 457 簽證",
+      "tssDollar": "提名職業與現職相符",
+      "tssDollarHint": "與 TSS 簽證上的職業相同",
+      "under45": "年齡未滿 45 歲",
+      "under45Hint": "部分職業可獲豁免",
+      "english": "英語：達基本水平（IELTS 6.0+ 或同等）",
+      "englishHint": "部分國籍護照持有人可獲豁免"
+    },
+    "de": {
+      "requirements": "直接申請途徑要求",
+      "skillsAssessment": "已獲相關機構技能評估通過",
+      "skillsAssessmentHint": "必須由澳洲相關技能評估機構評定",
+      "employerNomination": "僱主提名已獲移民局批准",
+      "employerNominationHint": "僱主必須先獲批准並申請提名",
+      "under45": "年齡未滿 45 歲",
+      "under45Hint": "部分情況可獲豁免",
+      "englishDe": "英語：達基本水平（IELTS 6.0+ 或同等）",
+      "englishDeHint": "大部分申請人需要",
+      "pointsNote": "直接申請途徑需要積分測試",
+      "pointsDesc": "你必須在 SkillSelect 積分測試中達 65 分或以上。使用澳洲積分計算器查看你的分數。",
+      "goToPoints": "前往澳洲積分計算器"
+    },
+    "disclaimer": "僅供參考。186 類簽證要求複雜。請諮詢持牌移民代理人。"
+  },
+  "pnp": {
+    "title": "加拿大省提名計劃（PNP）",
+    "subtitle": "查閱各省移民途徑的申請資格",
+    "benefit": "PNP 為 CRS 分數額外加 600 分",
+    "benefitDesc": "獲省份提名後，你的 Express Entry CRS 分數將加 600 分，幾乎確保收到申請邀請（ITA）。",
+    "profile": "你的基本資料",
+    "inExpressEntry": "目前在 Express Entry 候選人池中",
+    "inExpressEntryHint": "已遞交有效的 Express Entry 申請（含 CRS 分數）",
+    "selectProvince": "選擇省份",
+    "likelyEligible": "初步符合資格",
+    "checkRequirements": "查閱要求",
+    "province": {
+      "bc": "英屬哥倫比亞省",
+      "ontario": "安大略省",
+      "alberta": "亞伯達省",
+      "saskatchewan": "沙省",
+      "other": "其他省份"
+    },
+    "bc": {
+      "title": "BC PNP – 技術移民",
+      "jobOffer": "已獲 BC 省僱主聘用邀請",
+      "jobOfferHint": "全職、無限期（永久）或為項目期限聘用",
+      "nocAB": "職業屬 NOC TEER 0、1、2 或 3 類",
+      "nocABHint": "大部分專業、技術及技術行業職位均符合",
+      "workAuth": "目前獲授權在 BC 省工作（或在 Express Entry 中）",
+      "workAuthHint": "持有效 BC 省工作許可，或已遞交 Express Entry 申請（BCPNP Tech Pilot）",
+      "note": "BC PNP 另設 Tech Pilot 計劃，針對科技職業，需要 Express Entry 申請及符合資格的科技職位工作邀請。"
+    },
+    "ontario": {
+      "title": "OINP – 安大略省移民提名計劃",
+      "jobOffer": "已獲安大略省僱主聘用邀請",
+      "jobOfferHint": "永久全職職位",
+      "techOccupation": "職業在 OINP 科技職業清單內",
+      "techOccupationHint": "Tech Draw 針對特定科技行業 NOC 代碼",
+      "note": "OINP 抽籤不定期舉行。人力資本優先計劃直接從 Express Entry 候選人池中選取，毋需工作邀請。"
+    },
+    "alberta": {
+      "title": "AAIP – 亞伯達省移民計劃",
+      "jobOffer": "已獲亞伯達省僱主聘用邀請",
+      "jobOfferHint": "亞伯達省內全職永久職位",
+      "eeStream": "在 Express Entry 候選人池中，並符合亞伯達省 EE 計劃要求",
+      "eeStreamHint": "亞伯達省 EE 計劃優先選取與省份有聯繫的候選人",
+      "note": "亞伯達機會計劃（AOS）要求申請人已在省內持有效工作許可工作。"
+    },
+    "sask": {
+      "title": "SINP – 薩省移民提名計劃",
+      "jobOffer": "已獲薩省僱主聘用邀請",
+      "jobOfferHint": "全職永久職位",
+      "experience": "在提名職業有相關工作經驗",
+      "experienceHint": "在提名職業最少有 1 年工作經驗"
+    },
+    "other": {
+      "info": "其他省份及地區（曼尼托巴省、新斯科舍省、新不倫瑞克省、愛德華王子島省、紐芬蘭、育空、西北地區、努納武特）亦設有 PNP 計劃，各有獨特的移民途徑及要求。請瀏覽 IRCC 官方網站查閱各省詳情。"
+    },
+    "disclaimer": "PNP 規例頻繁更改。請向各省移民官方網站及 IRCC 查閱最新要求。"
   }
 }

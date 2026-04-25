@@ -24,18 +24,66 @@
       "desc": "Track absences, calculate ILR & citizenship eligibility with charts and import/export support.",
       "btn": "Open Calculator"
     },
-    "skilledWorkerCard": { "title": "Skilled Worker Visa", "desc": "Track absences and calculate ILR & citizenship eligibility (5-year continuous residence)", "btn": "Open Calculator" },
-    "studentCard": { "title": "Student Visa" },
-    "familyCard": { "title": "Family Visa", "desc": "Track absences and calculate ILR & citizenship eligibility (family route)", "btn": "Open Calculator" },
-    "hmrcCard": { "title": "HMRC Statutory Residence Test", "desc": "Determine your UK tax residence status using the Statutory Residence Test (SRT)", "btn": "Start Test" },
-    "expressEntryCard": { "title": "Express Entry CRS Calculator", "desc": "Calculate your Comprehensive Ranking System score and compare against recent draw cutoffs", "btn": "Calculate Score" },
-    "pnpCard": { "title": "Provincial Nominee Program (PNP)" },
-    "canadaStudentCard": { "title": "Canada Student Visa" },
-    "skilled189Card": { "title": "Skilled Migration Points (189/190)", "desc": "Calculate your Australian skilled migration points and compare against recent invitation cutoffs (minimum 65 points)", "btn": "Calculate Points" },
-    "employer186Card": { "title": "Employer Sponsored (186/482)" },
-    "auStudentCard": { "title": "Australia Student Visa" },
-    "criticalSkillsCard": { "title": "Critical Skills Employment Permit" },
-    "stamp4Card": { "title": "Stamp 4 Residence Permit" },
+    "skilledWorkerCard": {
+      "title": "Skilled Worker Visa",
+      "desc": "Track absences and calculate ILR & citizenship eligibility (5-year continuous residence)",
+      "btn": "Open Calculator"
+    },
+    "studentCard": {
+      "title": "Student Visa",
+      "desc": "Requirements checklist for the UK Student Route visa",
+      "btn": "Check eligibility"
+    },
+    "familyCard": {
+      "title": "Family Visa",
+      "desc": "Track absences and calculate ILR & citizenship eligibility (family route)",
+      "btn": "Open Calculator"
+    },
+    "hmrcCard": {
+      "title": "HMRC Statutory Residence Test",
+      "desc": "Determine your UK tax residence status using the Statutory Residence Test (SRT)",
+      "btn": "Start Test"
+    },
+    "expressEntryCard": {
+      "title": "Express Entry CRS Calculator",
+      "desc": "Calculate your Comprehensive Ranking System score and compare against recent draw cutoffs",
+      "btn": "Calculate Score"
+    },
+    "pnpCard": {
+      "title": "Provincial Nominee Program",
+      "desc": "Check eligibility for BC, Ontario, Alberta, Saskatchewan PNP streams",
+      "btn": "Check eligibility"
+    },
+    "canadaStudentCard": {
+      "title": "Canada Study Permit",
+      "desc": "Requirements and funding calculator for Canadian study permit",
+      "btn": "Check eligibility"
+    },
+    "skilled189Card": {
+      "title": "Skilled Migration Points (189/190)",
+      "desc": "Calculate your Australian skilled migration points and compare against recent invitation cutoffs (minimum 65 points)",
+      "btn": "Calculate Points"
+    },
+    "employer186Card": {
+      "title": "Employer Nomination (186)",
+      "desc": "Permanent residency through employer sponsorship — TRT or Direct Entry",
+      "btn": "Check eligibility"
+    },
+    "auStudentCard": {
+      "title": "Student Visa (500)",
+      "desc": "Requirements and funding calculator for Australian student visa",
+      "btn": "Check eligibility"
+    },
+    "criticalSkillsCard": {
+      "title": "Critical Skills Employment Permit",
+      "desc": "Eligibility checker for the Irish CSEP",
+      "btn": "Check eligibility"
+    },
+    "stamp4Card": {
+      "title": "Stamp 4 Long-Term Residence",
+      "desc": "Check your path and timeline to Irish Stamp 4",
+      "btn": "Check eligibility"
+    },
     "disclaimer": "This tool is for reference only and does not constitute legal advice. Always verify with official government sources."
   },
   "bno": {
@@ -235,7 +283,10 @@
       "ilrGuidanceLink": "ILR Application Guidance"
     },
     "checklist": {
-      "stage": { "ilr": "ILR Application", "citizenship": "Citizenship Application" },
+      "stage": {
+        "ilr": "ILR Application",
+        "citizenship": "Citizenship Application"
+      },
       "reset": "Reset",
       "allDone": "All items ready!",
       "ilr": {
@@ -275,7 +326,10 @@
       "ilrGuidanceLink": "Family ILR Guidance"
     },
     "checklist": {
-      "stage": { "ilr": "ILR Application", "citizenship": "Citizenship Application" },
+      "stage": {
+        "ilr": "ILR Application",
+        "citizenship": "Citizenship Application"
+      },
       "reset": "Reset",
       "allDone": "All items ready!",
       "ilr": {
@@ -425,8 +479,14 @@
       "reading": "Reading",
       "writing": "Writing"
     },
-    "clb": { "none": "None / Below CLB 4" },
-    "work": { "none": "None", "years": "year(s)", "6plus": "6 years or more" },
+    "clb": {
+      "none": "None / Below CLB 4"
+    },
+    "work": {
+      "none": "None",
+      "years": "year(s)",
+      "6plus": "6 years or more"
+    },
     "additional": {
       "pnp": "Provincial Nomination (PNP)",
       "pnpHint": "+600 points (near-guaranteed invitation)",
@@ -453,7 +513,11 @@
     "belowCutoff": "Below cutoff by",
     "cutoffHistory": "Recent Invitation Cutoffs (189)",
     "disclaimer": "For estimation purposes only. Actual points are assessed by the Department of Home Affairs. Points schedule may be updated periodically.",
-    "section": { "core": "Core Factors", "work": "Work Experience", "other": "Other Factors" },
+    "section": {
+      "core": "Core Factors",
+      "work": "Work Experience",
+      "other": "Other Factors"
+    },
     "field": {
       "age": "Age",
       "ageHint": "Age 18–32 earns maximum (30 points)",
@@ -474,7 +538,10 @@
       "bachelors": "Bachelor's degree or above (+15)",
       "doctorate": "Doctorate (+20)"
     },
-    "exp": { "none": "None", "years": "+ years" },
+    "exp": {
+      "none": "None",
+      "years": "+ years"
+    },
     "other": {
       "australianStudy": "Australian study requirement (2+ years)",
       "australianStudyHint": "+5 points",
@@ -496,8 +563,12 @@
       "professionalYearHint": "+5 points"
     },
     "breakdown": {
-      "age": "Age", "english": "English", "overseasWork": "Overseas work",
-      "auWork": "Australian work", "education": "Education", "other": "Other"
+      "age": "Age",
+      "english": "English",
+      "overseasWork": "Overseas work",
+      "auWork": "Australian work",
+      "education": "Education",
+      "other": "Other"
     }
   },
   "footer": {
@@ -505,5 +576,283 @@
     "madeWith": "Made with ❤️ for the community",
     "feedback": "Report a bug / suggest a feature",
     "feedbackSubject": "VisaPath Feedback"
+  },
+  "ukStudent": {
+    "title": "UK Student Visa",
+    "subtitle": "Student Route visa requirements checklist",
+    "eligible": "Likely eligible to apply",
+    "inProgress": "Check requirements below",
+    "requiredMet": "{{met}} / {{total}} required criteria met",
+    "required": "Required Criteria",
+    "optional": "May Be Required",
+    "optionalHint": "Depends on your subject or nationality",
+    "disclaimer": "For reference only. Always check UKVI official guidance and consult an immigration adviser.",
+    "calc": {
+      "title": "Funding Requirement Calculator",
+      "location": "Study Location",
+      "london": "London (£1,334/month)",
+      "outside": "Outside London (£1,023/month)",
+      "months": "Course Duration (months)",
+      "tuition": "Annual Tuition (£)",
+      "formula": "£{{rate}} × {{months}} months + tuition",
+      "note28days": "Funds must be held for 28 consecutive days before application"
+    },
+    "criteria": {
+      "cas": "Has CAS from licensed Tier 4 / Student sponsor",
+      "casHint": "Confirmation of Acceptance for Studies from a UKVI-approved institution",
+      "funds": "Has sufficient funds ({{amount}})",
+      "fundsHint": "Calculated from course location, duration and tuition",
+      "english": "English proficiency (UKVI IELTS 4.0+ or equivalent)",
+      "englishHint": "Must be UKVI-approved test (not standard IELTS)",
+      "passport": "Valid passport with sufficient validity",
+      "passportHint": "Passport should remain valid throughout the course",
+      "immigration": "No previous UK immigration violations",
+      "immigrationHint": "No overstays, deception or deportation history",
+      "atas": "ATAS clearance obtained (if required)",
+      "atasHint": "Required for certain postgraduate subjects sensitive to national security",
+      "tb": "TB test certificate (if required)",
+      "tbHint": "Required for applicants from certain countries (check official list)"
+    }
+  },
+  "canadaStudent": {
+    "title": "Canada Study Permit",
+    "subtitle": "Requirements checklist for Canadian study permit",
+    "eligible": "Likely eligible to apply",
+    "inProgress": "Check requirements below",
+    "requiredMet": "{{met}} / {{total}} required criteria met",
+    "required": "Required Criteria",
+    "optional": "May Be Required",
+    "optionalHint": "Depends on your nationality or province",
+    "disclaimer": "For reference only. Always verify with IRCC official guidance.",
+    "calc": {
+      "title": "Funding Requirement Calculator",
+      "province": "Study Province",
+      "otherProvince": "Other provinces (CAD ,000/year)",
+      "quebec": "Quebec (CAD ,000/year)",
+      "tuition": "Annual Tuition (CAD $)",
+      "formula": "Tuition + living expenses ({{living}}/year) + return fare estimate",
+      "note": "Includes approx. CAD ,000 return fare estimate"
+    },
+    "criteria": {
+      "loa": "Acceptance letter from a DLI (Designated Learning Institution)",
+      "loaHint": "Must be from a IRCC-approved Designated Learning Institution",
+      "funds": "Sufficient funds ({{amount}})",
+      "fundsHint": "Tuition + living costs + return fare",
+      "passport": "Valid passport",
+      "passportHint": "Must be valid for the duration of study",
+      "intent": "Intend to leave Canada after studies",
+      "intentHint": "Must demonstrate genuine temporary entrant intention",
+      "language": "Language proficiency proof",
+      "languageHint": "May be waived if instruction is in English or French",
+      "medical": "Medical exam (if required)",
+      "medicalHint": "Required for applicants from certain countries or studying health-related programs",
+      "biometrics": "Biometrics enrolled",
+      "biometricsHint": "Most applicants need to provide biometrics"
+    }
+  },
+  "auStudent": {
+    "title": "Australia Student Visa (Subclass 500)",
+    "subtitle": "Requirements checklist for Australian student visa",
+    "eligible": "Likely eligible to apply",
+    "inProgress": "Check requirements below",
+    "requiredMet": "{{met}} / {{total}} required criteria met",
+    "required": "Required Criteria",
+    "disclaimer": "For reference only. Always check Home Affairs official guidance.",
+    "calc": {
+      "title": "Financial Capacity Calculator",
+      "tuition": "Annual Tuition (AUD $)",
+      "partner": "Accompanying partner/spouse?",
+      "dependents": "Number of dependent children",
+      "yes": "Yes",
+      "no": "No",
+      "livingBase": "Living expenses: {{amt}}/year",
+      "partnerAmt": "Partner/spouse: {{amt}}/year",
+      "childAmt": "{{n}} child(ren): {{amt}}/year"
+    },
+    "criteria": {
+      "cricos": "Enrolled with a CRICOS registered provider",
+      "cricosHint": "Commonwealth Register of Institutions and Courses for Overseas Students",
+      "oshc": "Overseas Student Health Cover (OSHC) arranged",
+      "oshcHint": "Health insurance mandatory for the duration of study",
+      "english": "English proficiency (IELTS 5.5+ overall or equivalent)",
+      "englishHint": "Minimum varies by institution and course level",
+      "genuine": "Genuine Student assessment passed",
+      "genuineHint": "Must show genuine intention to study, not to migrate permanently",
+      "health": "Meets health requirements",
+      "healthHint": "May require medical examination",
+      "character": "Meets character requirements",
+      "characterHint": "No serious criminal convictions"
+    }
+  },
+  "ie": {
+    "cs": {
+      "title": "Ireland Critical Skills Employment Permit",
+      "subtitle": "Eligibility checker for Irish CSEP",
+      "eligible": "Likely eligible",
+      "inProgress": "Check requirements below",
+      "requiredMet": "{{met}} / {{total}} requirements met",
+      "occupation": "Occupation & Salary",
+      "onCsol": "Occupation is on the Critical Skills Occupations List (CSOL)",
+      "onCsolHint": "Check the DETE Critical Skills Occupations List",
+      "salaryLabel": "Annual Salary",
+      "perYear": "per year",
+      "thresholdA": "Salary must be ≥ {{amount}} for CSOL occupations",
+      "thresholdB": "Salary must be ≥ {{amount}} for non-CSOL pathway",
+      "otherRequirements": "Other Requirements",
+      "pathwayA": "Pathway A: CSOL occupation",
+      "pathwayB": "Pathway B: High salary (any occupation)",
+      "pathwayADesc": "Occupation on CSOL + salary ≥ {{amount}} + degree or 5 years experience",
+      "pathwayBDesc": "Any occupation (not excluded) + salary ≥ {{amount}} + degree or experience",
+      "pathwayInfo": "Which pathway applies?",
+      "criteria": {
+        "jobOffer": "Has a job offer from an Irish employer",
+        "jobOfferHint": "Must be a genuine job offer with a contract",
+        "qualification": "Has Level 8+ degree OR 5+ years relevant experience",
+        "qualificationHint": "NFQ Level 8 (Honours degree) or equivalent international qualification",
+        "employer": "Employer is registered with Revenue Commissioners",
+        "employerHint": "Employer must be tax-compliant and registered in Ireland"
+      },
+      "disclaimer": "For reference only. CSOL and salary thresholds may change. Check DETE official website."
+    },
+    "stamp4": {
+      "title": "Ireland Stamp 4 Eligibility",
+      "subtitle": "Check your path to long-term residence in Ireland",
+      "eligible": "Eligible to apply for Stamp 4",
+      "eligibleDesc": "You have met the residence requirement. Ensure other criteria are also met.",
+      "immediateEligible": "Immediately eligible for Stamp 4",
+      "immediateDesc": "As spouse/partner of a Critical Skills EP holder, you can apply straight away.",
+      "notYet": "Not yet eligible",
+      "monthsLeft": "Approximately {{months}} months remaining",
+      "targetDate": "Earliest eligible date: {{date}}",
+      "otherAdvice": "Please consult an immigration adviser to determine your path to Stamp 4.",
+      "currentStatus": "Your Current Immigration Status",
+      "startDate": "Start Date",
+      "startDateLabel": "Date you received your current permission",
+      "otherRequirements": "Other Requirements",
+      "likelyEligible": "Likely eligible",
+      "years": "years",
+      "immediate": "Immediate",
+      "status": {
+        "criticalSkills": "Critical Skills Employment Permit holder",
+        "generalPermit": "General Employment Permit holder",
+        "spouseCritical": "Spouse / partner of Critical Skills EP holder",
+        "stamp1g": "Graduate (Stamp 1G)",
+        "other": "Other immigration status"
+      },
+      "statusHint": {
+        "criticalSkills": "Working in Ireland on a Critical Skills EP",
+        "generalPermit": "Working in Ireland on a General Work Permit",
+        "spouseCritical": "Your spouse/partner holds a Critical Skills EP",
+        "stamp1g": "Graduated from an Irish institution, currently on job-seeking permission",
+        "other": "Including students, refugees, family reunification, etc."
+      },
+      "criteria": {
+        "continuous": "Continuous lawful residence in Ireland",
+        "continuousHint": "No gaps or periods of unlawful stay",
+        "goodStanding": "No criminal convictions and in good standing",
+        "goodStandingHint": "Tax-compliant, no serious criminal history"
+      },
+      "disclaimer": "For reference only. Immigration rules change frequently. Always verify with INIS or consult an adviser."
+    }
+  },
+  "au186": {
+    "title": "Australia Employer Nomination Scheme (Subclass 186)",
+    "subtitle": "Permanent residence through employer sponsorship",
+    "eligible": "Likely eligible for this stream",
+    "inProgress": "Check requirements below",
+    "requiredMet": "{{met}} / {{total}} requirements met",
+    "selectStream": "Select Your Stream",
+    "stream": {
+      "trt": "Temporary Residence Transition (TRT)",
+      "de": "Direct Entry (DE)"
+    },
+    "streamDesc": {
+      "trt": "Already working for your nominating employer in Australia for 3+ years on TSS/457",
+      "de": "Applying from overseas or with less than 3 years with the employer"
+    },
+    "trt": {
+      "requirements": "TRT Stream Requirements",
+      "inAustralia": "Currently in Australia",
+      "inAustraliaHint": "Must be onshore to apply in this stream",
+      "threeYears": "Worked for nominating employer for 3+ years full-time",
+      "threeYearsHint": "On TSS (subclass 482) or previous 457 visa",
+      "tssDollar": "Nominated occupation matches current role",
+      "tssDollarHint": "Same occupation as on TSS visa",
+      "under45": "Under 45 years of age",
+      "under45Hint": "Some exemptions apply for certain occupations",
+      "english": "English: Competent level (IELTS 6.0+ or equivalent)",
+      "englishHint": "Some exemptions apply for passport holders of certain countries"
+    },
+    "de": {
+      "requirements": "Direct Entry Stream Requirements",
+      "skillsAssessment": "Positive skills assessment from relevant authority",
+      "skillsAssessmentHint": "Must be assessed by the relevant Australian skills assessment body",
+      "employerNomination": "Employer nomination approved by Home Affairs",
+      "employerNominationHint": "Employer must be approved and apply for nomination first",
+      "under45": "Under 45 years of age",
+      "under45Hint": "Some exemptions apply",
+      "englishDe": "English: Competent level (IELTS 6.0+ or equivalent)",
+      "englishDeHint": "Required for most applicants",
+      "pointsNote": "Points Test Required for DE Stream",
+      "pointsDesc": "You must score 65+ points in the SkillSelect points test. Use the Australia Points Calculator to check your score.",
+      "goToPoints": "Go to Australia Points Calculator"
+    },
+    "disclaimer": "For reference only. 186 visa requirements are complex. Always consult a registered migration agent."
+  },
+  "pnp": {
+    "title": "Canada Provincial Nominee Program (PNP)",
+    "subtitle": "Check eligibility for provincial immigration streams",
+    "benefit": "PNP adds 600 points to your CRS score",
+    "benefitDesc": "A provincial nomination adds 600 points to your Express Entry CRS score, almost guaranteeing an invitation to apply (ITA).",
+    "profile": "Your Profile",
+    "inExpressEntry": "Currently in Express Entry pool",
+    "inExpressEntryHint": "Have an active Express Entry profile (CRS score submitted)",
+    "selectProvince": "Select Province",
+    "likelyEligible": "Likely eligible",
+    "checkRequirements": "Check requirements",
+    "province": {
+      "bc": "British Columbia",
+      "ontario": "Ontario",
+      "alberta": "Alberta",
+      "saskatchewan": "Saskatchewan",
+      "other": "Other"
+    },
+    "bc": {
+      "title": "BC PNP – Skills Immigration",
+      "jobOffer": "Has a job offer from a BC employer",
+      "jobOfferHint": "Full-time, indeterminate (permanent) or for the duration of the project",
+      "nocAB": "Occupation is NOC TEER 0, 1, 2 or 3",
+      "nocABHint": "Most professional, technical and skilled trade occupations qualify",
+      "workAuth": "Currently authorized to work in BC (or in Express Entry)",
+      "workAuthHint": "Valid work permit in BC, or active Express Entry profile (BCPNP Tech Pilot)",
+      "note": "BC PNP also has the Tech Pilot stream for tech occupations — requires Express Entry profile and job offer in eligible tech occupation."
+    },
+    "ontario": {
+      "title": "OINP – Ontario Immigrant Nominee Program",
+      "jobOffer": "Has a job offer from an Ontario employer",
+      "jobOfferHint": "Permanent, full-time position",
+      "techOccupation": "Occupation is in the OINP eligible tech list",
+      "techOccupationHint": "Tech Draw targets specific NOC codes in tech sector",
+      "note": "OINP draws are unpredictable. The Human Capital Priority stream selects directly from Express Entry pool without requiring job offer."
+    },
+    "alberta": {
+      "title": "AAIP – Alberta Advantage Immigration Program",
+      "jobOffer": "Has a job offer from an Alberta employer",
+      "jobOfferHint": "Full-time, permanent position in Alberta",
+      "eeStream": "In Express Entry pool AND meets Alberta Express Entry stream criteria",
+      "eeStreamHint": "Alberta EE stream selects candidates with Alberta connection",
+      "note": "Alberta Opportunity Stream requires applicants already working in Alberta with a valid work permit."
+    },
+    "sask": {
+      "title": "SINP – Saskatchewan Immigrant Nominee Program",
+      "jobOffer": "Has a job offer from a Saskatchewan employer",
+      "jobOfferHint": "Full-time, permanent position",
+      "experience": "Has relevant work experience in nominated occupation",
+      "experienceHint": "Minimum 1 year of work experience in the nominated occupation"
+    },
+    "other": {
+      "info": "Other provinces and territories (Manitoba, Nova Scotia, New Brunswick, PEI, NL, YT, NT, NU) also have PNP programs. Each has unique streams and requirements. Visit the official IRCC website for details on all provincial programs."
+    },
+    "disclaimer": "PNP rules change frequently. Always check the official provincial immigration website and IRCC for current requirements."
   }
 }
