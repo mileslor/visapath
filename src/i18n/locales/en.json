@@ -1,4 +1,8 @@
 {
+  "common": {
+    "clear": "Clear",
+    "demo": "Demo"
+  },
   "nav": {
     "home": "Home",
     "tools": "Tools",

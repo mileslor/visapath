@@ -1,9 +1,21 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { AuPointsInput, EnglishLevel, OverseasExpYears, AustralianExpYears, EduLevel } from '../../lib/australia/points'
 import { calculateAuPoints, RECENT_AU_CUTOFFS } from '../../lib/australia/points'
 
-const DEFAULT_INPUT: AuPointsInput = {
+const STORAGE_KEY = 'visapath-au-points'
+
+const EMPTY_INPUT: AuPointsInput = {
+  age: 0, english: 'none',
+  overseasWorkExp: 0, australianWorkExp: 0,
+  education: 'none',
+  australianStudy: false, specialistEducation: false,
+  partnerSkills: false, partnerEnglishCompetent: false,
+  stateNomination: false, regionalSponsorship: false,
+  communityLanguage: false, studyInRegional: false, professionalYear: false,
+}
+
+const DEMO_INPUT: AuPointsInput = {
   age: 28, english: 'proficient',
   overseasWorkExp: 3, australianWorkExp: 0,
   education: 'bachelors',
@@ -11,6 +23,14 @@ const DEFAULT_INPUT: AuPointsInput = {
   partnerSkills: false, partnerEnglishCompetent: false,
   stateNomination: false, regionalSponsorship: false,
   communityLanguage: false, studyInRegional: false, professionalYear: false,
+}
+
+function loadInput(): AuPointsInput {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) return { ...EMPTY_INPUT, ...JSON.parse(raw) }
+  } catch { /* ignore */ }
+  return EMPTY_INPUT
 }
 
 function ScoreBar({ value, max, label }: { value: number; max: number; label: string }) {
@@ -57,7 +77,11 @@ function SelectField<T extends string | number>({ label, value, options, renderO
 
 export default function AustraliaPointsPage() {
   const { t } = useTranslation()
-  const [input, setInput] = useState<AuPointsInput>(DEFAULT_INPUT)
+  const [input, setInput] = useState<AuPointsInput>(loadInput)
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(input))
+  }, [input])
 
   function set<K extends keyof AuPointsInput>(key: K, value: AuPointsInput[K]) {
     setInput(prev => ({ ...prev, [key]: value }))
@@ -74,11 +98,27 @@ export default function AustraliaPointsPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
-          🇦🇺 {t('au.title')}
-        </h1>
-        <p className="text-slate-500 text-sm">{t('au.subtitle')}</p>
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
+            🇦🇺 {t('au.title')}
+          </h1>
+          <p className="text-slate-500 text-sm">{t('au.subtitle')}</p>
+        </div>
+        <div className="flex gap-2 flex-shrink-0">
+          <button
+            onClick={() => setInput(DEMO_INPUT)}
+            className="text-xs px-3 py-1.5 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50"
+          >
+            Demo
+          </button>
+          <button
+            onClick={() => setInput(EMPTY_INPUT)}
+            className="text-xs px-3 py-1.5 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50"
+          >
+            {t('common.clear')}
+          </button>
+        </div>
       </div>
 
       {/* Score banner */}
@@ -123,7 +163,7 @@ export default function AustraliaPointsPage() {
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-medium text-slate-500 mb-1">{t('au.field.age')}</label>
-              <input type="number" min={17} max={65} value={input.age}
+              <input type="number" min={17} max={65} value={input.age || ''}
                 onChange={e => set('age', Number(e.target.value))}
                 className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 w-24" />
               <p className="text-xs text-slate-400 mt-1">{t('au.field.ageHint')}</p>

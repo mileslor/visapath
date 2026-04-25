@@ -1,9 +1,30 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CrsInput, EducationLevel, CLBLevel, WorkExpYears } from '../../lib/canada/crs'
 import { calculateCrs, RECENT_CUTOFFS } from '../../lib/canada/crs'
 
-const DEFAULT_INPUT: CrsInput = {
+const STORAGE_KEY = 'visapath-canada-crs'
+
+const EMPTY_INPUT: CrsInput = {
+  age: 0,
+  education: 'none',
+  hasSpouse: false,
+  speaking: 0, listening: 0, reading: 0, writing: 0,
+  speaking2: 0, listening2: 0, reading2: 0, writing2: 0,
+  canadaWorkExp: 0,
+  foreignWorkExp: 0,
+  spouseEducation: 'none',
+  spouseLanguageCLB: 0,
+  spouseCanadaWorkExp: 0,
+  hasProvincialNomination: false,
+  hasJobOffer: false,
+  jobOfferNoc00: false,
+  hasCanadianSibling: false,
+  hasFrenchProficiency: false,
+  studiedInCanada: false,
+}
+
+const DEMO_INPUT: CrsInput = {
   age: 30,
   education: 'bachelors',
   hasSpouse: false,
@@ -20,6 +41,14 @@ const DEFAULT_INPUT: CrsInput = {
   hasCanadianSibling: false,
   hasFrenchProficiency: false,
   studiedInCanada: false,
+}
+
+function loadInput(): CrsInput {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) return { ...EMPTY_INPUT, ...JSON.parse(raw) }
+  } catch { /* ignore */ }
+  return EMPTY_INPUT
 }
 
 const EDU_OPTIONS: { value: EducationLevel; labelKey: string }[] = [
@@ -86,7 +115,11 @@ function Toggle({ label, hint, checked, onChange }: {
 
 export default function CanadaCrsPage() {
   const { t } = useTranslation()
-  const [input, setInput] = useState<CrsInput>(DEFAULT_INPUT)
+  const [input, setInput] = useState<CrsInput>(loadInput)
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(input))
+  }, [input])
 
   function set<K extends keyof CrsInput>(key: K, value: CrsInput[K]) {
     setInput(prev => ({ ...prev, [key]: value }))
@@ -102,11 +135,27 @@ export default function CanadaCrsPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
-          🇨🇦 {t('canada.crs.title')}
-        </h1>
-        <p className="text-slate-500 text-sm">{t('canada.crs.subtitle')}</p>
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
+            🇨🇦 {t('canada.crs.title')}
+          </h1>
+          <p className="text-slate-500 text-sm">{t('canada.crs.subtitle')}</p>
+        </div>
+        <div className="flex gap-2 flex-shrink-0">
+          <button
+            onClick={() => setInput(DEMO_INPUT)}
+            className="text-xs px-3 py-1.5 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50"
+          >
+            Demo
+          </button>
+          <button
+            onClick={() => setInput(EMPTY_INPUT)}
+            className="text-xs px-3 py-1.5 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50"
+          >
+            {t('common.clear')}
+          </button>
+        </div>
       </div>
 
       {/* Score banner */}
@@ -153,7 +202,7 @@ export default function CanadaCrsPage() {
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-medium text-slate-500 mb-1">{t('canada.field.age')}</label>
-              <input type="number" min={17} max={65} value={input.age}
+              <input type="number" min={17} max={65} value={input.age || ''}
                 onChange={e => set('age', Number(e.target.value))}
                 className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 w-24" />
             </div>

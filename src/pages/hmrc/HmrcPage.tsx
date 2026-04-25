@@ -1,9 +1,11 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { SrtInput } from '../../lib/hmrc/types'
 import { calculateSrt } from '../../lib/hmrc/srt'
 
-const DEFAULT_INPUT: SrtInput = {
+const STORAGE_KEY = 'visapath-hmrc-srt'
+
+const EMPTY_INPUT: SrtInput = {
   ukDaysThisYear: 0,
   ukDaysPrior3Years: 0,
   residentPrior3Years: 0,
@@ -14,6 +16,27 @@ const DEFAULT_INPUT: SrtInput = {
   tieActivePriorYear: false,
   diedInYear: false,
   splitYear: false,
+}
+
+const DEMO_INPUT: SrtInput = {
+  ukDaysThisYear: 120,
+  ukDaysPrior3Years: 200,
+  residentPrior3Years: 1,
+  tieFamily: true,
+  tieAccommodation: false,
+  tieWork: true,
+  tieUkDays: false,
+  tieActivePriorYear: false,
+  diedInYear: false,
+  splitYear: false,
+}
+
+function loadInput(): SrtInput {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) return { ...EMPTY_INPUT, ...JSON.parse(raw) }
+  } catch { /* ignore */ }
+  return EMPTY_INPUT
 }
 
 function NumberInput({ label, hint, value, onChange, min = 0, max }: {
@@ -56,7 +79,11 @@ function Toggle({ label, hint, checked, onChange }: {
 
 export default function HmrcPage() {
   const { t } = useTranslation()
-  const [input, setInput] = useState<SrtInput>(DEFAULT_INPUT)
+  const [input, setInput] = useState<SrtInput>(loadInput)
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(input))
+  }, [input])
 
   function set<K extends keyof SrtInput>(key: K, value: SrtInput[K]) {
     setInput(prev => ({ ...prev, [key]: value }))
@@ -69,11 +96,27 @@ export default function HmrcPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
-          📊 {t('hmrc.title')}
-        </h1>
-        <p className="text-slate-500 text-sm">{t('hmrc.subtitle')}</p>
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
+            📊 {t('hmrc.title')}
+          </h1>
+          <p className="text-slate-500 text-sm">{t('hmrc.subtitle')}</p>
+        </div>
+        <div className="flex gap-2 flex-shrink-0">
+          <button
+            onClick={() => setInput(DEMO_INPUT)}
+            className="text-xs px-3 py-1.5 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50"
+          >
+            Demo
+          </button>
+          <button
+            onClick={() => setInput(EMPTY_INPUT)}
+            className="text-xs px-3 py-1.5 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50"
+          >
+            {t('common.clear')}
+          </button>
+        </div>
       </div>
 
       {/* Result banner — always visible */}

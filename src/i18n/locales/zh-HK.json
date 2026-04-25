@@ -1,4 +1,8 @@
 {
+  "common": {
+    "clear": "清除",
+    "demo": "示範"
+  },
   "nav": {
     "home": "主頁",
     "tools": "工具",
