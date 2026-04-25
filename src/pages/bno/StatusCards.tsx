@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { subYears, subDays, isAfter } from 'date-fns'
 import type { BnoCalculation } from '../../lib/bno/types'
 import { formatDate } from '../../lib/bno/calculator'
-import { downloadIcs } from '../../lib/ics'
+import { downloadIcs, downloadMultipleIcs } from '../../lib/ics'
 
 interface Props {
   calc: BnoCalculation
@@ -30,6 +30,29 @@ function CountdownBadge({ days, isEligible, t }: { days: number; isEligible: boo
     <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-700">
       ⏳ {days} {t('bno.ilr.daysLeft')}
     </span>
+  )
+}
+
+function BudgetChip({ used, limit, label, t }: { used: number; limit: number; label: string; t: (k: string) => string }) {
+  const remaining = limit - used
+  const isOver = remaining < 0
+  const isWarn = !isOver && remaining < limit * 0.15
+  return (
+    <div className={`flex items-center justify-between rounded-xl px-3 py-2.5 border ${
+      isOver ? 'bg-red-50 border-red-200' :
+      isWarn ? 'bg-amber-50 border-amber-200' :
+      'bg-emerald-50 border-emerald-200'
+    }`}>
+      <span className="text-xs text-slate-600">{label}</span>
+      <span className={`text-sm font-bold ${
+        isOver ? 'text-red-600' : isWarn ? 'text-amber-600' : 'text-emerald-700'
+      }`}>
+        {isOver ? '⚠️' : '✈️'} {isOver
+          ? `${t('bno.budget.over')} ${Math.abs(remaining)} ${t('bno.days')}`
+          : `${t('bno.budget.remaining')} ${remaining} ${t('bno.days')}`
+        }
+      </span>
+    </div>
   )
 }
 
@@ -93,8 +116,45 @@ export default function StatusCards({ calc }: Props) {
     })
   }
 
+  function addAllCal() {
+    downloadMultipleIcs([
+      {
+        uid: 'bno-b1-prep',
+        date: b1DateStr,
+        summary: lang === 'zh-HK' ? '開始準備 B1 英語考試 / Life in the UK Test' : 'Start B1 English Test Preparation',
+        description: lang === 'zh-HK'
+          ? `距離 ILR 申請日期 2 年，建議開始準備英語 B1 考試及英國生活知識測試。\nILR 最早申請日：${formatDate(ilrDateStr, lang)}`
+          : `2 years before your ILR application date. Start B1 English test and Life in the UK Test preparation.\nEarliest ILR application: ${formatDate(ilrDateStr, lang)}`,
+      },
+      {
+        uid: 'bno-ilr-apply',
+        date: ilrDateStr,
+        summary: lang === 'zh-HK' ? 'ILR 永居申請視窗開始' : 'ILR Application Window Opens',
+        description: lang === 'zh-HK'
+          ? `最早可遞交 ILR 申請（5年資格日前28日）。\n5年資格日：${formatDate(ilr.eligibleDate.toISOString().split('T')[0], lang)}`
+          : `Earliest ILR application date (28 days before qualifying date).\n5-year qualifying date: ${formatDate(ilr.eligibleDate.toISOString().split('T')[0], lang)}`,
+      },
+      {
+        uid: 'bno-citizenship-apply',
+        date: citizenshipDateStr,
+        summary: lang === 'zh-HK' ? '英國入籍申請資格日' : 'British Citizenship Eligibility Date',
+        description: lang === 'zh-HK'
+          ? `可申請英國入籍（歸化）。需已持有 ILR 滿 1 年，且符合離境要求。`
+          : `Eligible to apply for British citizenship (naturalisation). Must have held ILR for 1 year and meet absence requirements.`,
+      },
+    ], 'bno-milestones.ics')
+  }
+
   return (
     <div className="space-y-4">
+      {/* Add all milestones to calendar */}
+      <button
+        onClick={addAllCal}
+        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-blue-200 bg-blue-50 hover:bg-blue-100 text-sm font-medium text-blue-700 transition-colors"
+      >
+        📅 {t('bno.cal.addAll')}
+      </button>
+
       {/* ILR Card */}
       <div className={`rounded-2xl border p-5 ${
         ilr.violations.length > 0 ? 'border-red-200 bg-red-50' :
@@ -148,6 +208,14 @@ export default function StatusCards({ calc }: Props) {
         </div>
 
         <div className="space-y-3">
+          {/* Budget chips */}
+          <BudgetChip
+            used={ilr.currentRolling12mAbsence}
+            limit={180}
+            label={t('bno.budget.ilr12m')}
+            t={t}
+          />
+
           <div>
             <div className="flex justify-between items-center mb-1">
               <span className="text-xs text-slate-600">{t('bno.ilr.maxPeriod')}</span>
@@ -216,6 +284,20 @@ export default function StatusCards({ calc }: Props) {
         </div>
 
         <div className="space-y-3">
+          {/* Budget chips */}
+          <BudgetChip
+            used={citizenship.absenceLast12Months}
+            limit={90}
+            label={t('bno.budget.citizen12m')}
+            t={t}
+          />
+          <BudgetChip
+            used={citizenship.absenceLast5Years}
+            limit={450}
+            label={t('bno.budget.citizen5y')}
+            t={t}
+          />
+
           {/* Projected values at application date — always shown as primary */}
           <p className="text-xs text-slate-400">
             📊 {t('bno.citizenship.projectedAsOf')} {formatDate(citizenshipDateStr, lang)}

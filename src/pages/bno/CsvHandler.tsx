@@ -1,6 +1,7 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import Papa from 'papaparse'
+import QRCode from 'qrcode'
 import type { Trip, BnoData } from '../../lib/bno/types'
 
 interface Props {
@@ -18,9 +19,62 @@ interface CsvRow {
   notes?: string
 }
 
+function ShareModal({ url, onClose }: { url: string; onClose: () => void }) {
+  const { t } = useTranslation()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      QRCode.toCanvas(canvasRef.current, url, { width: 200, margin: 2 })
+    }
+  }, [url])
+
+  function copyLink() {
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }).catch(() => prompt(t('bno.csv.sharePrompt'), url))
+  }
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      onClick={e => { if (e.target === e.currentTarget) onClose() }}
+    >
+      <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-semibold text-slate-800">{t('bno.csv.share')}</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-xl leading-none">×</button>
+        </div>
+        <div className="flex justify-center mb-4">
+          <canvas ref={canvasRef} className="rounded-lg" />
+        </div>
+        <p className="text-xs text-slate-500 mb-3 text-center">{t('bno.csv.shareQrHint')}</p>
+        <div className="flex gap-2">
+          <input
+            readOnly
+            value={url}
+            className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-600 bg-slate-50 truncate"
+          />
+          <button
+            onClick={copyLink}
+            className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+              copied ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'
+            }`}
+          >
+            {copied ? '✓' : t('bno.csv.copy')}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function CsvHandler({ trips, approvalDate, arrivalDate, profileName, onImportAsNew }: Props) {
   const { t } = useTranslation()
   const csvFileRef = useRef<HTMLInputElement>(null)
+  const [shareUrl, setShareUrl] = useState<string | null>(null)
 
   function handleExportCsv() {
     const rows = trips.map(trip => ({
@@ -98,17 +152,15 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
       const shareData = { approvalDate, arrivalDate, trips }
       const encoded = btoa(encodeURIComponent(JSON.stringify(shareData)))
       const url = `${window.location.origin}/bno?share=${encoded}`
-      navigator.clipboard.writeText(url).then(() => {
-        alert(t('bno.csv.shareCopied'))
-      }).catch(() => {
-        prompt(t('bno.csv.sharePrompt'), url)
-      })
+      setShareUrl(url)
     } catch {
       alert(t('bno.csv.importError'))
     }
   }
 
   return (
+    <>
+      {shareUrl && <ShareModal url={shareUrl} onClose={() => setShareUrl(null)} />}
     <div className="flex items-center gap-2 flex-wrap">
       <input ref={csvFileRef} type="file" accept=".csv" onChange={handleImportCsv} className="hidden" />
       <button
@@ -131,5 +183,6 @@ export default function CsvHandler({ trips, approvalDate, arrivalDate, profileNa
         🔗 {t('bno.csv.share')}
       </button>
     </div>
+    </>
   )
 }

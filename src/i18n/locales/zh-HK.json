@@ -8,12 +8,30 @@
     "title": "VisaPath",
     "subtitle": "英國移民簽證計算工具平台",
     "tools": "可用工具",
-    "comingSoon": "更多工具即將推出",
+    "comingSoon": "即將推出",
+    "country": {
+      "uk": "英國",
+      "canada": "加拿大",
+      "australia": "澳洲",
+      "ireland": "愛爾蘭"
+    },
     "bnoCard": {
       "title": "BNO 簽證計算器",
       "desc": "追蹤離境日數，計算 ILR 及英籍申請資格，支援圖表及 CSV 匯入/匯出。",
       "btn": "開啟計算器"
     },
+    "skilledWorkerCard": { "title": "Skilled Worker 簽證", "desc": "追蹤離境日數，計算 ILR 及入籍資格（5年連續居留）", "btn": "開啟計算器" },
+    "studentCard": { "title": "學生簽證" },
+    "familyCard": { "title": "家庭簽證", "desc": "追蹤離境日數，計算 ILR 及入籍資格（家庭類別）", "btn": "開啟計算器" },
+    "hmrcCard": { "title": "HMRC 稅務居民測試", "desc": "根據英國法定居民測試（SRT）判斷你的稅務居民身份", "btn": "開始測試" },
+    "expressEntryCard": { "title": "Express Entry CRS 計算機", "desc": "計算綜合排名系統（CRS）分數，對照最新邀請門檻", "btn": "開始計算" },
+    "pnpCard": { "title": "省提名計劃（PNP）" },
+    "canadaStudentCard": { "title": "加拿大學生簽證" },
+    "skilled189Card": { "title": "技術移民積分計算（189/190）", "desc": "計算澳洲技術移民積分，對照最新邀請門檻（最低 65 分）", "btn": "計算積分" },
+    "employer186Card": { "title": "僱主擔保（186/482）" },
+    "auStudentCard": { "title": "澳洲學生簽證" },
+    "criticalSkillsCard": { "title": "關鍵技術就業許可" },
+    "stamp4Card": { "title": "Stamp 4 居留許可" },
     "disclaimer": "此工具僅供參考，不構成法律意見。請以英國政府官方資料為準。"
   },
   "bno": {
@@ -39,7 +57,8 @@
     "day": "日",
     "today": "今日",
     "cal": {
-      "add": "加入日曆"
+      "add": "加入日曆",
+      "addAll": "一鍵加入全部里程碑至日曆"
     },
     "ilr": {
       "title": "ILR 資格",
@@ -96,6 +115,79 @@
       "prevYear": "前一年",
       "nextYear": "後一年"
     },
+    "family": {
+      "title": "家庭成員一覽",
+      "member": "成員",
+      "ilrBudget": "ILR 今年餘額",
+      "noData": "請輸入抵達日期"
+    },
+    "milestoneRibbon": {
+      "title": "申請里程碑倒數",
+      "daysLeft": "日後可申請"
+    },
+    "budget": {
+      "ilr12m": "今個滾動12個月可用餘額（ILR）",
+      "citizen12m": "過去12個月可用餘額（入籍）",
+      "citizen5y": "過去5年可用餘額（入籍）",
+      "remaining": "仲可以出境",
+      "over": "已超出"
+    },
+    "whatif": {
+      "title": "模擬出行影響",
+      "desc": "輸入計劃旅行日期，即時睇對 ILR 及入籍資格的影響（唔會加落記錄）",
+      "absence": "離境日數",
+      "impact": "影響預覽",
+      "ilrImpact": "ILR 申請日期影響",
+      "ilrPushed": "ILR 申請日期推後",
+      "citizenImpact": "入籍申請日期影響",
+      "citizenPushed": "入籍日期推後",
+      "noImpact": "此出行不影響 ILR 及入籍申請日期",
+      "dateError": "回程日期必須遲於出境日期"
+    },
+    "checklist": {
+      "title": "申請文件清單",
+      "reset": "重設",
+      "allDone": "全部準備就緒！",
+      "stage": {
+        "ilr": "ILR 永居申請",
+        "citizenship": "入籍申請"
+      },
+      "ilr": {
+        "passport": "有效護照（BNO 或香港特區護照）",
+        "passportHint": "確保護照在申請後仍有足夠有效期",
+        "brp": "現有 BRP 居留許可證",
+        "brpHint": "Biometric Residence Permit",
+        "photos": "護照相片（符合英國政府要求）",
+        "travelHistory": "完整出入境記錄（過去5年）",
+        "travelHistoryHint": "可從護照整理，或用 VisaPath 匯出 CSV",
+        "b1English": "英語 B1 考試合格證書",
+        "b1EnglishHint": "IELTS / Trinity SELT / PTE 等",
+        "lifeInUk": "英國生活知識測試（Life in the UK Test）合格證書",
+        "proofAddress": "英國居住地址證明",
+        "proofAddressHint": "水電煤單、銀行月結單等（最近3個月）",
+        "proofEmployment": "就業或收入證明",
+        "proofEmploymentHint": "僱主信、工資單、或自僱帳目",
+        "taxReturn": "稅務紀錄（如適用）",
+        "taxReturnHint": "P60、SA302 或 HMRC 稅務信件",
+        "fee": "申請費用（約 £2,885 + 生物特徵費 £19.20）",
+        "form": "填妥 SET(O) 申請表"
+      },
+      "citizenship": {
+        "passport": "有效護照",
+        "ilrDoc": "ILR 文件（BRP 或 BNO 蓋章）",
+        "ilrDocHint": "證明已持有 ILR 滿 1 年",
+        "photos": "護照相片",
+        "proofAddress": "英國居住地址證明",
+        "absenceHistory": "完整出入境記錄（過去5年）",
+        "absenceHistoryHint": "確認符合90日/450日限制",
+        "goodCharacter": "無刑事定罪記錄",
+        "goodCharacterHint": "可能需要提供 DBS 查核或海外警方記錄",
+        "lifeInUk": "英國生活知識測試合格證書",
+        "englishProof": "英語能力證明（B1 或以上）",
+        "fee": "申請費用（約 £1,630）",
+        "form": "填妥 AN 申請表（歸化）"
+      }
+    },
     "enterArrivalDate": "請先輸入抵達英國日期",
     "csv": {
       "labelSingle": "此成員",
@@ -108,6 +200,8 @@
       "share": "分享連結",
       "shareCopied": "分享連結已複製到剪貼簿！",
       "sharePrompt": "複製以下連結並發送給朋友：",
+      "copy": "複製",
+      "shareQrHint": "掃描 QR code 或複製連結分享給朋友",
       "shareReceived": "收到分享記錄",
       "shareReceivedDesc": "你的朋友向你分享了一份旅程記錄，導入為新成員？",
       "shareImport": "導入為新成員",
@@ -129,6 +223,132 @@
       "ilrGuidanceLink": "ILR 申請指引"
     }
   },
+  "sw": {
+    "title": "Skilled Worker 簽證 — 離境日數計算器",
+    "subtitle": "追蹤離境記錄，計劃 ILR 及英籍申請",
+    "startDate": "簽證開始日期（首次入境英國）",
+    "rules": {
+      "continuousResidenceLink": "連續居留指引",
+      "ilrGuidanceLink": "ILR 申請指引"
+    },
+    "checklist": {
+      "stage": { "ilr": "ILR 申請", "citizenship": "入籍申請" },
+      "reset": "重設",
+      "allDone": "全部準備就緒！",
+      "ilr": {
+        "passport": "有效護照",
+        "brp": "現有 BRP 居留許可證",
+        "photos": "護照相片",
+        "travelHistory": "完整出入境記錄（過去5年）",
+        "b1English": "英語 B1 考試合格證書",
+        "lifeInUk": "英國生活知識測試合格證書",
+        "proofAddress": "英國居住地址證明",
+        "proofEmployment": "現任僱主證明及工資單",
+        "proofEmploymentHint": "CoS 批准信、僱主信、最近3個月工資單",
+        "taxReturn": "稅務紀錄（P60 / P45）",
+        "fee": "申請費用（約 £2,885 + 生物特徵費）",
+        "form": "填妥 SET(O) 申請表"
+      },
+      "citizenship": {
+        "passport": "有效護照",
+        "ilrDoc": "ILR 文件（BRP）",
+        "photos": "護照相片",
+        "proofAddress": "英國居住地址證明",
+        "absenceHistory": "完整出入境記錄（過去5年）",
+        "goodCharacter": "無刑事定罪記錄",
+        "lifeInUk": "英國生活知識測試合格證書",
+        "englishProof": "英語能力證明（B1 或以上）",
+        "fee": "申請費用（約 £1,630）",
+        "form": "填妥 AN 申請表"
+      }
+    }
+  },
+  "familyVisa": {
+    "title": "家庭簽證 — 離境日數計算器",
+    "subtitle": "追蹤離境記錄，計劃 ILR 及英籍申請（家庭類別）",
+    "startDate": "簽證開始日期（首次入境英國）",
+    "rules": {
+      "continuousResidenceLink": "連續居留指引",
+      "ilrGuidanceLink": "家庭 ILR 申請指引"
+    },
+    "checklist": {
+      "stage": { "ilr": "ILR 申請", "citizenship": "入籍申請" },
+      "reset": "重設",
+      "allDone": "全部準備就緒！",
+      "ilr": {
+        "passport": "有效護照",
+        "brp": "現有 BRP 居留許可證",
+        "photos": "護照相片",
+        "travelHistory": "完整出入境記錄（過去5年）",
+        "b1English": "英語 B1 考試合格證書",
+        "lifeInUk": "英國生活知識測試合格證書",
+        "proofAddress": "英國居住地址證明",
+        "proofEmployment": "婚姻/同居關係證明",
+        "proofEmploymentHint": "結婚證書、聯合帳戶、共同租約等",
+        "taxReturn": "英國保薦人財務證明（最低收入要求）",
+        "fee": "申請費用（約 £2,885 + 生物特徵費）",
+        "form": "填妥 SET(M) 申請表"
+      },
+      "citizenship": {
+        "passport": "有效護照",
+        "ilrDoc": "ILR 文件（BRP）",
+        "photos": "護照相片",
+        "proofAddress": "英國居住地址證明",
+        "absenceHistory": "完整出入境記錄（過去5年）",
+        "goodCharacter": "無刑事定罪記錄",
+        "lifeInUk": "英國生活知識測試合格證書",
+        "englishProof": "英語能力證明（B1 或以上）",
+        "fee": "申請費用（約 £1,630）",
+        "form": "填妥 AN 申請表"
+      }
+    }
+  },
+  "hmrc": {
+    "title": "HMRC 稅務居民測試（SRT）",
+    "subtitle": "根據英國法定居民測試判斷本稅務年度（4月6日至翌年4月5日）的稅務居民身份",
+    "result": {
+      "resident": "英國稅務居民",
+      "nonResident": "非英國稅務居民",
+      "unknown": "資料不足"
+    },
+    "section": {
+      "days": "在英天數",
+      "ties": "英國聯繫（UK Ties）",
+      "tiesHint": "「聯繫」越多，在英天數門檻越低，越容易被視為居民"
+    },
+    "field": {
+      "ukDaysThisYear": "本稅務年度在英天數",
+      "ukDaysThisYearHint": "包括抵達及離開英國當日（半日規則：午夜在英計1日）",
+      "residentPrior3Years": "過去3個稅務年度中，有多少年係英國居民",
+      "residentPrior3YearsHint": "0 = 從未係英國居民（新移民）；3 = 三年都係"
+    },
+    "tie": {
+      "family": "家庭聯繫",
+      "familyHint": "英國居民配偶/同居伴侶，或未成年子女（在英上學）",
+      "accommodation": "住所聯繫",
+      "accommodationHint": "本稅務年度有可用英國住所≥91日，且至少住過1晚",
+      "work": "工作聯繫",
+      "workHint": "本稅務年度在英工作≥40日（每日≥3小時）",
+      "ukDays": "英國天數聯繫",
+      "ukDaysHint": "本稅務年度在英天數多於在任何其他單一國家的天數",
+      "activePriorYear": "過去年度聯繫",
+      "activePriorYearHint": "過去2個稅務年度中，有任何一年在英≥90日（僅適用於曾係英國居民人士）"
+    },
+    "srt": {
+      "aot1": "自動海外測試：本年在英少於16日，自動為非居民",
+      "aot2": "自動海外測試：本年在英少於46日，且過去3年均非居民，自動為非居民",
+      "aut1": "自動英國測試：本年在英≥183日，自動為英國居民",
+      "stt": {
+        "resident": "充分聯繫測試：在英天數達到聯繫門檻，視為居民",
+        "nonResident": "充分聯繫測試：在英天數未達聯繫門檻，視為非居民",
+        "leaverNote": "（以「離境者」門檻計算：曾係英國居民）",
+        "arriverNote": "（以「抵港者」門檻計算：從未係英國居民）"
+      },
+      "tiesCount": "聯繫數目"
+    },
+    "disclaimer": "此工具僅供參考，不構成稅務意見。SRT 計算複雜，建議就個人情況諮詢稅務顧問。",
+    "guideLink": "HMRC RDR3 官方指引"
+  },
   "profile": {
     "add": "加成員",
     "rename": "改名",
@@ -143,6 +363,139 @@
     "backupReminder": "建議先備份，本工具無法復原任何刪除操作。",
     "expand": "展開成員管理",
     "collapse": "收起成員管理"
+  },
+  "canada": {
+    "crs": {
+      "title": "加拿大 Express Entry CRS 分數計算機",
+      "subtitle": "根據 IRCC 綜合排名系統（CRS）計算分數，對照最新邀請門檻",
+      "yourScore": "你的 CRS 估計分數",
+      "maxScore": "最高分",
+      "recentCutoff": "最近邀請門檻",
+      "aboveCutoff": "已達門檻",
+      "belowCutoff": "距離門檻",
+      "cutoffHistory": "近期邀請門檻參考",
+      "disclaimer": "此工具僅供估算參考，實際分數以 IRCC 官方計算為準。CRS 分數會因個人情況不同而有差異。",
+      "breakdown": {
+        "age": "年齡",
+        "education": "學歷",
+        "language1": "第一語言",
+        "language2": "第二語言",
+        "canadaWork": "加拿大工作經驗",
+        "spouse": "配偶/同居伴侶",
+        "skillTransfer": "技能可轉移性",
+        "additional": "額外加分"
+      }
+    },
+    "section": {
+      "core": "核心人力資本",
+      "lang1": "第一官方語言",
+      "lang1Hint": "英語或法語（IELTS / CELPIP / TEF / TCF 成績對應 CLB 等級）",
+      "lang2": "第二官方語言",
+      "lang2Hint": "如有英語及法語成績，可獲額外分數",
+      "work": "工作經驗",
+      "spouse": "配偶 / 同居伴侶",
+      "additional": "額外加分"
+    },
+    "field": {
+      "age": "年齡",
+      "education": "最高學歷",
+      "hasSpouse": "已婚或有同居伴侶（將一同移民）",
+      "canadaWork": "加拿大境內工作經驗",
+      "foreignWork": "海外工作經驗（NOC 0 / A / B）",
+      "spouseEdu": "配偶最高學歷",
+      "spouseLang": "配偶語言（最低四項 CLB）",
+      "spouseWork": "配偶加拿大工作經驗"
+    },
+    "edu": {
+      "none": "無學歷",
+      "highSchool": "中學畢業",
+      "oneYear": "1 年文憑/證書",
+      "twoYear": "2 年文憑/證書",
+      "bachelors": "學士學位",
+      "twoOrMoreDegrees": "兩個或以上學位",
+      "masters": "碩士學位",
+      "phd": "博士學位"
+    },
+    "skill": {
+      "speaking": "口語",
+      "listening": "聆聽",
+      "reading": "閱讀",
+      "writing": "寫作"
+    },
+    "clb": { "none": "無 / 未達 CLB 4" },
+    "work": { "none": "無", "years": "年", "6plus": "6 年或以上" },
+    "additional": {
+      "pnp": "省提名（PNP）",
+      "pnpHint": "+600 分（幾乎保證獲邀）",
+      "jobOffer": "加拿大僱主聘用（NOC 0/A/B）",
+      "jobOfferHint": "+50 分",
+      "jobOfferNoc00": "NOC 00（高級管理職位）",
+      "jobOfferNoc00Hint": "+200 分（取代 +50 分）",
+      "sibling": "加拿大境內有兄弟姐妹（公民或 PR）",
+      "siblingHint": "+15 分",
+      "french": "法語 CLB 7+ 且英語 CLB 4+",
+      "frenchHint": "+25 至 +50 分",
+      "studiedInCanada": "在加拿大完成 2 年或以上高等教育",
+      "studiedInCanadaHint": "+15 至 +30 分"
+    }
+  },
+  "au": {
+    "title": "澳洲技術移民積分計算機（189/190）",
+    "subtitle": "根據澳洲移民局積分表計算分數，最低通過門檻 65 分",
+    "yourScore": "你的估計積分",
+    "passesTest": "通過積分門檻",
+    "failsTest": "未達積分門檻",
+    "recentCutoff": "近期邀請門檻",
+    "aboveCutoff": "高於門檻",
+    "belowCutoff": "低於門檻",
+    "cutoffHistory": "近期邀請門檻（189）",
+    "disclaimer": "此工具僅供估算參考，實際積分以澳洲移民局計算為準。積分表可能定期更新。",
+    "section": { "core": "核心因素", "work": "工作經驗", "other": "其他加分" },
+    "field": {
+      "age": "年齡",
+      "ageHint": "18-32歲得最高分（30分）",
+      "english": "英語水平",
+      "education": "最高學歷",
+      "overseasWork": "海外工作經驗（提名職業）",
+      "auWork": "澳洲工作經驗（提名職業）"
+    },
+    "english": {
+      "none": "低於勝任水平",
+      "competent": "勝任（IELTS 6.0）— 不加分",
+      "proficient": "熟練（IELTS 7.0）+10 分",
+      "superior": "優秀（IELTS 8.0）+20 分"
+    },
+    "edu": {
+      "none": "無學歷 / 中學",
+      "diploma": "文憑（+10）",
+      "bachelors": "學士或以上（+15）",
+      "doctorate": "博士（+20）"
+    },
+    "exp": { "none": "無", "years": "年或以上" },
+    "other": {
+      "australianStudy": "澳洲學歷（2年或以上學習）",
+      "australianStudyHint": "+5 分",
+      "specialistEdu": "專業/STEM 博士後資格",
+      "specialistEduHint": "+10 分",
+      "partnerSkills": "配偶符合技術移民資格",
+      "partnerSkillsHint": "+10 分",
+      "partnerEnglish": "配偶英語勝任水平或以上",
+      "partnerEnglishHint": "+5 分",
+      "stateNomination": "州政府提名（190 簽證）",
+      "stateNominationHint": "+5 分",
+      "regionalSponsorship": "地區擔保（491 簽證）",
+      "regionalSponsorshipHint": "+15 分",
+      "communityLanguage": "認可社區語言翻譯員資格",
+      "communityLanguageHint": "+5 分",
+      "studyInRegional": "在澳洲偏遠地區完成學業",
+      "studyInRegionalHint": "+5 分",
+      "professionalYear": "在澳洲完成專業實習年（Professional Year）",
+      "professionalYearHint": "+5 分"
+    },
+    "breakdown": {
+      "age": "年齡", "english": "英語", "overseasWork": "海外工作",
+      "auWork": "澳洲工作", "education": "學歷", "other": "其他"
+    }
   },
   "footer": {
     "disclaimer": "僅供參考，不構成法律意見。請以官方政府資料為準。",

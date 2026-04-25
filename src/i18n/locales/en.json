@@ -8,12 +8,30 @@
     "title": "VisaPath",
     "subtitle": "Your toolkit for navigating UK immigration",
     "tools": "Available Tools",
-    "comingSoon": "More tools coming soon",
+    "comingSoon": "Coming soon",
+    "country": {
+      "uk": "United Kingdom",
+      "canada": "Canada",
+      "australia": "Australia",
+      "ireland": "Ireland"
+    },
     "bnoCard": {
       "title": "BNO Visa Calculator",
       "desc": "Track absences, calculate ILR & citizenship eligibility with charts and import/export support.",
       "btn": "Open Calculator"
     },
+    "skilledWorkerCard": { "title": "Skilled Worker Visa", "desc": "Track absences and calculate ILR & citizenship eligibility (5-year continuous residence)", "btn": "Open Calculator" },
+    "studentCard": { "title": "Student Visa" },
+    "familyCard": { "title": "Family Visa", "desc": "Track absences and calculate ILR & citizenship eligibility (family route)", "btn": "Open Calculator" },
+    "hmrcCard": { "title": "HMRC Statutory Residence Test", "desc": "Determine your UK tax residence status using the Statutory Residence Test (SRT)", "btn": "Start Test" },
+    "expressEntryCard": { "title": "Express Entry CRS Calculator", "desc": "Calculate your Comprehensive Ranking System score and compare against recent draw cutoffs", "btn": "Calculate Score" },
+    "pnpCard": { "title": "Provincial Nominee Program (PNP)" },
+    "canadaStudentCard": { "title": "Canada Student Visa" },
+    "skilled189Card": { "title": "Skilled Migration Points (189/190)", "desc": "Calculate your Australian skilled migration points and compare against recent invitation cutoffs (minimum 65 points)", "btn": "Calculate Points" },
+    "employer186Card": { "title": "Employer Sponsored (186/482)" },
+    "auStudentCard": { "title": "Australia Student Visa" },
+    "criticalSkillsCard": { "title": "Critical Skills Employment Permit" },
+    "stamp4Card": { "title": "Stamp 4 Residence Permit" },
     "disclaimer": "This tool is for reference only and does not constitute legal advice. Always verify with official government sources."
   },
   "bno": {
@@ -39,7 +57,8 @@
     "day": "day",
     "today": "Today",
     "cal": {
-      "add": "Add to Calendar"
+      "add": "Add to Calendar",
+      "addAll": "Add All Milestones to Calendar"
     },
     "ilr": {
       "title": "ILR Eligibility",
@@ -96,6 +115,78 @@
       "prevYear": "Prev year",
       "nextYear": "Next year"
     },
+    "family": {
+      "title": "Family Overview",
+      "member": "Member",
+      "ilrBudget": "ILR Budget (this year)",
+      "noData": "Enter arrival date"
+    },
+    "milestoneRibbon": {
+      "title": "Milestone Countdown",
+      "daysLeft": "days to go"
+    },
+    "budget": {
+      "ilr12m": "Rolling 12-month budget (ILR)",
+      "citizen12m": "Last 12 months budget (Citizenship)",
+      "citizen5y": "Last 5 years budget (Citizenship)",
+      "remaining": "Remaining",
+      "over": "Over by"
+    },
+    "whatif": {
+      "title": "Simulate a Trip",
+      "desc": "Enter planned trip dates to preview the impact on your ILR and citizenship eligibility (not saved to records)",
+      "absence": "absence days",
+      "impact": "Impact Preview",
+      "ilrImpact": "ILR application date impact",
+      "ilrPushed": "ILR date pushed back by",
+      "citizenImpact": "Citizenship application date impact",
+      "citizenPushed": "Citizenship date pushed back by",
+      "noImpact": "This trip has no impact on your ILR or citizenship eligibility dates",
+      "dateError": "Return date must be after departure date"
+    },
+    "checklist": {
+      "title": "Application Document Checklist",
+      "reset": "Reset",
+      "allDone": "All items ready!",
+      "stage": {
+        "ilr": "ILR Application",
+        "citizenship": "Citizenship Application"
+      },
+      "ilr": {
+        "passport": "Valid passport (BNO or HKSAR)",
+        "passportHint": "Ensure sufficient validity after application",
+        "brp": "Current BRP (Biometric Residence Permit)",
+        "photos": "Passport photos (UK government requirements)",
+        "travelHistory": "Full travel history (last 5 years)",
+        "travelHistoryHint": "Compile from passport stamps or export CSV from VisaPath",
+        "b1English": "B1 English language test certificate",
+        "b1EnglishHint": "IELTS / Trinity SELT / PTE etc.",
+        "lifeInUk": "Life in the UK Test pass certificate",
+        "proofAddress": "UK address proof",
+        "proofAddressHint": "Utility bills, bank statements (last 3 months)",
+        "proofEmployment": "Employment or income evidence",
+        "proofEmploymentHint": "Employer letter, payslips, or self-employment accounts",
+        "taxReturn": "Tax records (if applicable)",
+        "taxReturnHint": "P60, SA302 or HMRC correspondence",
+        "fee": "Application fee (~£2,885 + biometrics £19.20)",
+        "form": "Completed SET(O) application form"
+      },
+      "citizenship": {
+        "passport": "Valid passport",
+        "ilrDoc": "ILR document (BRP or BNO stamp)",
+        "ilrDocHint": "Proving ILR held for 1+ year",
+        "photos": "Passport photos",
+        "proofAddress": "UK address proof",
+        "absenceHistory": "Full travel history (last 5 years)",
+        "absenceHistoryHint": "Confirming compliance with 90-day / 450-day limits",
+        "goodCharacter": "No criminal record",
+        "goodCharacterHint": "May require DBS check or overseas police certificate",
+        "lifeInUk": "Life in the UK Test pass certificate",
+        "englishProof": "English language evidence (B1 or above)",
+        "fee": "Application fee (~£1,630)",
+        "form": "Completed AN application form (naturalisation)"
+      }
+    },
     "enterArrivalDate": "Enter your UK arrival date to begin",
     "csv": {
       "labelSingle": "This member",
@@ -108,6 +199,8 @@
       "share": "Share Link",
       "shareCopied": "Share link copied to clipboard!",
       "sharePrompt": "Copy this link and send to your friend:",
+      "copy": "Copy",
+      "shareQrHint": "Scan the QR code or copy the link to share",
       "shareReceived": "Shared records received",
       "shareReceivedDesc": "Your friend shared their trip records with you. Import as a new member?",
       "shareImport": "Import as new member",
@@ -129,6 +222,132 @@
       "ilrGuidanceLink": "ILR Application Guidance"
     }
   },
+  "sw": {
+    "title": "Skilled Worker Visa — Absence Calculator",
+    "subtitle": "Track absences from the UK to plan for ILR and British citizenship",
+    "startDate": "Visa start date (first UK entry)",
+    "rules": {
+      "continuousResidenceLink": "Continuous Residence Guidance",
+      "ilrGuidanceLink": "ILR Application Guidance"
+    },
+    "checklist": {
+      "stage": { "ilr": "ILR Application", "citizenship": "Citizenship Application" },
+      "reset": "Reset",
+      "allDone": "All items ready!",
+      "ilr": {
+        "passport": "Valid passport",
+        "brp": "Current BRP (Biometric Residence Permit)",
+        "photos": "Passport photos",
+        "travelHistory": "Full travel history (last 5 years)",
+        "b1English": "B1 English language test certificate",
+        "lifeInUk": "Life in the UK Test pass certificate",
+        "proofAddress": "UK address proof",
+        "proofEmployment": "Current employer evidence and payslips",
+        "proofEmploymentHint": "CoS approval, employer letter, last 3 months payslips",
+        "taxReturn": "Tax records (P60 / P45)",
+        "fee": "Application fee (~£2,885 + biometrics)",
+        "form": "Completed SET(O) application form"
+      },
+      "citizenship": {
+        "passport": "Valid passport",
+        "ilrDoc": "ILR document (BRP)",
+        "photos": "Passport photos",
+        "proofAddress": "UK address proof",
+        "absenceHistory": "Full travel history (last 5 years)",
+        "goodCharacter": "No criminal record",
+        "lifeInUk": "Life in the UK Test pass certificate",
+        "englishProof": "English language evidence (B1 or above)",
+        "fee": "Application fee (~£1,630)",
+        "form": "Completed AN application form"
+      }
+    }
+  },
+  "familyVisa": {
+    "title": "Family Visa — Absence Calculator",
+    "subtitle": "Track absences from the UK to plan for ILR and British citizenship (family route)",
+    "startDate": "Visa start date (first UK entry)",
+    "rules": {
+      "continuousResidenceLink": "Continuous Residence Guidance",
+      "ilrGuidanceLink": "Family ILR Guidance"
+    },
+    "checklist": {
+      "stage": { "ilr": "ILR Application", "citizenship": "Citizenship Application" },
+      "reset": "Reset",
+      "allDone": "All items ready!",
+      "ilr": {
+        "passport": "Valid passport",
+        "brp": "Current BRP (Biometric Residence Permit)",
+        "photos": "Passport photos",
+        "travelHistory": "Full travel history (last 5 years)",
+        "b1English": "B1 English language test certificate",
+        "lifeInUk": "Life in the UK Test pass certificate",
+        "proofAddress": "UK address proof",
+        "proofEmployment": "Relationship evidence (marriage/cohabitation)",
+        "proofEmploymentHint": "Marriage certificate, joint account, joint tenancy etc.",
+        "taxReturn": "UK sponsor financial evidence (minimum income threshold)",
+        "fee": "Application fee (~£2,885 + biometrics)",
+        "form": "Completed SET(M) application form"
+      },
+      "citizenship": {
+        "passport": "Valid passport",
+        "ilrDoc": "ILR document (BRP)",
+        "photos": "Passport photos",
+        "proofAddress": "UK address proof",
+        "absenceHistory": "Full travel history (last 5 years)",
+        "goodCharacter": "No criminal record",
+        "lifeInUk": "Life in the UK Test pass certificate",
+        "englishProof": "English language evidence (B1 or above)",
+        "fee": "Application fee (~£1,630)",
+        "form": "Completed AN application form"
+      }
+    }
+  },
+  "hmrc": {
+    "title": "HMRC Statutory Residence Test (SRT)",
+    "subtitle": "Determine your UK tax residence status for the tax year (6 April – 5 April)",
+    "result": {
+      "resident": "UK Tax Resident",
+      "nonResident": "Non-UK Tax Resident",
+      "unknown": "Insufficient data"
+    },
+    "section": {
+      "days": "UK Days",
+      "ties": "UK Ties",
+      "tiesHint": "More ties = lower day threshold to be treated as UK resident"
+    },
+    "field": {
+      "ukDaysThisYear": "UK days this tax year",
+      "ukDaysThisYearHint": "Including arrival and departure days (midnight rule: present in UK at midnight counts as 1 day)",
+      "residentPrior3Years": "How many of the prior 3 tax years were you UK resident?",
+      "residentPrior3YearsHint": "0 = never been UK resident (new arrival); 3 = all three years"
+    },
+    "tie": {
+      "family": "Family tie",
+      "familyHint": "UK-resident spouse/civil partner or minor child (attending school in UK)",
+      "accommodation": "Accommodation tie",
+      "accommodationHint": "UK accommodation available ≥91 days this year, and used for at least 1 night",
+      "work": "Work tie",
+      "workHint": "Worked in UK ≥40 days this year (≥3 hours per day)",
+      "ukDays": "UK day count tie",
+      "ukDaysHint": "More days in UK this year than in any other single country",
+      "activePriorYear": "90-day tie",
+      "activePriorYearHint": "Spent ≥90 days in UK in either of the prior 2 tax years (only applies if previously UK resident)"
+    },
+    "srt": {
+      "aot1": "Automatic Overseas Test: fewer than 16 UK days — automatically non-resident",
+      "aot2": "Automatic Overseas Test: fewer than 46 UK days and non-resident all 3 prior years — automatically non-resident",
+      "aut1": "Automatic UK Test: 183 or more UK days — automatically UK resident",
+      "stt": {
+        "resident": "Sufficient Ties Test: UK days exceed the threshold for your tie count — UK resident",
+        "nonResident": "Sufficient Ties Test: UK days below the threshold for your tie count — non-resident",
+        "leaverNote": "(Using 'leaver' thresholds: previously UK resident)",
+        "arriverNote": "(Using 'arriver' thresholds: never previously UK resident)"
+      },
+      "tiesCount": "Ties count"
+    },
+    "disclaimer": "For reference only. Not tax advice. SRT can be complex — consult a qualified tax adviser for your personal situation.",
+    "guideLink": "HMRC RDR3 Official Guidance"
+  },
   "profile": {
     "add": "Add member",
     "rename": "Rename",
@@ -143,6 +362,139 @@
     "backupReminder": "We recommend backing up first. There is no way to recover deleted data.",
     "expand": "Manage members",
     "collapse": "Collapse"
+  },
+  "canada": {
+    "crs": {
+      "title": "Canada Express Entry CRS Score Calculator",
+      "subtitle": "Estimate your Comprehensive Ranking System score based on IRCC's official formula",
+      "yourScore": "Your estimated CRS score",
+      "maxScore": "Maximum",
+      "recentCutoff": "Recent draw cutoff",
+      "aboveCutoff": "Above cutoff",
+      "belowCutoff": "Below cutoff by",
+      "cutoffHistory": "Recent Draw Cutoffs (Reference)",
+      "disclaimer": "For estimation purposes only. Actual scores are calculated by IRCC. Results may vary based on individual circumstances.",
+      "breakdown": {
+        "age": "Age",
+        "education": "Education",
+        "language1": "First language",
+        "language2": "Second language",
+        "canadaWork": "Canadian work exp.",
+        "spouse": "Spouse / partner",
+        "skillTransfer": "Skill transferability",
+        "additional": "Additional points"
+      }
+    },
+    "section": {
+      "core": "Core Human Capital",
+      "lang1": "First Official Language",
+      "lang1Hint": "English or French (IELTS / CELPIP / TEF / TCF — convert to CLB level)",
+      "lang2": "Second Official Language",
+      "lang2Hint": "If you have scores in both English and French, you may earn additional points",
+      "work": "Work Experience",
+      "spouse": "Spouse / Common-law Partner",
+      "additional": "Additional Points"
+    },
+    "field": {
+      "age": "Age",
+      "education": "Highest level of education",
+      "hasSpouse": "Married or common-law partner (immigrating together)",
+      "canadaWork": "Canadian work experience",
+      "foreignWork": "Foreign work experience (NOC 0 / A / B)",
+      "spouseEdu": "Spouse's highest education",
+      "spouseLang": "Spouse's language (lowest of 4 abilities)",
+      "spouseWork": "Spouse's Canadian work experience"
+    },
+    "edu": {
+      "none": "No education",
+      "highSchool": "High school diploma",
+      "oneYear": "1-year diploma / certificate",
+      "twoYear": "2-year diploma / certificate",
+      "bachelors": "Bachelor's degree",
+      "twoOrMoreDegrees": "Two or more degrees",
+      "masters": "Master's degree",
+      "phd": "Doctoral degree (PhD)"
+    },
+    "skill": {
+      "speaking": "Speaking",
+      "listening": "Listening",
+      "reading": "Reading",
+      "writing": "Writing"
+    },
+    "clb": { "none": "None / Below CLB 4" },
+    "work": { "none": "None", "years": "year(s)", "6plus": "6 years or more" },
+    "additional": {
+      "pnp": "Provincial Nomination (PNP)",
+      "pnpHint": "+600 points (near-guaranteed invitation)",
+      "jobOffer": "Valid Canadian job offer (NOC 0/A/B)",
+      "jobOfferHint": "+50 points",
+      "jobOfferNoc00": "Senior manager position (NOC 00)",
+      "jobOfferNoc00Hint": "+200 points (replaces the +50)",
+      "sibling": "Sibling in Canada (citizen or PR)",
+      "siblingHint": "+15 points",
+      "french": "French CLB 7+ with English CLB 4+",
+      "frenchHint": "+25 to +50 points",
+      "studiedInCanada": "2+ year post-secondary in Canada",
+      "studiedInCanadaHint": "+15 to +30 points"
+    }
+  },
+  "au": {
+    "title": "Australia Skilled Migration Points Calculator (189/190)",
+    "subtitle": "Calculate your points under the Australian points test — minimum 65 points to pass",
+    "yourScore": "Your estimated points",
+    "passesTest": "Passes points test",
+    "failsTest": "Below points threshold",
+    "recentCutoff": "Recent invitation cutoff",
+    "aboveCutoff": "Above cutoff",
+    "belowCutoff": "Below cutoff by",
+    "cutoffHistory": "Recent Invitation Cutoffs (189)",
+    "disclaimer": "For estimation purposes only. Actual points are assessed by the Department of Home Affairs. Points schedule may be updated periodically.",
+    "section": { "core": "Core Factors", "work": "Work Experience", "other": "Other Factors" },
+    "field": {
+      "age": "Age",
+      "ageHint": "Age 18–32 earns maximum (30 points)",
+      "english": "English proficiency",
+      "education": "Highest qualification",
+      "overseasWork": "Overseas work experience (nominated occupation)",
+      "auWork": "Australian work experience (nominated occupation)"
+    },
+    "english": {
+      "none": "Below competent level",
+      "competent": "Competent (IELTS 6.0) — no points",
+      "proficient": "Proficient (IELTS 7.0) +10 pts",
+      "superior": "Superior (IELTS 8.0) +20 pts"
+    },
+    "edu": {
+      "none": "No qualification / high school",
+      "diploma": "Diploma (+10)",
+      "bachelors": "Bachelor's degree or above (+15)",
+      "doctorate": "Doctorate (+20)"
+    },
+    "exp": { "none": "None", "years": "+ years" },
+    "other": {
+      "australianStudy": "Australian study requirement (2+ years)",
+      "australianStudyHint": "+5 points",
+      "specialistEdu": "Specialist education qualification (STEM postgrad)",
+      "specialistEduHint": "+10 points",
+      "partnerSkills": "Partner meets skilled visa criteria",
+      "partnerSkillsHint": "+10 points",
+      "partnerEnglish": "Partner has competent English or above",
+      "partnerEnglishHint": "+5 points",
+      "stateNomination": "State/territory nomination (Subclass 190)",
+      "stateNominationHint": "+5 points",
+      "regionalSponsorship": "Regional sponsorship (Subclass 491)",
+      "regionalSponsorshipHint": "+15 points",
+      "communityLanguage": "Accredited community language credential",
+      "communityLanguageHint": "+5 points",
+      "studyInRegional": "Completed study in regional Australia",
+      "studyInRegionalHint": "+5 points",
+      "professionalYear": "Completed Professional Year in Australia",
+      "professionalYearHint": "+5 points"
+    },
+    "breakdown": {
+      "age": "Age", "english": "English", "overseasWork": "Overseas work",
+      "auWork": "Australian work", "education": "Education", "other": "Other"
+    }
   },
   "footer": {
     "disclaimer": "For reference only. Not legal advice. Always verify with official government sources.",

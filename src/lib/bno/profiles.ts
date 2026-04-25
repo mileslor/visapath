@@ -1,6 +1,6 @@
 import type { BnoData, Profile, ProfileStore } from './types'
 
-const STORAGE_KEY = 'visapath-profiles'
+export const BNO_STORAGE_KEY = 'visapath-profiles'
 const LEGACY_KEY = 'visapath-bno-data'
 
 function emptyData(): BnoData {
@@ -11,31 +11,33 @@ function createProfile(name: string): Profile {
   return { id: crypto.randomUUID(), name, data: emptyData() }
 }
 
-export function loadProfiles(): ProfileStore {
+export function loadProfiles(storageKey = BNO_STORAGE_KEY): ProfileStore {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(storageKey)
     if (raw) {
       const store = JSON.parse(raw) as ProfileStore
       if (store.profiles && store.activeId && store.profiles[store.activeId]) return store
     }
   } catch { /* ignore */ }
 
-  // Migrate legacy single-profile data
-  try {
-    const legacy = localStorage.getItem(LEGACY_KEY)
-    if (legacy) {
-      const bnoData = JSON.parse(legacy) as BnoData
-      const profile: Profile = { id: crypto.randomUUID(), name: '成員 A', data: bnoData }
-      return { activeId: profile.id, profiles: { [profile.id]: profile } }
-    }
-  } catch { /* ignore */ }
+  // Migrate legacy single-profile data (BNO only)
+  if (storageKey === BNO_STORAGE_KEY) {
+    try {
+      const legacy = localStorage.getItem(LEGACY_KEY)
+      if (legacy) {
+        const bnoData = JSON.parse(legacy) as BnoData
+        const profile: Profile = { id: crypto.randomUUID(), name: '成員 A', data: bnoData }
+        return { activeId: profile.id, profiles: { [profile.id]: profile } }
+      }
+    } catch { /* ignore */ }
+  }
 
   const profile = createProfile('成員 A')
   return { activeId: profile.id, profiles: { [profile.id]: profile } }
 }
 
-export function saveProfiles(store: ProfileStore): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(store))
+export function saveProfiles(store: ProfileStore, storageKey = BNO_STORAGE_KEY): void {
+  localStorage.setItem(storageKey, JSON.stringify(store))
 }
 
 export function addProfile(store: ProfileStore, name: string): ProfileStore {

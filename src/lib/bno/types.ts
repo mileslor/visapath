@@ -35,6 +35,7 @@ export interface IlrResult {
   isEligible: boolean
   daysUntilEligible: number     // days until earliestApplicationDate
   maxAbsenceInAnyPeriod: number
+  currentRolling12mAbsence: number  // absence in last 12 months from today (ILR budget)
   violations: PeriodViolation[]
   totalAbsenceDays: number
 }

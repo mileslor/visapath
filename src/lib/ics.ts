@@ -1,49 +1,62 @@
-/**
- * Generate and download an .ics calendar event file.
- * Works with Apple Calendar, Google Calendar, Outlook, etc.
- */
-export function downloadIcs({
-  summary,
-  description,
-  date,         // YYYY-MM-DD
-  uid,
-}: {
+interface IcsEvent {
   summary: string
   description: string
-  date: string
+  date: string   // YYYY-MM-DD
   uid: string
-}) {
-  // Format date as YYYYMMDD (all-day event)
-  const dtDate = date.replace(/-/g, '')
-  // Next day for DTEND (all-day events are exclusive end)
-  const nextDay = new Date(date)
+}
+
+function buildVEvent(event: IcsEvent, now: string): string {
+  const dtDate = event.date.replace(/-/g, '')
+  const nextDay = new Date(event.date)
   nextDay.setDate(nextDay.getDate() + 1)
   const dtEnd = nextDay.toISOString().slice(0, 10).replace(/-/g, '')
+  return [
+    'BEGIN:VEVENT',
+    `UID:${event.uid}@visapath`,
+    `DTSTAMP:${now}`,
+    `DTSTART;VALUE=DATE:${dtDate}`,
+    `DTEND;VALUE=DATE:${dtEnd}`,
+    `SUMMARY:${event.summary}`,
+    `DESCRIPTION:${event.description.replace(/\n/g, '\\n')}`,
+    'END:VEVENT',
+  ].join('\r\n')
+}
 
+function triggerDownload(content: string, filename: string) {
+  const blob = new Blob([content], { type: 'text/calendar;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+export function downloadIcs(event: IcsEvent) {
   const now = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z'
-
   const ics = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//VisaPath//BNO Calculator//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
-    'BEGIN:VEVENT',
-    `UID:${uid}@visapath`,
-    `DTSTAMP:${now}`,
-    `DTSTART;VALUE=DATE:${dtDate}`,
-    `DTEND;VALUE=DATE:${dtEnd}`,
-    `SUMMARY:${summary}`,
-    `DESCRIPTION:${description.replace(/\n/g, '\\n')}`,
-    'END:VEVENT',
+    buildVEvent(event, now),
     'END:VCALENDAR',
   ].join('\r\n')
+  triggerDownload(ics, `${event.uid}.ics`)
+}
 
-  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = `${uid}.ics`
-  a.click()
-  URL.revokeObjectURL(url)
+export function downloadMultipleIcs(events: IcsEvent[], filename: string) {
+  const now = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z'
+  const vEvents = events.map(e => buildVEvent(e, now)).join('\r\n')
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//VisaPath//BNO Calculator//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    vEvents,
+    'END:VCALENDAR',
+  ].join('\r\n')
+  triggerDownload(ics, filename)
 }

@@ -39,18 +39,13 @@ function absenceInRange(trips: Trip[], rangeStart: Date, rangeEnd: Date): number
     const dep = parseISO(trip.departureDate)
     const ret = parseISO(trip.returnDate)
 
-    // The absence period is (dep+1) to (ret-1) inclusive
-    const absStart = new Date(dep)
-    absStart.setDate(absStart.getDate() + 1)
-    const absEnd = new Date(ret)
-    absEnd.setDate(absEnd.getDate() - 1)
-
-    if (isAfter(absEnd, absStart) || absStart.getTime() === absEnd.getTime()) {
-      const clampedStart = dateMax([absStart, rangeStart])
-      const clampedEnd = dateMin([absEnd, rangeEnd])
-      if (!isAfter(clampedStart, clampedEnd)) {
-        total += differenceInDays(clampedEnd, clampedStart) + 1
-      }
+    const absStart = addDays(dep, 1)
+    const absEnd = subDays(ret, 1)
+    if (isAfter(absStart, absEnd)) continue
+    const clampedStart = dateMax([absStart, rangeStart])
+    const clampedEnd = dateMin([absEnd, rangeEnd])
+    if (!isAfter(clampedStart, clampedEnd)) {
+      total += differenceInDays(clampedEnd, clampedStart) + 1
     }
   }
   return total
@@ -217,6 +212,8 @@ export function calculate(
     : ilrEligibleDate
   const earliestApplicationDate = subDays(actualILRDate, 28)
 
+  const currentRolling12mAbsence = absenceInRange(sortedTrips, subYears(today, 1), today)
+
   const ilr: IlrResult = {
     eligibleDate: ilrEligibleDate,
     actualEligibleDate: actualILRDate,
@@ -227,6 +224,7 @@ export function calculate(
     isEligible: !isAfter(earliestApplicationDate, today),
     daysUntilEligible: Math.max(0, differenceInDays(earliestApplicationDate, today)),
     maxAbsenceInAnyPeriod: maxAbsence,
+    currentRolling12mAbsence,
     violations,
     totalAbsenceDays: totalAbsence,
   }
